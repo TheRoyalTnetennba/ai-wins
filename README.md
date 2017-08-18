@@ -16,7 +16,11 @@ AI-Wins will provide the following Functionality to users.
 
 ### Architecture and Technologies
 **React**
+
 **Go**
+
 **Gorilla Mux**
+
 **Google Cloud Datastore**
+
 **Python**
