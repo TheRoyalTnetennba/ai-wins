@@ -2,7 +2,6 @@ package main
 
 import (
   "fmt"
-  "encoding/json"
   "net/http"
   "golang.org/x/oauth2"
   "golang.org/x/oauth2/google"
@@ -12,7 +11,7 @@ import (
 //  "os"
 
 const htmlIndex = `<html><body>
-<a href="/GoogleLogin">Log in with Google</a>
+<a href="/GoogleLogin">Log the fuck in with Google</a>
 </body></html>
 `
 
@@ -20,15 +19,13 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
   fmt.Fprintf(w, htmlIndex)
 }
 
-filePath := "./key.json"
-
 var (
     googleOauthConfig = &oauth2.Config{
         RedirectURL:    "http://localhost:3000/GoogleCallback",
         // ClientID:     os.Getenv("googlekey"),
-        ClientID:     "687671941121-lnojr5i0f2eknrdpivcdah6pfhiruro7.apps.googleusercontent.com",
+        ClientID:     Google.Key,
         // ClientSecret: os.Getenv("googlesecret"),
-        ClientSecret: "bHG1-oSVkf0MOs9QSwTJvS_P",
+        ClientSecret: Google.Secret,
         Scopes:       []string{"https://www.googleapis.com/auth/userinfo.profile",
             "https://www.googleapis.com/auth/userinfo.email"},
         Endpoint:     google.Endpoint,
@@ -36,6 +33,7 @@ var (
 // Some random string, random for each request
     oauthStateString = "random"
 )
+
 
 
 func handleGoogleLogin(w http.ResponseWriter, r *http.Request) {
