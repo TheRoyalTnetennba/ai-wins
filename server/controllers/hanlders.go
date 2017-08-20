@@ -12,19 +12,19 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Welcome!\n")
 }
 
-func TodoIndex(w http.ResponseWriter, r *http.Request) {
-	todos := Todos{
-		Todo{Name: "Write presentation"},
-		Todo{Name: "Host meetup"},
+func GameIndex(w http.ResponseWriter, r *http.Request) {
+	games := Games{
+		Game{Name: "Tic Tac Toe"},
+		Game{Name: "Checkers"},
 	}
 
-	if err := json.NewEncoder(w).Encode(todos); err != nil {
+	if err := json.NewEncoder(w).Encode(games); err != nil {
 		panic(err)
 	}
 }
 
-func TodoShow(w http.ResponseWriter, r *http.Request) {
+func GameShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	todoId := vars["todoId"]
-	fmt.Fprintf(w, "Todo show: %s\n", todoId)
+	gameId := vars["gameId"]
+	fmt.Fprintf(w, "Game show: %s\n", gameId)
 }

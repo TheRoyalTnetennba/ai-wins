@@ -2,10 +2,10 @@ package main
 
 import "time"
 
-type Todo struct {
+type Game struct {
 	Name      string    `json:"name"`
 	Completed bool      `json:"completed"`
 	Due       time.Time `json:"due"`
 }
 
-type Todos []Todo
+type Games []Game
