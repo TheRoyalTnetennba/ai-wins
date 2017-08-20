@@ -1,4 +1,19 @@
+import fetch from 'node-fetch';
 
+const baseURL = 'https://kitchenfox.herokuapp.com/api/';
+
+const objectToQueryString = (obj, prefix) => {
+  const queryString = [];
+  for (let p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      let k = prefix ? `${prefix}[${p}]` : p, v = obj[p];
+      queryString.push((v !== null && typeof v === 'object') ?
+        objectToQueryString(v, k) :
+        `${encodeURIComponent(k)}=${encodeURIComponent(v)}`);
+    }
+  }
+  return queryString.join('&');
+};
 
 export const login = credentials => (
   fetch({
