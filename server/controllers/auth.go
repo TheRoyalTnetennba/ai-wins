@@ -9,13 +9,13 @@ import (
 	"golang.org/x/oauth2/google"
 )
 
-const htmlIndex = `<html><body>
+const htmlRegister = `<html><body>
 <a href="/googlelogin">Log the fuck in with Google</a>
 </body></html>
 `
 
 func Register(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, htmlIndex)
+	fmt.Fprintf(w, htmlRegister)
 }
 
 var (

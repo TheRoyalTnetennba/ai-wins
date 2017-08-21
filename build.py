@@ -9,6 +9,7 @@ for filename in glob.iglob('/home/gpaye/go/src/ApiServer/*.go', recursive=True):
 for filename in glob.iglob('server/**/*.go', recursive=True):
     shutil.copy(filename, '/home/gpaye/go/src/ApiServer')
 
-bashCommand = "go build ApiServer"
-process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-output, error = process.communicate()
+build = "go build ApiServer"
+
+processBuild = subprocess.Popen(build.split(), stdout=subprocess.PIPE)
+output, error = processBuild.communicate()
