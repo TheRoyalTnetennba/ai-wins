@@ -17,7 +17,6 @@ func GameIndex(w http.ResponseWriter, r *http.Request) {
 		Game{Name: "Tic Tac Toe"},
 		Game{Name: "Checkers"},
 	}
-
 	if err := json.NewEncoder(w).Encode(games); err != nil {
 		panic(err)
 	}

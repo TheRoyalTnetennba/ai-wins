@@ -25,6 +25,18 @@ var routes = Routes{
 		Register,
 	},
 	Route{
+		"GoogleLogin",
+		"GET",
+		"/googlelogin",
+		GoogleLogin,
+	},
+	Route{
+		"GoogleCallback",
+		"GET",
+		"/googlecallback",
+		GoogleCallback,
+	},
+	Route{
 		"GameIndex",
 		"GET",
 		"/games",
