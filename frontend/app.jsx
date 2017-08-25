@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 
-const Root = ({ store }) => (
+const App = ({ store }) => (
       <Provider store={store}>
         <HashRouter>
           <Switch>
@@ -17,4 +17,4 @@ const Root = ({ store }) => (
         </HashRouter>
       </Provider>
 );
-export default Root;
+export default App;

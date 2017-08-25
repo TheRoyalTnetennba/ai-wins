@@ -20056,6 +20056,8 @@ var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import Modal from 'react-modal';
+
 document.addEventListener('DOMContentLoaded', function () {
   var store = void 0;
   if (window.currentUser) {
@@ -32196,13 +32198,9 @@ var _reactRedux = __webpack_require__(269);
 
 var _reactRouterDom = __webpack_require__(295);
 
-var _app = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/app\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _app2 = _interopRequireDefault(_app);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Root = function Root(_ref) {
+var App = function App(_ref) {
   var store = _ref.store;
   return _react2.default.createElement(
     _reactRedux.Provider,
@@ -32210,11 +32208,21 @@ var Root = function Root(_ref) {
     _react2.default.createElement(
       _reactRouterDom.HashRouter,
       null,
-      _react2.default.createElement(_app2.default, null)
+      _react2.default.createElement(
+        Switch,
+        null,
+        _react2.default.createElement(ProtectedRoute, { exact: true, path: '/campaigns', component: CampaignListContainer }),
+        _react2.default.createElement(ProtectedRoute, { exact: true, path: '/campaigns/new', component: CampaignFormContainer }),
+        _react2.default.createElement(ProtectedRoute, { path: '/campaigns/:campaignID', component: CampaignShowContainer }),
+        _react2.default.createElement(ProtectedRoute, { path: '/search/:search', component: CampaignListContainer }),
+        _react2.default.createElement(ProtectedRoute, { path: '/users/:userID', component: ProfileContainer }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/session', component: AuthModalContainer }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: CampaignIndexContainer })
+      )
     )
   );
 };
-exports.default = Root;
+exports.default = App;
 
 /***/ }),
 /* 269 */
@@ -35894,35 +35902,11 @@ var _session_reducer = __webpack_require__(325);
 
 var _session_reducer2 = _interopRequireDefault(_session_reducer);
 
-var _campaign_reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./campaign_reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _campaign_reducer2 = _interopRequireDefault(_campaign_reducer);
-
-var _category_reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./category_reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _category_reducer2 = _interopRequireDefault(_category_reducer);
-
-var _search_reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./search_reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _search_reducer2 = _interopRequireDefault(_search_reducer);
-
-var _show_reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./show_reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _show_reducer2 = _interopRequireDefault(_show_reducer);
-
-var _user_reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./user_reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _user_reducer2 = _interopRequireDefault(_user_reducer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
-  campaigns: _campaign_reducer2.default,
   session: _session_reducer2.default,
-  categories: _category_reducer2.default,
-  searchResults: _search_reducer2.default,
-  showCampaign: _show_reducer2.default,
-  user: _user_reducer2.default
+  user: UserReducer
 });
 
 exports.default = RootReducer;
