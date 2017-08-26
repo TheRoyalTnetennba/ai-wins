@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 
+import TTTTile from './ttt_tile';
+import './Ttt.css';
+
 class TicTacToeBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
+  getTiles() {
+    const tiles = []
+    for (let i = 0; i < 9; i++) {
+      tiles.push(<TTTTile key={`ttt-tile-${i}`} />)
+    }
+    return tiles
+  }
+
   render() {
+    const tiles = this.getTiles()
     return (
-      <section>
-        <div className="tac-row">
-          tac-square array[0:2] will go here
+      <section className="ttt-board">
+        <div className="ttt-row">
+          {tiles.slice(0,3)}
         </div>
-        <div className="tac-row">
-          tac-square array[3:5] will go here
+        <div className="ttt-row">
+          {tiles.slice(3,6)}
         </div>
-        <div className="tac-row">
-          tac-square array[6:8] will go here
+        <div className="ttt-row">
+          {tiles.slice(6,9)}
         </div>
       </section>
     )

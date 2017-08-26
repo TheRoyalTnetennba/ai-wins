@@ -1,0 +1,20 @@
+.ttt-board {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.ttt-row {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.ttt-tile {
+  flex: 1;
+  font-size: 80px;
+}

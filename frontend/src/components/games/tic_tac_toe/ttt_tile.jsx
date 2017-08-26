@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 
-function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
-}
+const ooo = () => (
+  <i className="fa fa-circle-o" aria-hidden="true"></i>
+)
 
-const tile = props => {
+const xxx = () => (
+  <i className="fa fa-times" aria-hidden="true"></i>
+)
+
+const TTTTile = props => {
+  const mark = Math.random() >= 0.5 ? xxx() : ooo()
   return (
-    <div className="ttt_tile"></div>
+    <div className="ttt-tile">{mark}</div>
   )
 }
+
+export default TTTTile;
