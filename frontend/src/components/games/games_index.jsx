@@ -1,5 +1,7 @@
 import React from 'react';
 
+import TicTacToeBoard from './tic_tac_toe/ttt_board'
+
 class GamesIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,7 @@ class GamesIndex extends React.Component {
   render() {
     return (
       <section>
-        <h1>Hello</h1>
+        <TicTacToeBoard />
       </section>
     )
   }
