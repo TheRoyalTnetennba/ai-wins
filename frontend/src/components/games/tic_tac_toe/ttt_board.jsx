@@ -9,10 +9,21 @@ class TicTacToeBoard extends Component {
     this.state = {};
   }
 
+  boardMaker() {
+    this.board
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+
+      }
+    }
+  }
+
   getTiles() {
     const tiles = []
-    for (let i = 0; i < 9; i++) {
-      tiles.push(<TTTTile key={`ttt-tile-${i}`} />)
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 3; c++) {
+        tiles.push(<TTTTile key={`ttt-tile-${r}-${c}`} pos={[r, c]} mark="" />)
+      }
     }
     return tiles
   }
@@ -36,3 +47,8 @@ class TicTacToeBoard extends Component {
 }
 
 export default TicTacToeBoard;
+
+
+//  __0,0__|__0,1__|__0,2__
+//  __1,0__|__1,1__|__1,2__
+//    2,0  |  2,1  |  2,2

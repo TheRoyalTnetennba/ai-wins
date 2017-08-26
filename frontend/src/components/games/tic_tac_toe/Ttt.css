@@ -17,4 +17,7 @@
 .ttt-tile {
   flex: 1;
   font-size: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
