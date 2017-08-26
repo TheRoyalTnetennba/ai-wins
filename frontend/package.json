@@ -1,34 +1,16 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-react": "^6.24.1",
-    "lodash": "^4.17.4",
-    "node-fetch": "^1.7.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.1.2",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "webpack": "^3.5.5"
+    "react-scripts": "1.0.11"
   },
-  "devDependencies": {
-    "eslint": "^4.5.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.2.1"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
