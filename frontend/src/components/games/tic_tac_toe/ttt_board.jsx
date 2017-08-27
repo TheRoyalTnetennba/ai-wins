@@ -13,13 +13,14 @@ class TicTacToeBoard extends Component {
   }
 
   handleMove(pos) {
-    // TODO: Have this selectively rebuild board rather than rebuilding everytime. Remove onClick listener for already marked
+    // TODO: Have this selectively rebuild board rather than rebuilding
+    // everytime. Remove onClick listener for already marked
     if (this.grid[pos[0]][pos[1]].length) return;
     this.grid[pos[0]][pos[1]] = this.state.currentMove;
     if (this.state.currentMove === 'x') {
-      this.setState({ currentMove: 'o' })
+      this.setState({ currentMove: 'o' });
     } else {
-      this.setState({ currentMove: 'x' })
+      this.setState({ currentMove: 'x' });
     }
   }
 
@@ -31,7 +32,7 @@ class TicTacToeBoard extends Component {
         this.board[r][c] = (<TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={this.grid[r][c]} />)
       }
     }
-    return this.board
+    return this.board;
   }
 
   render() {
@@ -48,7 +49,7 @@ class TicTacToeBoard extends Component {
           {tiles[2]}
         </div>
       </section>
-    )
+    );
   }
 }
 
