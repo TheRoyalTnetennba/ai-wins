@@ -3,8 +3,8 @@ import sha512 from 'sha512';
 const baseURL = 'http://localhost:8080';
 
 export const getAIMove = (gameName, gameState, misc) => {
-  const hashName = sha512(gameName).toString('hex')
-  return fetch(`/getMove/${hashName}`, {
+  const hashName = sha512(gameName).toString('hex');
+  return fetch(`${baseURL}/getMove/${hashName}`, {
     headers: {
       'Content-Type': 'application/json',
     },
