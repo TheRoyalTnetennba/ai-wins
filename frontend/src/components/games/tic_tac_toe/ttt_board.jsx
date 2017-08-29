@@ -27,8 +27,9 @@ class TicTacToeBoard extends Component {
     // TODO: Have this selectively rebuild board rather than rebuilding
     // everytime. Remove onClick listener for already marked
     if (this.grid[pos[0]][pos[1]].length) return;
-    if (this.isOver()) return;
+    if (this.state.gameOver) return;
     this.grid[pos[0]][pos[1]] = this.state.currentMove;
+    if (this.isOver()) return;
     if (this.state.currentMove === 'x') {
       this.setState({ currentMove: 'o' });
     } else {
@@ -40,16 +41,18 @@ class TicTacToeBoard extends Component {
     this.board = this.board || emptyMatrix(3, 3);
     for (let r = 0; r < 3; r += 1) {
       for (let c = 0; c < 3; c += 1) {
-        this.board[r][c] = (<TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={this.grid[r][c]} />)
+        this.board[r][c] = (<TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={this.grid[r][c]} />);
       }
     }
     return this.board;
   }
 
   render() {
+    const tiles = this.boardMaker();
     if (this.state.gameOver) {
       return (
         <section className="ttt-board">
+          <h1>{`${this.state.currentMove} wins!!!`}</h1>
           <div className="ttt-row">
             {tiles[0]}
           </div>
@@ -62,7 +65,6 @@ class TicTacToeBoard extends Component {
         </section>
       );
     }
-    const tiles = this.boardMaker();
     return (
       <section className="ttt-board">
         <div className="ttt-row">

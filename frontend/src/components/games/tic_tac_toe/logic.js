@@ -1,4 +1,5 @@
 const checkRow = (row) => {
+  console.log(row);
   const exes = row.filter(el => el === 'x');
   const oes = row.filter(el => el === 'o');
   if (exes.length === 3) {
@@ -13,7 +14,7 @@ const checkRow = (row) => {
 const winner = (grid) => {
   let win = false;
   for (let row = 0; row < grid.length; row += 1) {
-    win = checkRow(row);
+    win = checkRow(grid[row]);
     if (win) {
       return win;
     }
