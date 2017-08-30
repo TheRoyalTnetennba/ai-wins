@@ -24,6 +24,12 @@ func GameIndex(w http.ResponseWriter, r *http.Request) {
 
 func GameShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	gameId := vars["gameId"]
-	fmt.Fprintf(w, "Game show: %s\n", gameId)
+	gameID := vars["gameID"]
+	fmt.Fprintf(w, "Game show: %s\n", gameID)
+}
+
+func GetMove(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	gameID := vars["gameID"]
+	fmt.Fprintf(w, "Game show: %s\n", gameID)
 }

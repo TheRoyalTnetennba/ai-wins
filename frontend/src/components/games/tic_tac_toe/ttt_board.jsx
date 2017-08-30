@@ -4,14 +4,17 @@ import TTTTile from './ttt_tile';
 import './Ttt.css';
 import { emptyMatrix } from '../../../utils/pFuncs';
 import winner from './logic';
+import { getAiMove } from '../../../utils/api_utils';
 
 class TicTacToeBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentMove: 'x',
+      playerMarker: 'x',
       gameOver: false,
     };
+    this.gameName = 'ticTacToe';
     this.grid = emptyMatrix(3, 3);
   }
 
@@ -23,9 +26,15 @@ class TicTacToeBoard extends Component {
     return win;
   }
 
+  handleAIMove() {
+    const aiMarker = this.state.playerMarker === 'x' ? 'o' : 'x';
+    getAiMove(this.gameName, this.grid, aiMarker).then(response => this.handleMove(response));
+  }
+
   handleMove(pos) {
     // TODO: Have this selectively rebuild board rather than rebuilding
     // everytime. Remove onClick listener for already marked
+    console.log(pos);
     if (this.grid[pos[0]][pos[1]].length) return;
     if (this.state.gameOver) return;
     this.grid[pos[0]][pos[1]] = this.state.currentMove;
