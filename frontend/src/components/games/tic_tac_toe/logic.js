@@ -1,5 +1,4 @@
 const checkRow = (row) => {
-  console.log(row);
   const exes = row.filter(el => el === 'x');
   const oes = row.filter(el => el === 'o');
   if (exes.length === 3) {

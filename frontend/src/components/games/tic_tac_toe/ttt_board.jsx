@@ -28,7 +28,9 @@ class TicTacToeBoard extends Component {
 
   handleAIMove() {
     const aiMarker = this.state.playerMarker === 'x' ? 'o' : 'x';
-    getAiMove(this.gameName, this.grid, aiMarker).then(response => this.handleMove(response));
+    getAiMove(this.gameName, this.grid, aiMarker)
+      .then(response => response.json())
+      .then(data => this.handleMove(data.move));
   }
 
   handleMove(pos) {
@@ -39,6 +41,9 @@ class TicTacToeBoard extends Component {
     if (this.state.gameOver) return;
     this.grid[pos[0]][pos[1]] = this.state.currentMove;
     if (this.isOver()) return;
+    if (this.state.currentMove === this.state.playerMarker) {
+      this.handleAIMove();
+    }
     if (this.state.currentMove === 'x') {
       this.setState({ currentMove: 'o' });
     } else {

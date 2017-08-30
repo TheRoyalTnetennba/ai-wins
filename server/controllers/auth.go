@@ -20,7 +20,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 var (
 	googleOauthConfig = &oauth2.Config{
-		RedirectURL:  fmt.Sprintf("%s/googlecallback", BaseUrl),
+		RedirectURL:  fmt.Sprintf("%s/googlecallback", BaseURL),
 		ClientID:     Google.Key,
 		ClientSecret: Google.Secret,
 		Scopes: []string{"https://www.googleapis.com/auth/userinfo.profile",
