@@ -36,7 +36,6 @@ class TicTacToeBoard extends Component {
   handleMove(pos) {
     // TODO: Have this selectively rebuild board rather than rebuilding
     // everytime. Remove onClick listener for already marked
-    console.log(pos);
     if (this.grid[pos[0]][pos[1]].length) return;
     if (this.state.gameOver) return;
     this.grid[pos[0]][pos[1]] = this.state.currentMove;
