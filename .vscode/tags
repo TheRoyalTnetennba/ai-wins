@@ -1,0 +1,13 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+build	../build.py	/^build = "go build ApiServer"$/;"	kind:variable	line:12
+build.py	../build.py	1;"	kind:file	line:1
+glob	../build.py	/^import glob$/;"	kind:namespace	line:1
+os	../build.py	/^import os$/;"	kind:namespace	line:4
+processBuild	../build.py	/^processBuild = subprocess.Popen(build.split(), stdout=subprocess.PIPE)$/;"	kind:variable	line:14
+shutil	../build.py	/^import shutil$/;"	kind:namespace	line:2
+subprocess	../build.py	/^import subprocess$/;"	kind:namespace	line:3

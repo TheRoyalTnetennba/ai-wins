@@ -1,6 +1,6 @@
-package main
+package tttAI
 
-func tttCheckTriplet(triplet []string) string {
+func checkTriplet(triplet []string) string {
 	if triplet[0] == triplet[1] && triplet[1] == triplet[2] {
 		return triplet[0]
 	}
@@ -11,27 +11,27 @@ func tttCheckTriplet(triplet []string) string {
 	}
 	return "Contested"
 }
-func tttWin(tripletResponse string) bool {
+func win(tripletResponse string) bool {
 	return tripletResponse == "x" || tripletResponse == "o"
 }
 
-func tttIsGameOver(board [][]string) bool {
+func isGameOver(board [][]string) bool {
 	numIncompletes := 0
 	for row := 0; row < len(board); row++ {
-		if tttWin(tttCheckTriplet(board[row])) {
+		if win(checkTriplet(board[row])) {
 			return true
 		}
 		var colRow []string
 		for col := 0; col < len(board[row]); col++ {
 			colRow = append(colRow, board[col][row])
 		}
-		carlRove := tttCheckTriplet(colRow)
-		if tttWin(carlRove) {
+		carlRove := checkTriplet(colRow)
+		if win(carlRove) {
 			return true
 		} else if carlRove == "Incomplete" {
-
+			numIncompletes++
 		}
-		if tttWin(tttCheckTriplet(colRow)) {
+		if win(checkTriplet(colRow)) {
 			return true
 		}
 	}
@@ -41,7 +41,7 @@ func tttIsGameOver(board [][]string) bool {
 		upRight = append(upRight, board[i][len(board[i])-i])
 		upLeft = append(upLeft, board[i][i])
 	}
-	if tttWin(tttCheckTriplet(upRight)) || tttWin(tttCheckTriplet(upLeft)) {
+	if win(checkTriplet(upRight)) || win(checkTriplet(upLeft)) {
 		return true
 	}
 	return numIncompletes == 0

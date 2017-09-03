@@ -6,7 +6,7 @@ import os
 for filename in glob.iglob('/home/gpaye/go/src/ApiServer/*.go', recursive=True):
     os.unlink(filename)
 
-for filename in glob.iglob('server/**/*.go', recursive=True):
+for filename in glob.iglob('server/main/*.go', recursive=True):
     shutil.copy(filename, '/home/gpaye/go/src/ApiServer')
 
 build = "go build ApiServer"
