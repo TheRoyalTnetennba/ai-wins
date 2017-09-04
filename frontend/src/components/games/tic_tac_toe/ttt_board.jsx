@@ -28,7 +28,7 @@ class TicTacToeBoard extends Component {
 
   handleAIMove() {
     const aiMarker = this.state.playerMarker === 'x' ? 'o' : 'x';
-    getAiMove(this.gameName, this.grid, aiMarker)
+    getAiMove({ gameName: this.gameName, gameState: this.grid, marker: aiMarker })
       .then(response => response.json())
       .then(data => this.handleMove(data.move));
   }

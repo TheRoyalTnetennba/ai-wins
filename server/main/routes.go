@@ -15,12 +15,6 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"Index",
-		"GET",
-		"/index",
-		Index,
-	},
-	Route{
 		"Register",
 		"GET",
 		"/register",
@@ -39,12 +33,6 @@ var routes = Routes{
 		GoogleCallback,
 	},
 	Route{
-		"GameIndex",
-		"GET",
-		"/games",
-		GameIndex,
-	},
-	Route{
 		"GameShow",
 		"GET",
 		"/games/{gameID}",
@@ -53,7 +41,7 @@ var routes = Routes{
 	Route{
 		"GetMove",
 		"POST",
-		"/games/getMove/{gameID}",
+		"/games/getMove",
 		GetMove,
 	},
 }

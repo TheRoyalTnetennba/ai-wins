@@ -1,28 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
-	"github.com/bitly/go-simplejson"
+	simplejson "github.com/bitly/go-simplejson"
 	"github.com/gorilla/mux"
 )
-
-func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Welcome!\n")
-}
-
-func GameIndex(w http.ResponseWriter, r *http.Request) {
-	games := Games{
-		Game{Name: "Tic Tac Toe"},
-		Game{Name: "Checkers"},
-	}
-	if err := json.NewEncoder(w).Encode(games); err != nil {
-		panic(err)
-	}
-}
 
 func GameShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -31,14 +16,15 @@ func GameShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetMove(w http.ResponseWriter, r *http.Request) {
-	// vars := mux.Vars(r)
-	// gameID := vars["gameID"]
-	fmt.Println("we here")
-	json := simplejson.New()
+	req, err1 := simplejson.NewFromReader(r.Body)
+	res := simplejson.New()
+	// gameID := (req.Get("gameID")).MustString()
+	// marker := (req.Get("marker")).MustArray()
+	gameState := (req.Get("gameState")).MustArray()
 	pos := []int{0, 0}
-	json.Set("move", pos)
-	payload, err := json.MarshalJSON()
-	if err != nil {
+	res.Set("move", pos)
+	payload, err := res.Encode()
+	if err != nil || err1 != nil {
 		log.Println(err)
 	}
 	w.Header().Set("Content-Type", "application/json")

@@ -2,20 +2,27 @@ import sha512 from 'sha512';
 
 const baseURL = 'http://localhost:8080';
 
+const getForm = (obj) => {
+  const payload = Object.assign(obj);
+  payload.gameID = sha512(obj.gameName).toString('hex');
+  return JSON.stringify(payload);
+};
+
+// anatomy of a pre-request api object
+// {
+//   gameName: nameOfGameInCamelCase
+//   gameState: boardOrHandOrOtherRelevantGameInfo
+//   marker: theIdentifyingGamePieceOfTheAI
+// }
+
 const header = new Headers({
   'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json',
 });
 
-export const getAiMove = (gameName, gameState, aiMarker) => {
-  const hashName = sha512(gameName).toString('hex');
-  return fetch(`${baseURL}/games/getMove/${hashName}`, {
+export const getAiMove = request => (
+  fetch(`${baseURL}/games/getMove`, {
     header,
     method: 'POST',
-    body: JSON.stringify({
-      gameID: hashName,
-      gameState,
-      aiMarker,
-    }),
-  });
-};
+    body: getForm(request),
+  })
+);
