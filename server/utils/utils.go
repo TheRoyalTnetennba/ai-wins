@@ -21,7 +21,8 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	// 	// 	fmt.Println(rowInt.Index(j), rowInt.Kind())
 	// 	// }
 	// }
-	arr := inter.([][]string)
+	arr := inter.([]interface{})
+
 	fmt.Println(arr)
 	return matrix
 }
