@@ -23,6 +23,7 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	// }
 	arr := inter.([]interface{})
 	row := arr[0].([]interface{})
-	fmt.Println(row)
+	square := row[2].(string)
+	fmt.Println(square)
 	return matrix
 }
