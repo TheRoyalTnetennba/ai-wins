@@ -50,7 +50,14 @@ package tttAI
 func GetAIMove(board [][]string, marker string) []int {
 	if len(board[1][1]) == 0 {
 		return []int{1, 1}
+	} else {
+		for i := 0; i < len(board); i++ {
+			for j := 0; j < len(board[i]); j++ {
+				if len(board[i][j]) == 0 {
+					return []int{i, j}
+				}
+			}
+		}
 	}
-	pos := []int{0, 0}
 	return pos
 }
