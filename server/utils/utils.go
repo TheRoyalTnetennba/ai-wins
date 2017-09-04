@@ -16,10 +16,6 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 		matrix = append(matrix, row)
 	}
 	arr := reflect.ValueOf(inter)
-	for i := 0; i < arr.Len(); i++ {
-		for j := 0; j < arr.Len(); j++ {
-			fmt.Println(arr.String())
-		}
-	}
+	fmt.Println(arr.Kind())
 	return matrix
 }
