@@ -17,7 +17,7 @@ func GameShow(w http.ResponseWriter, r *http.Request) {
 func GetMove(w http.ResponseWriter, r *http.Request) {
 	req, _ := simplejson.NewFromReader(r.Body)
 	ch := make(chan []byte)
-	GetAIMove(req.MustMap(), ch)
+	go GetAIMove(req.MustMap(), ch)
 	payload := <-ch
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)

@@ -47,7 +47,10 @@ package tttAI
 // 	return numIncompletes == 0
 // }
 
-func GetAIMove(board [][]string) []int {
+func GetAIMove(board [][]string, marker string) []int {
+	if len(board[1][1]) == 0 {
+		return []int{1, 1}
+	}
 	pos := []int{0, 0}
 	return pos
 }
