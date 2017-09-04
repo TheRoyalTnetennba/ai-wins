@@ -18,7 +18,7 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	arr := reflect.ValueOf(inter)
 	for i := 0; i < arr.Len(); i++ {
 		for j := 0; j < arr.Len(); j++ {
-			fmt.Println(reflect.ValueOf(arr.Index(i)))
+			fmt.Println(reflect.ValueOf(arr.Index(i)).Index(j))
 		}
 	}
 	return matrix
