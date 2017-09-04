@@ -10,7 +10,8 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	arr := reflect.ValueOf(inter)
 	for i := 0; i < arr.Len(); i++ {
 		var row []string
-		for j := 0; j < reflect.ValueOf(arr.Index(i)).Len(); j++ {
+		col := reflect.ValueOf(arr.Index(i))
+		for j := 0; j < col.Len(); j++ {
 			row = append(row, arr.Index(i).Index(j).String())
 		}
 		matrix = append(matrix, row)

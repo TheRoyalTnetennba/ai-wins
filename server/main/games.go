@@ -12,6 +12,7 @@ import (
 // ticTacToe := fmt.Sprintf("%x", sha512.Sum512([]byte("ticTacToe")))
 
 func GetAIMove(body map[string]interface{}, c chan []byte) {
+	// board := utils.GetMatrixFromInterface(body["gameState"])
 	board := utils.GetMatrixFromInterface(body["gameState"])
 	fmt.Println(board)
 	pos := tttAI.GetAIMove(board)
