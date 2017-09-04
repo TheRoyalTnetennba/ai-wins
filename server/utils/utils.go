@@ -5,10 +5,12 @@ import "fmt"
 // GetMatrixFromInterface processes simplejson-created interfaces of a stringified matrix
 func GetMatrixFromInterface(inter interface{}) [][]string {
 	var matrix [][]string
-	for i := 0; i < 3; i++ {
+	arr := inter.([]interface{})
+	for i := 0; i < len(arr); i++ {
 		var row []string
-		for j := 0; j < 3; j++ {
-			row = append(row, "")
+		arrRow := arr[i].([]interface{})
+		for j := 0; j < len(arrRow); j++ {
+			row = append(row, arrRow[j].(string))
 		}
 		matrix = append(matrix, row)
 	}
@@ -21,9 +23,6 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	// 	// 	fmt.Println(rowInt.Index(j), rowInt.Kind())
 	// 	// }
 	// }
-	arr := inter.([]interface{})
-	row := arr[0].([]interface{})
-	square := row[2].(string)
-	fmt.Println(square)
+	fmt.Println(matrix)
 	return matrix
 }
