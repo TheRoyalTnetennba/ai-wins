@@ -1,9 +1,18 @@
 package utils
 
-func GetMatrixFromInterface(arr []interface{}) [][]string {
+import (
+	"reflect"
+)
+
+func GetMatrixFromInterface(inter interface{}) [][]string {
 	var matrix [][]string
-	for _, i := range arr {
-		matrix = append(matrix, i.([]string))
+	arr := reflect.ValueOf(inter)
+	for i := 0; i < arr.Len(); i++ {
+		var row []string
+		for j := 0; j < arr.Index(i).Len(); j++ {
+			row = append(row, arr.Index(i).Index(j))
+		}
+		matrix = append(matrix, row)
 	}
 	return matrix
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	simplejson "github.com/bitly/go-simplejson"
@@ -17,16 +16,9 @@ func GameShow(w http.ResponseWriter, r *http.Request) {
 
 func GetMove(w http.ResponseWriter, r *http.Request) {
 	req, err1 := simplejson.NewFromReader(r.Body)
-	res := simplejson.New()
-	// gameID := (req.Get("gameID")).MustString()
-	// marker := (req.Get("marker")).MustArray()
-	gameState := (req.Get("gameState")).MustArray()
-	pos := []int{0, 0}
-	res.Set("move", pos)
-	payload, err := res.Encode()
-	if err != nil || err1 != nil {
-		log.Println(err)
-	}
+	ch := make(chan []byte)
+	GetAIMove(req.MustMap(), ch)
+	payload := <-ch
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
