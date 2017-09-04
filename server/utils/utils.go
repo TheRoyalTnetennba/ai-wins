@@ -18,10 +18,11 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	arr := reflect.Value(reflect.ValueOf(inter))
 	for i := 0; i < arr.Len(); i++ {
 		rowInt := reflect.Value(reflect.ValueOf(arr))
+		fmt.Println(rowInt)
 		// var row []string
-		for j := 0; j < rowInt.Len(); j++ {
-			fmt.Println(rowInt.Index(j), rowInt.Kind())
-		}
+		// for j := 0; j < rowInt.Len(); j++ {
+		// 	fmt.Println(rowInt.Index(j), rowInt.Kind())
+		// }
 	}
 	return matrix
 }
