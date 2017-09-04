@@ -15,8 +15,13 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 		}
 		matrix = append(matrix, row)
 	}
-	// length := reflect.ValueOf(inter).Len()
 	arr := reflect.Value(reflect.ValueOf(inter))
-	fmt.Println(arr.Len())
+	for i := 0; i < arr.Len(); i++ {
+		rowInt := reflect.Value(reflect.ValueOf(arr))
+		// var row []string
+		for j := 0; j < rowInt.Len(); j++ {
+			fmt.Println(rowInt.Index(j), rowInt.Kind())
+		}
+	}
 	return matrix
 }
