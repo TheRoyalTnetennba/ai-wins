@@ -59,5 +59,5 @@ func GetAIMove(board [][]string, marker string) []int {
 			}
 		}
 	}
-	return pos
+	return []int{0, 0}
 }
