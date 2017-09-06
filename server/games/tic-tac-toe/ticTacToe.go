@@ -74,7 +74,7 @@ func win(tripletResponse string) bool {
 	return tripletResponse == "x" || tripletResponse == "o"
 }
 
-func whoWon(game gameNode) string {
+func whoWon(game *gameNode) string {
 	board := game.Board
 	numIncompletes := 0
 	for row := 0; row < len(board); row++ {
