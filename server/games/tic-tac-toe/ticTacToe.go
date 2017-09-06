@@ -139,6 +139,9 @@ func GetAIMove(board [][]string, marker string) []int {
 	var children [9]*gameNode
 	res := 0
 	game := gameNode{board, children, res}
+	if whoWon(&game) != "pending" {
+		return []int{0, 0}
+	}
 	genNodes(&game, marker, 1000000000)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
