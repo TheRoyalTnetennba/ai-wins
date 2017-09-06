@@ -38,7 +38,8 @@ func genNodes(game gameNode, marker string) int {
 				var childNextGames []gameNode
 				childResult := 0
 				child := gameNode{childBoard, childNextGames, childResult}
-				game.NextGames = append(game.NextGames, child)
+				parent := &game
+				parent.NextGames = append(parent.NextGames, child)
 			}
 		}
 	}
