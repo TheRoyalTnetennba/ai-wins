@@ -129,7 +129,7 @@ func GetAIMove(board [][]string, marker string) []int {
 	var children []gameNode
 	res := 0
 	game := gameNode{board, children, res}
-	genNodes(game, marker)
+	// genNodes(game, marker)
 	fmt.Println(game)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
