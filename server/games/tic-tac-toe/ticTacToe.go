@@ -29,7 +29,7 @@ func genNodes(game *gameNode, marker string) int {
 		} else if winner == aiMarker {
 			game.Result = 2
 		} else {
-			game.Result = -2
+			game.Result = -10
 		}
 		return game.Result
 	}
