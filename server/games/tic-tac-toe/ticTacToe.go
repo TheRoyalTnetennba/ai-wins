@@ -1,6 +1,7 @@
 package tttAI
 
 import (
+	"fmt"
 	"sort"
 
 	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
@@ -8,7 +9,6 @@ import (
 
 var (
 	aiMarker string
-	games    []gameNode
 )
 
 type gameNode struct {
@@ -146,5 +146,6 @@ func GetAIMove(board [][]string, marker string) []int {
 			max = child
 		}
 	}
+	fmt.Println(max.Result)
 	return boardDifference(board, max.Board)
 }
