@@ -1,18 +1,49 @@
 package tttAI
 
+var (
+	aiMarker string
+	games    []gameNode
+)
+
 type gameNode struct {
-	Board      [][]string
-	NextBoards []gameNode
-	Result     int
+	Board     [][]string
+	NextGames []gameNode
+	Result    int
 }
 
-func xit(game gameNode) {
-
-}
-
-func genNodes(game gameNode, games []gameNode, marker string) []gameNode {
-
-	return games
+func genNodes(game gameNode, marker string) int {
+	winner := whoWon(game)
+	if winner != "pending" {
+		if winner == "tie" {
+			game.Result = 0
+		} else if winner == aiMarker {
+			game.Result = 1
+		} else {
+			game.Result = -1
+		}
+		return game.Result
+	}
+	for i := 0; i < len(game.Board); i++ {
+		for j := 0; j < len(game.Board[i]); j++ {
+			if game.Board[i][j] == "" {
+				childBoard := game.Board
+				childBoard[i][j] = marker
+				var childNextGames []gameNode
+				childResult := 0
+				child := gameNode{childBoard, childNextGames, childResult}
+				game.NextGames = append(game.NextGames, child)
+			}
+		}
+	}
+	if marker == "x" {
+		marker = "o"
+	} else {
+		marker = "x"
+	}
+	for _, child := range game.NextGames {
+		child.Result += genNodes(child, marker)
+	}
+	return game.Result
 }
 
 func checkTriplet(triplet []string) string {
@@ -26,29 +57,30 @@ func checkTriplet(triplet []string) string {
 	}
 	return "Contested"
 }
+
 func win(tripletResponse string) bool {
 	return tripletResponse == "x" || tripletResponse == "o"
 }
 
-func isGameOver(game gameNode) bool {
+func whoWon(game gameNode) string {
 	board := game.Board
 	numIncompletes := 0
 	for row := 0; row < len(board); row++ {
-		if win(checkTriplet(board[row])) {
-			return true
+		rowRes := checkTriplet(board[row])
+		if win(rowRes) {
+			return rowRes
+		} else if rowRes == "Incomplete" {
+			numIncompletes++
 		}
 		var colRow []string
 		for col := 0; col < len(board[row]); col++ {
 			colRow = append(colRow, board[col][row])
 		}
-		carlRove := checkTriplet(colRow)
-		if win(carlRove) {
-			return true
-		} else if carlRove == "Incomplete" {
+		colRes := checkTriplet(colRow)
+		if win(colRes) {
+			return colRes
+		} else if colRes == "Incomplete" {
 			numIncompletes++
-		}
-		if win(checkTriplet(colRow)) {
-			return true
 		}
 	}
 	var upRight []string
@@ -57,10 +89,15 @@ func isGameOver(game gameNode) bool {
 		upRight = append(upRight, board[i][len(board[i])-i])
 		upLeft = append(upLeft, board[i][i])
 	}
-	if win(checkTriplet(upRight)) || win(checkTriplet(upLeft)) {
-		return true
+	upRightRes, upLeftRes := checkTriplet(upRight), checkTriplet(upLeft)
+	if win(upLeftRes) {
+		return upLeftRes
+	} else if win(upRightRes) {
+		return upRightRes
+	} else if numIncompletes > 0 {
+		return "pending"
 	}
-	return numIncompletes == 0
+	return "tie"
 }
 
 func DumMove(board [][]string) []int {
@@ -74,9 +111,28 @@ func DumMove(board [][]string) []int {
 	return []int{0, 0}
 }
 
-func GetAIMove(board [][]string, marker string) []int {
-	if len(board[1][1]) == 0 {
-		return []int{1, 1}
+func boardDifference(parent [][]string, child [][]string) []int {
+	for i := 0; i < len(parent); i++ {
+		for j := 0; j < len(parent[i]); j++ {
+			if parent[i][j] != child[i][j] {
+				return []int{i, j}
+			}
+		}
 	}
-	return DumMove(board)
+	return DumMove(parent)
+}
+
+func GetAIMove(board [][]string, marker string) []int {
+	aiMarker = marker
+	var children []gameNode
+	res := 0
+	game := gameNode{board, children, res}
+	genNodes(game, marker)
+	max := game.NextGames[0]
+	for _, child := range game.NextGames {
+		if child.Result > max.Result {
+			max = child
+		}
+	}
+	return boardDifference(board, max.Board)
 }
