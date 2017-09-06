@@ -25,11 +25,11 @@ func genNodes(game *gameNode, marker string) int {
 	winner := whoWon(game)
 	if winner != "pending" {
 		if winner == "tie" {
-			game.Result = 1
-		} else if winner == aiMarker {
 			game.Result = 0
+		} else if winner == aiMarker {
+			game.Result = 1
 		} else {
-			game.Result = -10
+			game.Result = -1
 		}
 		return game.Result
 	}
