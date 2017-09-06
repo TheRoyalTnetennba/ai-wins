@@ -145,7 +145,7 @@ func GetAIMove(board [][]string, marker string) []int {
 	fmt.Println(game)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
-		if child.Result > max.Result {
+		if child != nil && child.Result > max.Result {
 			max = child
 		}
 	}
