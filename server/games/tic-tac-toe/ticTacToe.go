@@ -37,7 +37,6 @@ func genNodes(game *gameNode, marker string) int {
 	for i := 0; i < len(game.Board); i++ {
 		for j := 0; j < len(game.Board[i]); j++ {
 			if game.Board[i][j] == "" {
-				fmt.Println("here is an empty one")
 				childBoard := utils.CopyMatrix(game.Board)
 				childBoard[i][j] = marker
 				var childNextGames [9]*gameNode
@@ -126,6 +125,7 @@ func DumMove(board [][]string) []int {
 }
 
 func boardDifference(parent [][]string, child [][]string) []int {
+	fmt.Println(parent, child)
 	for i := 0; i < len(parent); i++ {
 		for j := 0; j < len(parent[i]); j++ {
 			if parent[i][j] != child[i][j] {
@@ -142,7 +142,6 @@ func GetAIMove(board [][]string, marker string) []int {
 	res := 0
 	game := gameNode{board, children, res}
 	genNodes(&game, marker)
-	fmt.Println(game)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child != nil && child.Result > max.Result {
