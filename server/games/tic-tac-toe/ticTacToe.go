@@ -1,7 +1,6 @@
 package tttAI
 
 import (
-	"fmt"
 	"sort"
 
 	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
@@ -26,11 +25,11 @@ func genNodes(game *gameNode, marker string) int {
 	winner := whoWon(game)
 	if winner != "pending" {
 		if winner == "tie" {
-			game.Result = 0
-		} else if winner == aiMarker {
 			game.Result = 1
+		} else if winner == aiMarker {
+			game.Result = 2
 		} else {
-			game.Result = -1
+			game.Result = -2
 		}
 		return game.Result
 	}
@@ -125,11 +124,9 @@ func DumMove(board [][]string) []int {
 }
 
 func boardDifference(parent [][]string, child [][]string) []int {
-	fmt.Println(parent, child)
 	for i := 0; i < len(parent); i++ {
 		for j := 0; j < len(parent[i]); j++ {
 			if parent[i][j] != child[i][j] {
-				fmt.Println("woopy wop")
 				return []int{i, j}
 			}
 		}
@@ -149,6 +146,5 @@ func GetAIMove(board [][]string, marker string) []int {
 			max = child
 		}
 	}
-	fmt.Println(max)
 	return boardDifference(board, max.Board)
 }
