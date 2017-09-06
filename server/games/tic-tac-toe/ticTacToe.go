@@ -2,8 +2,10 @@ package tttAI
 
 import (
 	"fmt"
+
 	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
 )
+
 var (
 	aiMarker string
 	games    []gameNode
@@ -14,8 +16,6 @@ type gameNode struct {
 	NextGames []gameNode
 	Result    int
 }
-
-func copyBoard(orig [][]string
 
 func genNodes(game gameNode, marker string) int {
 	winner := whoWon(game)
@@ -32,7 +32,7 @@ func genNodes(game gameNode, marker string) int {
 	for i := 0; i < len(game.Board); i++ {
 		for j := 0; j < len(game.Board[i]); j++ {
 			if game.Board[i][j] == "" {
-				childBoard := game.Board
+				childBoard := utils.CopyMatrix(game.Board)
 				childBoard[i][j] = marker
 				var childNextGames []gameNode
 				childResult := 0
