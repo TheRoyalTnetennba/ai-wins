@@ -30,7 +30,7 @@ func genNodes(game *gameNode, marker string) int {
 		} else if winner == aiMarker {
 			game.Result = 1
 		} else {
-			game.Result = -1
+			game.Result = -10
 		}
 		return game.Result
 	}
@@ -149,5 +149,6 @@ func GetAIMove(board [][]string, marker string) []int {
 			max = child
 		}
 	}
+	fmt.Println(max)
 	return boardDifference(board, max.Board)
 }
