@@ -129,6 +129,7 @@ func boardDifference(parent [][]string, child [][]string) []int {
 	for i := 0; i < len(parent); i++ {
 		for j := 0; j < len(parent[i]); j++ {
 			if parent[i][j] != child[i][j] {
+				fmt.Println("woopy wop")
 				return []int{i, j}
 			}
 		}
