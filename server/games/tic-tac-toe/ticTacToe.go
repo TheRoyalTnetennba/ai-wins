@@ -86,7 +86,7 @@ func whoWon(game gameNode) string {
 	var upRight []string
 	var upLeft []string
 	for i := 0; i < len(board); i++ {
-		upRight = append(upRight, board[i][len(board[i])-i])
+		upRight = append(upRight, board[i][len(board[i])-(1+i)])
 		upLeft = append(upLeft, board[i][i])
 	}
 	upRightRes, upLeftRes := checkTriplet(upRight), checkTriplet(upLeft)
