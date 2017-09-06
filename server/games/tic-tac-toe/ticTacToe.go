@@ -52,7 +52,7 @@ func genNodes(game *gameNode, marker string, layer int) int {
 	}
 	for _, child := range game.NextGames {
 		if child != nil {
-			game.Result += genNodes(child, marker, 1)
+			game.Result += genNodes(child, marker, layer/10)
 		}
 	}
 	return game.Result
@@ -139,7 +139,7 @@ func GetAIMove(board [][]string, marker string) []int {
 	var children [9]*gameNode
 	res := 0
 	game := gameNode{board, children, res}
-	genNodes(&game, marker, 1000)
+	genNodes(&game, marker, 1000000000)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child != nil && child.Result > max.Result {
