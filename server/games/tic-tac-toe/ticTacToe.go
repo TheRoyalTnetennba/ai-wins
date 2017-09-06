@@ -1,5 +1,7 @@
 package tttAI
 
+import "fmt"
+
 var (
 	aiMarker string
 	games    []gameNode
@@ -128,6 +130,7 @@ func GetAIMove(board [][]string, marker string) []int {
 	res := 0
 	game := gameNode{board, children, res}
 	genNodes(game, marker)
+	fmt.Println(game)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child.Result > max.Result {
