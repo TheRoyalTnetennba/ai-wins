@@ -1,7 +1,9 @@
 package tttAI
 
-import "fmt"
-
+import (
+	"fmt"
+	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
+)
 var (
 	aiMarker string
 	games    []gameNode
@@ -12,6 +14,8 @@ type gameNode struct {
 	NextGames []gameNode
 	Result    int
 }
+
+func copyBoard(orig [][]string
 
 func genNodes(game gameNode, marker string) int {
 	winner := whoWon(game)

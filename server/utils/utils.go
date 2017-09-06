@@ -14,3 +14,15 @@ func GetMatrixFromInterface(inter interface{}) [][]string {
 	}
 	return matrix
 }
+
+func CopyMatrix(orig [][]string) [][]string {
+	var newMatrix [][]string
+	for i := 0; i < len(orig); i++ {
+		var row []string
+		for j := 0; j < len(orig[i]); j++ {
+			row = append(row, orig[i][j])
+		}
+		newMatrix = append(newMatrix, row)
+	}
+	return newMatrix
+}
