@@ -2,6 +2,7 @@ package tttAI
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
 )
@@ -13,11 +14,15 @@ var (
 
 type gameNode struct {
 	Board     [][]string
-	NextGames []gameNode
+	NextGames [9]*gameNode
 	Result    int
 }
 
-func genNodes(game gameNode, marker string) int {
+func nextFree(arr [9]*gameNode) int {
+	return sort.Search(len(arr), func(i int) bool { return arr[i] == nil })
+}
+
+func genNodes(game *gameNode, marker string) int {
 	winner := whoWon(game)
 	if winner != "pending" {
 		if winner == "tie" {
@@ -35,11 +40,10 @@ func genNodes(game gameNode, marker string) int {
 				fmt.Println("here is an empty one")
 				childBoard := utils.CopyMatrix(game.Board)
 				childBoard[i][j] = marker
-				var childNextGames []gameNode
+				var childNextGames [9]*gameNode
 				childResult := 0
 				child := gameNode{childBoard, childNextGames, childResult}
-				parent := &game
-				parent.NextGames = append(parent.NextGames, child)
+				game.NextGames[nextFree(game.NextGames)] = &child
 			}
 		}
 	}
@@ -132,10 +136,10 @@ func boardDifference(parent [][]string, child [][]string) []int {
 
 func GetAIMove(board [][]string, marker string) []int {
 	aiMarker = marker
-	var children []gameNode
+	var children [9]*gameNode
 	res := 0
 	game := gameNode{board, children, res}
-	genNodes(game, marker)
+	genNodes(&game, marker)
 	fmt.Println(game)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
