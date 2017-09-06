@@ -32,6 +32,7 @@ func genNodes(game gameNode, marker string) int {
 	for i := 0; i < len(game.Board); i++ {
 		for j := 0; j < len(game.Board[i]); j++ {
 			if game.Board[i][j] == "" {
+				fmt.Println("here is an empty one")
 				childBoard := utils.CopyMatrix(game.Board)
 				childBoard[i][j] = marker
 				var childNextGames []gameNode
