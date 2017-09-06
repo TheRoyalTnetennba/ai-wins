@@ -53,7 +53,7 @@ func genNodes(game *gameNode, marker string) int {
 	}
 	for _, child := range game.NextGames {
 		if child != nil {
-			child.Result += genNodes(child, marker)
+			game.Result += genNodes(child, marker)
 		}
 	}
 	return game.Result
