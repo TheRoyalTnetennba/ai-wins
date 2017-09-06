@@ -24,36 +24,36 @@ export const receiveErrors = errors => ({
   errors,
 });
 
-export const login = user => (dispatch) => {
-  const userDetails = {
-    user,
-  };
-  return (APIUtil.login(userDetails).then((userInfo) => {
-    dispatch(receiveCurrentUser(userInfo));
-    dispatch(clearErrors());
-  }, err => (dispatch(receiveErrors(err.responseJSON)))));
-};
+// export const login = user => (dispatch) => {
+//   const userDetails = {
+//     user,
+//   };
+//   return (APIUtil.login(userDetails).then((userInfo) => {
+//     dispatch(receiveCurrentUser(userInfo));
+//     dispatch(clearErrors());
+//   }, err => (dispatch(receiveErrors(err.responseJSON)))));
+// };
 
-export const guestLogin = () => dispatch => (
-  APIUtil.guestLogin().then((userInfo) => {
-    dispatch(receiveCurrentUser(userInfo));
-    dispatch(clearErrors());
-  }, err => (dispatch(receiveErrors(err.responseJSON))))
-);
+// export const guestLogin = () => dispatch => (
+//   APIUtil.guestLogin().then((userInfo) => {
+//     dispatch(receiveCurrentUser(userInfo));
+//     dispatch(clearErrors());
+//   }, err => (dispatch(receiveErrors(err.responseJSON))))
+// );
 
-export const signup = user => (dispatch) => {
-  const userDetails = {
-    user,
-  };
-  return (APIUtil.signup(userDetails).then((userInfo) => {
-    dispatch(receiveCurrentUser(userInfo));
-    dispatch(clearErrors());
-  }, err => (dispatch(receiveErrors(err.responseJSON)))));
-};
+// export const signup = user => (dispatch) => {
+//   const userDetails = {
+//     user,
+//   };
+//   return (APIUtil.signup(userDetails).then((userInfo) => {
+//     dispatch(receiveCurrentUser(userInfo));
+//     dispatch(clearErrors());
+//   }, err => (dispatch(receiveErrors(err.responseJSON)))));
+// };
 
-export const logout = () => dispatch => (
-  APIUtil.logout().then(() => {
-    dispatch(clearCurrentUser());
-    dispatch(clearErrors());
-  }, err => (dispatch(receiveErrors(err.responseJSON))))
-);
+// export const logout = () => dispatch => (
+//   APIUtil.logout().then(() => {
+//     dispatch(clearCurrentUser());
+//     dispatch(clearErrors());
+//   }, err => (dispatch(receiveErrors(err.responseJSON))))
+// );
