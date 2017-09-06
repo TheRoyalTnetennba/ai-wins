@@ -53,7 +53,9 @@ func genNodes(game *gameNode, marker string) int {
 		marker = "x"
 	}
 	for _, child := range game.NextGames {
-		child.Result += genNodes(child, marker)
+		if child != nil {
+			child.Result += genNodes(child, marker)
+		}
 	}
 	return game.Result
 }
