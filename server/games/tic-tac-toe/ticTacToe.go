@@ -21,15 +21,15 @@ func nextFree(arr [9]*gameNode) int {
 	return sort.Search(len(arr), func(i int) bool { return arr[i] == nil })
 }
 
-func genNodes(game *gameNode, marker string) int {
+func genNodes(game *gameNode, marker string, layer int) int {
 	winner := whoWon(game)
 	if winner != "pending" {
 		if winner == "tie" {
 			game.Result = 0
 		} else if winner == aiMarker {
-			game.Result = 1
+			game.Result = 1 * layer
 		} else {
-			game.Result = -1
+			game.Result = -1 * layer
 		}
 		return game.Result
 	}
@@ -52,7 +52,7 @@ func genNodes(game *gameNode, marker string) int {
 	}
 	for _, child := range game.NextGames {
 		if child != nil {
-			game.Result += genNodes(child, marker)
+			game.Result += genNodes(child, marker, layer-1)
 		}
 	}
 	return game.Result
@@ -139,7 +139,7 @@ func GetAIMove(board [][]string, marker string) []int {
 	var children [9]*gameNode
 	res := 0
 	game := gameNode{board, children, res}
-	genNodes(&game, marker)
+	genNodes(&game, marker, 10)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child != nil && child.Result > max.Result {
