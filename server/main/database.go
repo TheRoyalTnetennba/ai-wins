@@ -29,7 +29,7 @@ type Game struct {
 
 func main() {
     ctx := context.Background()
-    ProjectID := "personal-projects-177215"
+    
     // Create a datastore client. In a typical application, you would create
     // a single client which is reused for every datastore operation.
         // Creates a client.
