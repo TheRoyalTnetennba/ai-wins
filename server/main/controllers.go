@@ -22,3 +22,15 @@ func GetMove(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
 }
+
+func ListGames(w http.ResponseWriter, r *http.Request) {
+	var games []*Game
+	keys, err := client.GetAll(ctx, datastore.NewQuery("Game"), &games)
+	// for i, key := range keys {
+	//     fmt.Println(key)
+	//     fmt.Println(games[i])
+	// }
+	fmt.Println(games)
+	w.Header().Set("Content-Type", "application/json")
+	
+}

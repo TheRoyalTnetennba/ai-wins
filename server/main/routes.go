@@ -44,4 +44,10 @@ var routes = Routes{
 		"/games/getMove",
 		GetMove,
 	},
+	Route{
+		"ListGames",
+		"GET",
+		"/games",
+		ListGames,
+	},
 }
