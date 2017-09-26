@@ -18,6 +18,8 @@ type Game struct {
     DateAdded time.Time
     Description string
     GamesStarted int
+    LastLossDate time.Time
+    LastLossUsername string
     Lost int
     Name string
     Slug string
