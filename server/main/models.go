@@ -1,11 +1,7 @@
 package main
 
 import (
-    "fmt"
-    "log"
     "time"
-    "cloud.google.com/go/datastore"
-    "golang.org/x/net/context"
 )
 
 type User struct {
@@ -20,10 +16,12 @@ type User struct {
 type Game struct {
     CanTie bool
     DateAdded time.Time
+    Description string
     GamesStarted int
     Lost int
     Name string
     Slug string
+    Tagline string
     Tied int
     Won int
 }

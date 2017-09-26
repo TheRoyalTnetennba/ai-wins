@@ -10,9 +10,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func NewClient() {
+func NewClient() *datastore.Client {
 	client, err := datastore.NewClient(Ctx, ProjectID)
-	if err {
+	if err != nil {
 		log.Fatal("Failed to set up DB client", err)
 	}
 	return client

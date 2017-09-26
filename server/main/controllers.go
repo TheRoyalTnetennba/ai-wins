@@ -6,6 +6,7 @@ import (
 
 	simplejson "github.com/bitly/go-simplejson"
 	"github.com/gorilla/mux"
+	"cloud.google.com/go/datastore"
 )
 
 func GameShow(w http.ResponseWriter, r *http.Request) {
@@ -24,13 +25,16 @@ func GetMove(w http.ResponseWriter, r *http.Request) {
 }
 
 func ListGames(w http.ResponseWriter, r *http.Request) {
+	res := simplejson.New()
 	var games []*Game
-	keys, err := client.GetAll(ctx, datastore.NewQuery("Game"), &games)
-	// for i, key := range keys {
-	//     fmt.Println(key)
-	//     fmt.Println(games[i])
-	// }
+	keys, _ := Client.GetAll(Ctx, datastore.NewQuery("Game"), &games)
+	for i, key := range keys {
+	    fmt.Println(key)
+	    fmt.Println(games[i])
+	}
 	fmt.Println(games)
+	res.Set("games", games)
 	w.Header().Set("Content-Type", "application/json")
-	
+	payload, _ := res.Encode()
+	w.Write(payload)
 }
