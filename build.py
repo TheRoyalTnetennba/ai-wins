@@ -3,11 +3,11 @@ import shutil
 import subprocess
 import os
 
-for filename in glob.iglob('/home/gpaye/go/src/ApiServer/*.go', recursive=True):
+for filename in glob.iglob('/home/graham/go/src/ApiServer/*.go', recursive=True):
     os.unlink(filename)
 
 for filename in glob.iglob('server/main/*.go', recursive=True):
-    shutil.copy(filename, '/home/gpaye/go/src/ApiServer')
+    shutil.copy(filename, '/home/graham/go/src/ApiServer')
 
 pkg_test = False
 

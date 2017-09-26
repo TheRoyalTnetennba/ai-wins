@@ -1,38 +1,59 @@
 package main
 
-// import (
-// 	"context"
-// 	"fmt"
+import (
+    "fmt"
+    "log"
+    "time"
+    "cloud.google.com/go/datastore"
+    "golang.org/x/net/context"
+)
 
-// 	"cloud.google.com/go/datastore"
-// )
+type User struct {
+    Image string
+    Joined time.Time
+    Lost int
+    Tied int
+    UserName string
+    Won int
+}
 
-// type Entity struct {
-// 	Value string
-// }
+type Game struct {
+    CanTie bool
+    DateAdded time.Time
+    GamesStarted int
+    Lost int
+    Name string
+    Tied string
+    Won string
+}
 
-// func main() {
-// 	ctx := context.Background()
+func main() {
+    ctx := context.Background()
+    ProjectID := "personal-projects-177215"
+    // Create a datastore client. In a typical application, you would create
+    // a single client which is reused for every datastore operation.
+        // Creates a client.
+    client, err := datastore.NewClient(ctx, ProjectID)
+    if err != nil {
+            log.Fatalf("Failed to create client: %v", err)
+    }
 
-// 	// Create a datastore client. In a typical application, you would create
-// 	// a single client which is reused for every datastore operation.
-// 	dsClient, err := datastore.NewClient(ctx, "my-project")
-// 	if err != nil {
-// 		// Handle error.
-// 	}
+    // Sets the kind for the new entity.
+    kind := "Task"
+    // Sets the name/ID for the new entity.
+    name := "sampletask1"
+    // Creates a Key instance.
+    taskKey := datastore.NameKey(kind, name, nil)
 
-// 	k := datastore.NameKey("Entity", "stringID", nil)
-// 	e := new(Entity)
-// 	if err := dsClient.Get(ctx, k, e); err != nil {
-// 		// Handle error.
-// 	}
+    // Creates a Task instance.
+    task := Task{
+            Description: "Buy milk",
+    }
 
-// 	old := e.Value
-// 	e.Value = "Hello World!"
+    // Saves the new entity.
+    if _, err := client.Put(ctx, taskKey, &task); err != nil {
+            log.Fatalf("Failed to save task: %v", err)
+    }
 
-// 	if _, err := dsClient.Put(ctx, k, e); err != nil {
-// 		// Handle error.
-// 	}
-
-// 	fmt.Printf("Updated value from %q to %q\n", old, e.Value)
-// }
+    fmt.Printf("Saved %v: %v\n", taskKey, task.Description)
+}
