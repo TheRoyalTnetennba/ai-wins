@@ -19,10 +19,17 @@ const header = new Headers({
   'Access-Control-Allow-Origin': '*',
 });
 
-export const getAiMove = request => (
+export const fetchAiMove = request => (
   fetch(`${baseURL}/games/getMove`, {
     header,
     method: 'POST',
     body: getForm(request),
+  })
+);
+
+export const fetchGames = () => (
+  fetch(`${baseURL}/games/getMove`, {
+    header,
+    method: 'GET',
   })
 );

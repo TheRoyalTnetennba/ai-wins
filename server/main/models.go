@@ -22,6 +22,7 @@ type Game struct {
     Name string
     Slug string
     Tagline string
+    Thumbnail string
     Tied int
     Won int
 }

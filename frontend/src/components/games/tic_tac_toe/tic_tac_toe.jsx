@@ -4,9 +4,9 @@ import TTTTile from './ttt_tile';
 import './Ttt.css';
 import { emptyMatrix } from '../../../utils/pFuncs';
 import winner from './logic';
-import { getAiMove } from '../../../utils/api_utils';
+import { fetchAiMove } from '../../../utils/api_utils';
 
-class TicTacToeBoard extends Component {
+class TicTacToe extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +28,7 @@ class TicTacToeBoard extends Component {
 
   handleAIMove() {
     const aiMarker = this.state.playerMarker === 'x' ? 'o' : 'x';
-    getAiMove({ gameName: this.gameName, gameState: this.grid, marker: aiMarker })
+    fetchAiMove({ gameName: this.gameName, gameState: this.grid, marker: aiMarker })
       .then(response => response.json())
       .then(data => this.handleMove(data.move));
   }
@@ -94,7 +94,7 @@ class TicTacToeBoard extends Component {
   }
 }
 
-export default TicTacToeBoard;
+export default TicTacToe;
 
 
 //  __0,0__|__0,1__|__0,2__
