@@ -45,9 +45,9 @@ var routes = Routes{
 		GetMove,
 	},
 	Route{
-		"ListGames",
+		"GamesIndex",
 		"GET",
 		"/games",
-		ListGames,
+		GamesIndex,
 	},
 }

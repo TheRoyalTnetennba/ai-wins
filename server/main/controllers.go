@@ -24,7 +24,7 @@ func GetMove(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
-func ListGames(w http.ResponseWriter, r *http.Request) {
+func GamesIndex(w http.ResponseWriter, r *http.Request) {
 	res := simplejson.New()
 	var games []*Game
 	keys, _ := Client.GetAll(Ctx, datastore.NewQuery("Game"), &games)
