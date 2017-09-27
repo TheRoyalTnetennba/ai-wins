@@ -16,7 +16,7 @@ class GamesIndex extends Component {
     return (
       <section>
         <TicTacToe />
-
+        <Footer />
       </section>
     );
   }
