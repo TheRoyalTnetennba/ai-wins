@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
+import './colors.css';
 import GamesIndex from './components/games/games_index';
 import TicTacToe from './components/games/tic_tac_toe/tic_tac_toe';
 import About from './components/about/about';

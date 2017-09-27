@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Navigation from '../common/nav/navigation';
-import Footer from '../common/footer/footer';
+import Layout from '../layout/layout';
 
 class About extends Component {
   constructor(props) {
@@ -16,9 +15,9 @@ class About extends Component {
   render() {
     return (
       <main>
-        <Navigation />
+        <Layout>
           <h1>About the Site</h1>
-        <Footer />
+        </Layout>
       </main>
     );
   }
