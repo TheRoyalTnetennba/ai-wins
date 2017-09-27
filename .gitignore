@@ -76,3 +76,4 @@ typings/
 .glide/
 *.yarnclean
 *.eslintrc
+server/.git/

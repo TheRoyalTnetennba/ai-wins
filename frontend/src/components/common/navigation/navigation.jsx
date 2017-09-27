@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './navigation.css';
@@ -6,7 +7,6 @@ import './navigation.css';
 class Navigation extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   goHome() {
@@ -19,13 +19,13 @@ class Navigation extends Component {
   render() {
     return (
       <nav>
-        <div className="nav-col">
+        <div className="fb">
           <div className="fb cp" onClick={() => this.goHome()}>
             <h1 className="brown">AI</h1><h1 className="ml10">Wins</h1>
           </div>
         </div>
-        <div className="nav-col">
-          
+        <div className="fb">
+          <Link to="/login">Login</Link>
         </div>
       </nav>
     );

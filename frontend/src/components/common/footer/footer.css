@@ -1,4 +1,15 @@
 footer {
   background-color: #42282F;
   color: #D6CCAD;
+  justify-content: space-around;
+}
+
+footer a {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+footer a:hover, footer a:focus {
+  color: #DC9C76;
 }

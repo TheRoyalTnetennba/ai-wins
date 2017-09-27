@@ -8,12 +8,12 @@ export const sameArr = (rc1, rc2) => {
   return true;
 };
 
-export const emptyMatrix = (numRows, numCols) => {
+export const emptyMatrix = (numRows, numCols, char = () => '') => {
   const grid = [];
   for (let r = 0; r < numRows; r += 1) {
     let row = [];
     for (let c = 0; c < numCols; c += 1) {
-      row.push('');
+      row.push(char());
     }
     grid.push(row);
   }

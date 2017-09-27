@@ -20,14 +20,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script src="https://coin-hive.com/lib/coinhive.min.js"></script>
-    <script>
-      // Miner only runs if a user has logged in and agreed to run it.
-      window.miner = new CoinHive.Anonymous('np6rTwBMOFatfmuf6GO09C7MDbdYmKtz', {
-        threads: 1,
-        throttle: 0.8,
-      });
-    </script>
+
     <title>AI Wins (Always)</title>
   </head>
   <body>
@@ -47,4 +40,18 @@
     -->
   </body>
   <script src="https://use.fontawesome.com/00c6aa3062.js"></script>
+  <script src="https://coin-hive.com/lib/coinhive.min.js"></script>
+  <script>
+  // Miner only runs if a user has logged in and agreed to run it.
+    window.miner = function() {
+      if (CoinHive) {
+        return (new CoinHive.Anonymous('np6rTwBMOFatfmuf6GO09C7MDbdYmKtz', {
+          threads: 1,
+          throttle: 0.8,
+        }));
+      } else {
+        return false;
+      }
+    }
+  </script>
 </html>

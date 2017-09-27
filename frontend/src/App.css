@@ -62,3 +62,43 @@ body {
 .fb {
   display: flex;
 }
+
+.green-b {
+  background-color: #74A588;
+}
+
+.brown-b {
+  background-color: #42282F;
+}
+
+.tan-b {
+  background-color: #D6CCAD;
+}
+
+.orange-b {
+  background-color: #DC9C76;
+}
+
+.red-b {
+  background-color: #D6655A;
+}
+
+.op50 {
+  opacity: 50%;
+}
+
+.light-tan-b {
+  background-color: #FFFFFA;
+}
+
+.jcc {
+  justify-content: center;
+}
+
+.fs46 {
+  font-size: 46px;
+}
+
+.fs10 {
+  font-size: 10px;
+}
