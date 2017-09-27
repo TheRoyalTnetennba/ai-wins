@@ -8,10 +8,6 @@ class About extends Component {
     super(props);
   }
 
-  componentWillMount(){
-    window.miner.start();
-  }
-
   render() {
     return (
       <main>
