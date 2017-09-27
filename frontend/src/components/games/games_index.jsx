@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { requestGames } from '../../actions/game_actions';
-// import { searchCampaigns } from '../../actions/search_actions';
 import TicTacToe from './tic_tac_toe/tic_tac_toe'
+import Footer from '../common/footer/footer';
 
 class GamesIndex extends Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class GamesIndex extends Component {
     return (
       <section>
         <TicTacToe />
+
       </section>
     );
   }
@@ -31,10 +32,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   requestGames: () => dispatch(requestGames()),
 });
-
-// const mapDispatchToProps = dispatch => ({
-//   requestGames: () => dispatch(requestGames()),
-//   searchGames: string => dispatch(searchGames(string)),
-// });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GamesIndex));
