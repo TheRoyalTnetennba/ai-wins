@@ -1,0 +1,23 @@
+.cp {
+  cursor: pointer;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+
+.fb {
+  display: flex;
+}
+
+.jcc {
+  justify-content: center;
+}
+
+.fs46 {
+  font-size: 46px;
+}
+
+.fs10 {
+  font-size: 10px;
+}
