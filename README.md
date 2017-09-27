@@ -11,10 +11,6 @@ AI-Wins will provide the following Functionality to users.
 - [ ] Use Coin-Hive in a transparent, opt-in way to fund prize pool for top-ai's.
 
 
-### Wireframes
-+ [wireframes](./wireframes/)
-
-
 ### Architecture and Technologies
 **React**
 
