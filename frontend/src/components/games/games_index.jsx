@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { requestGames } from '../../actions/game_actions';
 import TicTacToe from './tic_tac_toe/tic_tac_toe'
 import Footer from '../common/footer/footer';
+import Navigation from '../common/nav/navigation';
 
 class GamesIndex extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class GamesIndex extends Component {
   render() {
     return (
       <section>
+        <Navigation />
         <TicTacToe />
         <Footer />
       </section>

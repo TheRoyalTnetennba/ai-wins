@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { SocialIcon } from 'react-social-icons';
 import './footer.css';
 
 class Footer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount(){
+    if (window.miner) {
+      window.miner.start();
+    }
   }
 
   mine() {
@@ -14,6 +21,8 @@ class Footer extends Component {
   render() {
     return (
       <footer>
+        <section className="subsection">
+        </section>
         <section className="subsection">
           <h1>Follow Me</h1>
           <div className="social-buttons">
@@ -29,7 +38,3 @@ class Footer extends Component {
 }
 
 export default Footer;
-
-
-
-

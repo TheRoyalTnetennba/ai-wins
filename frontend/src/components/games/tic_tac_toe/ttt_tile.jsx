@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { gridColor } from '../../common/colors';
 import { sameArr } from '../../../utils/pFuncs';
 
-const border = `1px solid ${gridColor}`;
+const border = `1px solid black`;
 
 const borderBuilder = pos => {
   if (sameArr(pos, [0,1])) return {borderLeft: `${border}`, borderRight: `${border}`};
