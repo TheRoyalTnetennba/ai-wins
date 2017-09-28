@@ -9,7 +9,7 @@ import (
 func scoreLetter(letter string) int {
     letters := []string{"D", "G", "B", "C", "M", "P", "F", "H", "V", "W", "Y", "K", "J", "X", "Q", "Z"}
     points := []int{2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 8, 8, 10, 10}
-    for i := 0; i < len(letterScore); i++ {
+    for i := 0; i < len(letters); i++ {
         if letters[i] == letter {
             return points[i]
         }
