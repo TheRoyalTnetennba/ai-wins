@@ -1,4 +1,4 @@
-package main
+package ttt
 
 import (
     "github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe"

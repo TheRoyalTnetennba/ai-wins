@@ -1,4 +1,4 @@
-package tttAI
+package ttt
 
 import (
 	"sort"

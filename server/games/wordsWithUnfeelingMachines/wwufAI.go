@@ -1,4 +1,4 @@
-package wwufAI
+package wwuf
 
 import (
     "strconv"

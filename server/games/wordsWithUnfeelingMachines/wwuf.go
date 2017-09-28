@@ -1,3 +1,5 @@
+package wwuf
+
 func WWUFGetLetters(w http.ResponseWriter, r *http.Request) {
     req, _ := simplejson.NewFromReader(r.Body)
     ch := make(chan []byte)
