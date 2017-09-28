@@ -12,7 +12,8 @@ for filename in glob.iglob('server/main/*.go', recursive=True):
 pkg_test = False
 
 commands = ["go get -u github.com/TheRoyalTnetennba/ai-wins/server/utils",
-            "go get -u github.com/TheRoyalTnetennba/ai-wins/server/ai",
+            "go get -u github.com/TheRoyalTnetennba/ai-wins/server/games/wordsWithUnfeelingMachines",
+            "go get -u github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe",
             "go build ApiServer"]
 
 if pkg_test:

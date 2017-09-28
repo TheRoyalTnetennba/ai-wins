@@ -1,7 +1,7 @@
 package main
 
 import (
-    "github.com/TheRoyalTnetennba/ai-wins/server/ai"
+    "github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe"
     "github.com/TheRoyalTnetennba/ai-wins/server/utils"
     simplejson "github.com/bitly/go-simplejson"
 )
