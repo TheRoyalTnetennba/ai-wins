@@ -50,7 +50,8 @@ func getMultiplier(pos string) []int {
 
 func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, [][]int) {
     var positions [][]int
-    multiplier, points, word := 1, 0, []string
+    var word []string
+    multiplier, points := 1, 0
     for i := 0; i < len(oldBoard); i++ {
         for j := 0; j < len(oldBoard[i]); j++ {
             if newBoard[i][j] != oldBoard[i][j] {
