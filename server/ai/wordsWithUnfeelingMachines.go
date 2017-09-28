@@ -4,6 +4,8 @@ import (
     "strconv"
 )
 
+// !!!!!! NEED TO ACCOUNT FOR WILDCARD CHARACTERS !!!!!!
+
 func scoreLetter(letter string) int {
     letters := []string{"D", "G", "B", "C", "M", "P", "F", "H", "V", "W", "Y", "K", "J", "X", "Q", "Z"}
     points := []int{2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 8, 8, 10, 10}
@@ -46,17 +48,31 @@ func getMultiplier(pos string) []int {
     return wl
 }
 
-func ScoreMove(newBoard [][]string, oldBoard [][]string) int {
+func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, [][]int) {
+    var positions [][]int
     multiplier, points := 1, 0
     for i := 0; i < len(oldBoard); i++ {
         for j := 0; j < len(oldBoard[i]); j++ {
             if newBoard[i][j] != oldBoard[i][j] {
+                position := []int{i, j}
                 pos := strconv.Itoa(i) + "," + strconv.Itoa(j)
                 mult := getMultiplier(pos)
                 multiplier *= mult[0]
                 points += mult[1] * scoreLetter(newBoard[i][j])
+                positions = append(positions, position)
+            }
+        }
+    }
+    points *= multiplier
+    deltaX := positions[0][1] - positions[1][1]
+    deltaY := positions[0][0] - positions[0][1]
+    if deltaX == 0 {
+        for i := 1; i < len(positions); i++ {
+            if positions[i - 1][1] + 1 < positions[i][1] {
+
             }
         }
     }
     return points * multiplier
 }
+
