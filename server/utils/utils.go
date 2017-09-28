@@ -1,5 +1,18 @@
 package utils
 
+import (
+	"math/rand"
+	"time"
+)
+
+var (
+	Letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+)
+
+func init() {
+	rand.Seed(time.Now().Unix())
+}
+
 // GetMatrixFromInterface processes simplejson-created interfaces of a stringified matrix
 func GetMatrixFromInterface(inter interface{}) [][]string {
 	var matrix [][]string
@@ -25,4 +38,12 @@ func CopyMatrix(orig [][]string) [][]string {
 		newMatrix = append(newMatrix, row)
 	}
 	return newMatrix
+}
+
+func RandSeq(n int) string {
+    b := make([]rune, n)
+    for i := range b {
+        b[i] = Letters[rand.Intn(len(Letters))]
+    }
+    return string(b)
 }

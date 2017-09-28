@@ -10,6 +10,10 @@
   display: flex;
 }
 
+.fdc {
+  flex-direction: column;
+}
+
 .jcc {
   justify-content: center;
 }
