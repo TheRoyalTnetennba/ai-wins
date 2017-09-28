@@ -7,6 +7,7 @@ import (
 	simplejson "github.com/bitly/go-simplejson"
 	"github.com/gorilla/mux"
 	"cloud.google.com/go/datastore"
+	"github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe"
 )
 
 func GameShow(w http.ResponseWriter, r *http.Request) {
