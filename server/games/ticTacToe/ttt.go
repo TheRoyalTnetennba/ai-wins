@@ -10,7 +10,7 @@ import (
 
 func GetAIMove(body map[string]interface{}, c chan []byte) {
     board := utils.GetMatrixFromInterface(body["gameState"])
-    pos := GetAIMove(board, body["marker"].(string))
+    pos := tttAI.GetAIMove(board, body["marker"].(string))
     res := simplejson.New()
     res.Set("move", pos)
     payload, _ := res.Encode()
