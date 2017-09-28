@@ -48,7 +48,7 @@ func getMultiplier(pos string) []int {
     return wl
 }
 
-func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, [][]int) {
+func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, []string) {
     var positions [][]int
     var word []string
     multiplier, points := 1, 0
