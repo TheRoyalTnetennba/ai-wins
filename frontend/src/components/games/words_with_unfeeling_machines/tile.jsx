@@ -69,7 +69,6 @@ const getDetails = (props) => {
     '3,11': ['light-red-b', 'DOUBLE WORD SCORE'],
     '2,12': ['light-red-b', 'DOUBLE WORD SCORE'],
     '1,13': ['light-red-b', 'DOUBLE WORD SCORE'],
-
   };
   if (pos in tileMarking) {
     return [tileMarking[pos][0] + ' fs10 cp', tileMarking[pos][1]];

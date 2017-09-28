@@ -44,4 +44,10 @@ var routes = Routes{
 		"/games",
 		GamesIndex,
 	},
+	Route{
+		"WWUFGetLetters",
+		"GET",
+		"/wwuf/getletters/{numLetters}",
+		WWUFGetLetters,
+	},
 }
