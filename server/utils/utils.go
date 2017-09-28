@@ -41,7 +41,7 @@ func CopyMatrix(orig [][]string) [][]string {
 }
 
 func RandNum(upperLimit int) int {
-	return randIntn(upperLimit)
+	return rand.Intn(upperLimit)
 }
 
 func RandSeq(n int) string {
