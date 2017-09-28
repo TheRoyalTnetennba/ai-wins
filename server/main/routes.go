@@ -15,12 +15,6 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"Register",
-		"GET",
-		"/register",
-		Register,
-	},
-	Route{
 		"GoogleLogin",
 		"GET",
 		"/googlelogin",

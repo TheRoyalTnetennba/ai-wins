@@ -4,19 +4,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-
+	simplejson "github.com/bitly/go-simplejson"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
+	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
 )
-
-const htmlRegister = `<html><body>
-<a href="/googlelogin">Log the fuck in with Google</a>
-</body></html>
-`
-
-func Register(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, htmlRegister)
-}
 
 var (
 	googleOauthConfig = &oauth2.Config{
@@ -27,12 +19,15 @@ var (
 			"https://www.googleapis.com/auth/userinfo.email"},
 		Endpoint: google.Endpoint,
 	}
-	oauthStateString = "random"
+	oauthStateString = utils.RandSeq(13)
 )
 
 func GoogleLogin(w http.ResponseWriter, r *http.Request) {
 	url := googleOauthConfig.AuthCodeURL(oauthStateString)
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+	res := simplejson.New()
+	res.Set("url", url)
+	payload, _ := res.Encode()
+	w.Write(payload)
 }
 
 func GoogleCallback(w http.ResponseWriter, r *http.Request) {

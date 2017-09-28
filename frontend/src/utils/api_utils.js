@@ -1,6 +1,6 @@
 import sha512 from 'sha512';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://localhost:8080/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);
@@ -20,7 +20,7 @@ const header = new Headers({
 });
 
 export const fetchAiMove = request => (
-  fetch(`${baseURL}/games/getMove`, {
+  fetch(`${baseURL}games/getMove`, {
     header,
     method: 'POST',
     body: getForm(request),
@@ -28,7 +28,14 @@ export const fetchAiMove = request => (
 );
 
 export const fetchGames = () => (
-  fetch(`${baseURL}/games/getMove`, {
+  fetch(`${baseURL}games/getMove`, {
+    header,
+    method: 'GET',
+  })
+);
+
+export const fetchGoogleLogin = () => (
+  fetch(`${baseURL}googlelogin`, {
     header,
     method: 'GET',
   })

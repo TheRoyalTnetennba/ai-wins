@@ -16,18 +16,6 @@ class WordsWithUnfeelingMachines extends Component {
     }
   }
 
-  componentWillMount(){
-    this.intervalID = setInterval(() => this.mine(), 5000);
-  }
-
-  mine() {
-    if (window.miner()) {
-      window.miner().start();
-      clearInterval(this.intervalID);
-      console.log('started');
-    }
-  }
-
   render() {
     return (
       <section className="fb jcc">
