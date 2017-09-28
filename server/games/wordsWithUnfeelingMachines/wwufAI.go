@@ -50,7 +50,7 @@ func getMultiplier(pos string) []int {
 
 func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, [][]int) {
     var positions [][]int
-    multiplier, points := 1, 0
+    multiplier, points, word := 1, 0, []string
     for i := 0; i < len(oldBoard); i++ {
         for j := 0; j < len(oldBoard[i]); j++ {
             if newBoard[i][j] != oldBoard[i][j] {
@@ -60,6 +60,7 @@ func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, [][]int) {
                 multiplier *= mult[0]
                 points += mult[1] * scoreLetter(newBoard[i][j])
                 positions = append(positions, position)
+                word = append(word, newBoard[i][j])
             }
         }
     }
@@ -67,12 +68,25 @@ func ScoreMove(newBoard [][]string, oldBoard [][]string) (int, [][]int) {
     deltaX := positions[0][1] - positions[1][1]
     deltaY := positions[0][0] - positions[0][1]
     if deltaX == 0 {
-        for i := 1; i < len(positions); i++ {
-            if positions[i - 1][1] + 1 < positions[i][1] {
-
+        for i := 0; i < len(positions) - 1; i++ {
+            for j := positions[i][0] + 1; j < positions[i + 1][0]; j++ {
+                // cycle through reused y values
+                letter := newBoard[j][positions[0][1]]
+                points += scoreLetter(letter)
+                word = append(word, letter)
             }
         }
     }
-    return points * multiplier
+    if deltaY == 0 {
+        for i := 0; i < len(positions) - 1; i++ {
+            for j := positions[i][1] + 1; j < positions[i + 1][1]; j++ {
+                // cycle through reused x values
+                letter := newBoard[positions[0][0]][j]
+                points += scoreLetter(letter)
+                word = append(word, letter)
+            }
+        }
+    }
+    return points, word
 }
 

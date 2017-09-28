@@ -7,6 +7,7 @@ import Board from './board';
 
 import { emptyMatrix } from '../../../utils/pFuncs';
 
+// !!!!! NOTIFY USERS OF RULE CHANGE REGARDING WILDCARDS BEING WORTH LETTER VALUE !!!!!
 
 class WordsWithUnfeelingMachines extends Component {
   constructor(props) {
