@@ -133,7 +133,7 @@ func boardDifference(parent [][]string, child [][]string) []int {
 	return DumMove(parent)
 }
 
-func GetAIMove(board [][]string, marker string) []int {
+func GetBestMove(board [][]string, marker string) []int {
 	aiMarker = marker
 	var children [9]*gameNode
 	res := 0
