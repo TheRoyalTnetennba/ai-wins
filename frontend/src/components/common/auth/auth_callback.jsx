@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import Layout from '../../layout/layout';
-import './login.css';
+import './auth.css';
 
-class Login extends Component {
+class AuthCallback extends Component {
   constructor(props) {
     super(props);
   }
@@ -15,6 +15,7 @@ class Login extends Component {
     return (
       <Layout>
         <section className="fb fdc">
+          <h1>Congrats you have logged in maybe</h1>
           <Link to="/google">Sign in with Google</Link>
           <Link to="/github">Sign in with GitHub</Link>
         </section>
@@ -30,7 +31,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
-
-
-
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthCallback));

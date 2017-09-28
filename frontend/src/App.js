@@ -7,7 +7,8 @@ import './components/common/atomics/layout.css';
 import GamesIndex from './components/games/games_index';
 import TicTacToe from './components/games/tic_tac_toe/tic_tac_toe';
 import About from './components/about/about';
-import Login from './components/common/login/login';
+import Login from './components/common/auth/login';
+import AuthCallback from './components/common/auth/auth_callback';
 
 const App = ({ store }) => {
   return (
@@ -18,6 +19,7 @@ const App = ({ store }) => {
             <Route path="/" exact component={GamesIndex} />
             <Route path="/about" exact component={About} />
             <Route path="/login" exact component={Login} />
+            <Route path="/auth-callback" exact component={AuthCallback} />
             <Route path="/tic-tac-toe" exact component={TicTacToe} />
           </Switch>
         </HashRouter>
