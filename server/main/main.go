@@ -53,6 +53,7 @@ var (
 )
 
 func main() {
+	go VerifyDictionary()
 	origins := handlers.AllowedOrigins(AllowedOrigins)
 	router := NewRouter()
 	router.Host(BaseURL)

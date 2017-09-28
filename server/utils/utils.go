@@ -40,6 +40,10 @@ func CopyMatrix(orig [][]string) [][]string {
 	return newMatrix
 }
 
+func RandNum(upperLimit int) int {
+	return randIntn(upperLimit)
+}
+
 func RandSeq(n int) string {
     b := make([]rune, n)
     for i := range b {

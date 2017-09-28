@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"cloud.google.com/go/datastore"
 	"github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe"
+	"github.com/TheRoyalTnetennba/ai-wins/server/games/wordsWithUnfeelingMachines"
 )
 
 func GameShow(w http.ResponseWriter, r *http.Request) {
@@ -38,4 +39,15 @@ func GamesIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	payload, _ := res.Encode()
 	w.Write(payload)
+}
+
+func WWUFGetLetters(w http.ResponseWriter, r *http.Request) {
+    letters := wwuf.NewLetterSet()
+    res := simplejson.New()
+    ch := make(chan []byte)
+    res.Set("letters", letters)
+    payload, _ := res.Encode()
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(payload)
+    w.Write(payload)
 }

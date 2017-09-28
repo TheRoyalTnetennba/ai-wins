@@ -2,6 +2,7 @@ package main
 
 import (
     "time"
+    "cloud.google.com/go/datastore"
 )
 
 type User struct {
@@ -27,4 +28,9 @@ type Game struct {
     Thumbnail string
     Tied int
     Won int
+}
+
+type DictWord struct {
+    Anagrams []string `datastore:",noindex"`
+    Key *datastore.Key `datastore:"__key__"`
 }
