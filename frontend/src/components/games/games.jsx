@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { requestGames } from '../../actions/game_actions';
-import TicTacToe from './tic_tac_toe/tic_tac_toe';
 import WordsWithUnfeelingMachines from './words_with_unfeeling_machines/words_with_unfeeling_machines';
 import Layout from '../layout/layout';
 

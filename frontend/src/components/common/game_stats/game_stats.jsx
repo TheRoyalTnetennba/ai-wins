@@ -4,9 +4,9 @@ import './game_stats.css';
 
 const GameStats = (props) => {
   return (
-    <aside className="fb">
+    <div className="f1">
       <h1>Stats</h1>
-    </aside>
+    </div>
   );
 }
 

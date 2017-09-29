@@ -1,0 +1,10 @@
+.blank {
+  font-size: 38px;
+  min-width: 30px;
+  border-bottom: 2px solid #D6655A;
+  margin: 10px 3px 20px 3px;
+}
+
+.blank-spacer {
+  min-width: 25px;
+}
