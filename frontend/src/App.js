@@ -2,8 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import './components/common/atomics/colors.css';
-import './components/common/atomics/layout.css';
 import Games from './components/games/games';
 import TicTacToe from './components/games/tic_tac_toe/tic_tac_toe';
 import Hangman from './components/games/hangman/hangman';
