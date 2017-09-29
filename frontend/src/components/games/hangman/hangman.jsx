@@ -57,7 +57,7 @@ class Hangman extends Component {
     return (
       <Layout>
         <h1>Hangman</h1>
-        <section className="fb jcsa">
+        <section className="fb jcsa mb50">
           <GameStats />
           <div className="f2 jcc fdc">
             <canvas className="ma" id="gallows" width="400" height="450" />

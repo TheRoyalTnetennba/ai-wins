@@ -24,12 +24,18 @@ select::-ms-expand {
     display: none;
 }
 
+html,
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Exo 2', sans-serif;
-  background-color: #FFFFFA;
-  color: #42282F;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#main-wrapper {
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: 0 0 100px;
+    position: relative;
 }
 
 .App {
