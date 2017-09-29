@@ -44,7 +44,7 @@ func GamesIndex(w http.ResponseWriter, r *http.Request) {
 func WWUFGetLetters(w http.ResponseWriter, r *http.Request) {
     letters := wwuf.NewLetterSet()
     res := simplejson.New()
-    ch := make(chan []byte)
+    // ch := make(chan []byte)
     res.Set("letters", letters)
     payload, _ := res.Encode()
     w.Header().Set("Content-Type", "application/json")

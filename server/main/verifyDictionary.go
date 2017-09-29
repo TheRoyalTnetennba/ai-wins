@@ -2,15 +2,11 @@ package main
 
 import (
     "fmt"
-    // "time"
-  // "strconv"
-  "sort"
-  "os"
-  "bufio"
-  "strings"
-  "cloud.google.com/go/datastore"
-  "golang.org/x/net/context"
-
+    "sort"
+    "os"
+    "bufio"
+    "strings"
+    "cloud.google.com/go/datastore"
 )
 
 func (x *DictWord) Sorted () string {
@@ -20,6 +16,7 @@ func (x *DictWord) Sorted () string {
 func readDict(path string) ([]string) {
     file, err := os.Open(path)
     if err != nil {
+        fmt.Println("error reading file")
         return nil
     }
     defer file.Close()
@@ -33,7 +30,7 @@ func readDict(path string) ([]string) {
 
 func getLocalDict() (map[string][]string) {
     dict := make(map[string][]string)
-    words := readDict("./assets/sowpods.txt")
+    words := readDict("./server/main/assets/sowpods.txt")
     for _, word := range words {
         arr := strings.Split(word, "")
         sort.Strings(arr)
@@ -50,17 +47,12 @@ func getLocalDict() (map[string][]string) {
 }
 
 func VerifyDictionary() {
-    Ctx := context.Background()
-    Client, err := datastore.NewClient(Ctx, ProjectID)
-    if err != nil {
-      fmt.Println("error making client")
-    }
     dict := getLocalDict()
 
     var words []*DictWord
 
-    _, err1 := Client.GetAll(Ctx, datastore.NewQuery("DictWord"), &words)
-    if err1 != nil {
+    _, err := Client.GetAll(Ctx, datastore.NewQuery("DictWord"), &words)
+    if err != nil {
       fmt.Println("Error fetching data")
     }
 
@@ -77,8 +69,6 @@ func VerifyDictionary() {
             fmt.Println("Could not save")
             fmt.Println(newEntity)
             fmt.Println(err)
-        } else {
-            fmt.Println("Saved ", newKey.Name)
         }
     }
 }
