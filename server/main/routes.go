@@ -17,37 +17,37 @@ var routes = Routes{
 	Route{
 		"GoogleLogin",
 		"GET",
-		"/googlelogin",
+		"/api/v1/googlelogin",
 		GoogleLogin,
 	},
 	Route{
 		"GoogleCallback",
 		"GET",
-		"/googlecallback",
+		"/api/v1/googlecallback",
 		GoogleCallback,
 	},
 	Route{
 		"GameShow",
 		"GET",
-		"/games/{gameID}",
+		"/api/v1/games/{gameID}",
 		GameShow,
 	},
 	Route{
 		"GetMove",
 		"POST",
-		"/games/getMove",
+		"/api/v1/games/getMove",
 		GetMove,
 	},
 	Route{
 		"GamesIndex",
 		"GET",
-		"/games",
+		"/api/v1/games",
 		GamesIndex,
 	},
 	Route{
 		"WWUFGetLetters",
 		"GET",
-		"/wwuf/getletters/{numLetters}",
+		"/api/v1/wwuf/getletters/{numLetters}",
 		WWUFGetLetters,
 	},
 }

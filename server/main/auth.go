@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	simplejson "github.com/bitly/go-simplejson"
 	"golang.org/x/oauth2"
@@ -46,6 +45,16 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	}
 	response, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token.AccessToken)
 	defer response.Body.Close()
-	contents, err := ioutil.ReadAll(response.Body)
-	fmt.Fprintf(w, "Content: %s\n", contents)
+    session, err := Store.Get(r, "ai-wins")
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    fmt.Println(token)
+    res, _ := simplejson.NewFromReader(response.Body)
+// {"email":"gpaye8@gmail.com","family_name":"Paye","gender":"male","given_name":"Graham","id":"112193450734641047471","link":"https://plus.google.com/112193450734641047471","locale":"en","name":"Graham Paye","picture":"https://lh5.googleusercontent.com/-LbON--7wLOI/AAAAAAAAAAI/AAAAAAAAFnk/0xR3UM6iQYQ/photo.jpg","verified_email":true}
+    payload, _ := res.Encode()
+    session.Values["babanas"] = "bananas"
+    session.Save(r, w)
+	fmt.Fprintf(w, "Content: %s\n", payload)
 }

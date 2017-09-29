@@ -18,6 +18,14 @@
   justify-content: center;
 }
 
+.jcsa {
+  justify-content: space-around;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
 .fs46 {
   font-size: 46px;
 }

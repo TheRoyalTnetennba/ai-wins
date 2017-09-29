@@ -8,7 +8,13 @@ import (
 	"cloud.google.com/go/datastore"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 )
+
+func init() {
+	Store.Options.MaxAge = 86400
+	Store.Options.Domain = ClientURL
+}
 
 func NewClient() *datastore.Client {
 	client, err := datastore.NewClient(Ctx, ProjectID)
@@ -50,6 +56,7 @@ func Logger(inner http.Handler, name string) http.Handler {
 var (
 	Ctx context.Context = context.Background()
 	Client *datastore.Client = NewClient()
+	Store = sessions.NewCookieStore([]byte(SessionKey))
 )
 
 func main() {

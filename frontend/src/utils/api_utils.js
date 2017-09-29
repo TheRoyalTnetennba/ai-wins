@@ -1,6 +1,6 @@
 import sha512 from 'sha512';
 
-const baseURL = 'http://localhost:8080/';
+const baseURL = 'http://localhost:8080/api/v1/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);

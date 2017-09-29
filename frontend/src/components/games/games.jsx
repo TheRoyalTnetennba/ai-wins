@@ -7,7 +7,7 @@ import TicTacToe from './tic_tac_toe/tic_tac_toe';
 import WordsWithUnfeelingMachines from './words_with_unfeeling_machines/words_with_unfeeling_machines';
 import Layout from '../layout/layout';
 
-class GamesIndex extends Component {
+class Games extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -33,4 +33,4 @@ const mapDispatchToProps = dispatch => ({
   requestGames: () => dispatch(requestGames()),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GamesIndex));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Games));
