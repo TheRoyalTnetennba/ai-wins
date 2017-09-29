@@ -13,15 +13,15 @@ const buildSelection = (selection) => (
 
 const SelectPieceBegin = (props) => {
   return (
-    <div className="f1 fdc jcsa">
-      <h1 className="f1 ma">{props.selector ? props.selector : defaultSelector}</h1>
+    <div className="fb f1 fdc">
+      <h1 className="">{props.selector ? props.selector : defaultSelector}</h1>
       <select
-        className="db f1 aic p10 ma"
+        className="db fs20 p10 mw100"
         onChange={() => props.updater ? props.updater() : defaultFunc()}
         value={props.value ? props.value : 'Random'}>
         {buildSelection(props.selection)}
       </select>
-      <a className="db p10 f1 mw100 red-b bold fs20 br5 ma" onClick={() => props.starter ? props.starter() : defaultFunc()}>
+      <a className="db p10 mw100 red-b bold fs20 br5 ma" onClick={() => props.starter ? props.starter() : defaultFunc()}>
         {props.begin ? props.begin : 'Begin'}
       </a>
     </div>
