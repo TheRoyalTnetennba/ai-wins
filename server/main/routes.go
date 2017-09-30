@@ -27,27 +27,21 @@ var routes = Routes{
 		GoogleCallback,
 	},
 	Route{
-		"GameShow",
+		"GameData",
 		"GET",
-		"/api/v1/games/{gameID}",
-		GameShow,
+		"/api/v1/{resource}",
+		GameData,
 	},
 	Route{
 		"GetMove",
 		"POST",
-		"/api/v1/games/getMove",
+		"/api/v1/games/{gameName}/getMove",
 		GetMove,
 	},
-	Route{
-		"GamesIndex",
-		"GET",
-		"/api/v1/games",
-		GamesIndex,
-	},
-	Route{
-		"WWUFGetLetters",
-		"GET",
-		"/api/v1/wwuf/getletters/{numLetters}",
-		WWUFGetLetters,
-	},
+	// Route{
+	// 	"WWUFGetLetters",
+	// 	"GET",
+	// 	"/api/v1/wwuf/getletters/{numLetters}",
+	// 	WWUFGetLetters,
+	// },
 }

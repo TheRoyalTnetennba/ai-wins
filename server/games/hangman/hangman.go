@@ -1,2 +1,2 @@
-package hangman
+// package hangman
 

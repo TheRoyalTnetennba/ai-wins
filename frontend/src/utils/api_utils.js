@@ -28,7 +28,7 @@ export const fetchAiMove = request => (
 );
 
 export const fetchGames = () => (
-  fetch(`${baseURL}games/getMove`, {
+  fetch(`${baseURL}games`, {
     header,
     method: 'GET',
   })
