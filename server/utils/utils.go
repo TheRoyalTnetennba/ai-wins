@@ -52,6 +52,11 @@ func RandSeq(n int) string {
     return string(b)
 }
 
+func BChan() {
+	c := make(chan []byte)
+	return c
+}
+
 func ReadReq(w http.ResponseWriter, r *http.Request, c *chan []byte)
     var u User
     if r.Body == nil {

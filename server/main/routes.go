@@ -27,15 +27,15 @@ var routes = Routes{
 		GoogleCallback,
 	},
 	Route{
-		"GameShow",
+		"GameData",
 		"GET",
 		"/api/v1/games/{gameID}",
-		GameShow,
+		GameData,
 	},
 	Route{
 		"GetMove",
 		"POST",
-		"/api/v1/games/getMove",
+		"/api/v1/games/{gameName}/getMove",
 		GetMove,
 	},
 	Route{
