@@ -1,3 +1,5 @@
+package main
+
 type GoogleUser struct {
     Email string
     Family_name string
@@ -20,6 +22,6 @@ type TTTMove struct {
 type HangmanMove struct {
     Board [][]string
 
-
 }
 
+type Games []*Game

@@ -29,7 +29,7 @@ var routes = Routes{
 	Route{
 		"GameData",
 		"GET",
-		"/api/v1/games/{gameID}",
+		"/api/v1/{resource}",
 		GameData,
 	},
 	Route{
@@ -38,16 +38,10 @@ var routes = Routes{
 		"/api/v1/games/{gameName}/getMove",
 		GetMove,
 	},
-	Route{
-		"GamesIndex",
-		"GET",
-		"/api/v1/games",
-		GamesIndex,
-	},
-	Route{
-		"WWUFGetLetters",
-		"GET",
-		"/api/v1/wwuf/getletters/{numLetters}",
-		WWUFGetLetters,
-	},
+	// Route{
+	// 	"WWUFGetLetters",
+	// 	"GET",
+	// 	"/api/v1/wwuf/getletters/{numLetters}",
+	// 	WWUFGetLetters,
+	// },
 }

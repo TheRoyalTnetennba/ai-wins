@@ -1,34 +1,30 @@
 package main
 
 import ( 
-    "encoding/json"
-    "github.com/TheRoyalTnetennba/ai-wins/server/utils"
+    "net/http"
+    "fmt"
+    // "github.com/TheRoyalTnetennba/ai-wins/server/utils"
 )
 
 // PUBLIC GETS
 
 func GameData(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("begin route GameData")
     c := make(chan []byte)
     go pubGet(w, r, c)
-    w.Write(<-c)
-}
-
-func GamesIndex(w http.ResponseWriter, r *http.Request) {
-    c := make(chan []byte)
-    go pubGet(w, r, c)
-    w.Write(<-c)
+    respond(w, c)
 }
 
 func Auth(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
     go pubGet(w, r, c)
-    w.Write(<-c)
+    respond(w, c)
 }
 
 func AuthCallback(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
     go pubGet(w, r, c)
-    w.Write(<-c)
+    respond(w, c)
 }
 
 // SECRET GETS
@@ -37,6 +33,6 @@ func AuthCallback(w http.ResponseWriter, r *http.Request) {
 
 func GetMove(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
-    go postFunc(w, r, c)
-    w.Write(<-c)
+    go secPost(w, r, c)
+    respond(w, c)
 }

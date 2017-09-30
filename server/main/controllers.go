@@ -1,55 +1,50 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
-	simplejson "github.com/bitly/go-simplejson"
-	"github.com/gorilla/mux"
-	// "github.com/gorilla/sessions"
-
-	"cloud.google.com/go/datastore"
-	"github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe"
-	"github.com/TheRoyalTnetennba/ai-wins/server/games/wordsWithUnfeelingMachines"
+    "fmt"
+    "net/http"
+    "encoding/json"
+    "github.com/gorilla/mux"
 )
 
-func GameShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	gameID := vars["gameID"]
-	fmt.Fprintf(w, "Game show: %s\n", gameID)
+func pubGet(w http.ResponseWriter, r *http.Request, c chan []byte) {
+    resource := resourceID(r)
+    _, resModel := getRestModels(resource)
+    var payload []byte
+    payload, err := json.Marshal(&resModel)
+    if err != nil {
+        fmt.Println(err)
+    }
+    c <- payload
 }
 
-func GetMove(w http.ResponseWriter, r *http.Request) {
-	req, _ := simplejson.NewFromReader(r.Body)
-	ch := make(chan []byte)
-	go ttt.GetAIMove(req.MustMap(), ch)
-	payload := <-ch
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(payload)
+func secPost(w http.ResponseWriter, r *http.Request, c chan []byte) {
+    go respond(w, c)
+    vars := mux.Vars(r)
+    var payload []byte
+    err := json.Unmarshal(payload, vars)
+    if err != nil {
+        return
+    }
+    c <- payload
 }
 
-func GamesIndex(w http.ResponseWriter, r *http.Request) {
-	res := simplejson.New()
-	var games []*Game
-	keys, _ := Client.GetAll(Ctx, datastore.NewQuery("Game"), &games)
-	for i, key := range keys {
-	    fmt.Println(key)
-	    fmt.Println(games[i])
-	}
-	fmt.Println(games)
-	res.Set("games", games)
-	w.Header().Set("Content-Type", "application/json")
-	payload, _ := res.Encode()
-	w.Write(payload)
+func resourceID(r *http.Request) string {
+    vars := mux.Vars(r)
+    resource := vars["resource"]
+    return resource
 }
 
-func WWUFGetLetters(w http.ResponseWriter, r *http.Request) {
-    letters := wwuf.NewLetterSet()
-    res := simplejson.New()
-    // ch := make(chan []byte)
-    res.Set("letters", letters)
-    payload, _ := res.Encode()
+func getRestModels(resource string) (interface{}, interface{}) {
+    switch resource {
+    case "games":
+        return nil, getAllGames()
+    }
+    return nil, nil
+}
+
+func respond(w http.ResponseWriter, c chan []byte) {
+    fmt.Println("begin respond")
     w.Header().Set("Content-Type", "application/json")
-    w.Write(payload)
-    w.Write(payload)
+    w.Write(<-c)
 }
