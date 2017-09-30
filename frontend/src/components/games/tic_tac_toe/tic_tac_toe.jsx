@@ -5,6 +5,7 @@ import './Ttt.css';
 import { emptyMatrix } from '../../../utils/pFuncs';
 import winner from './logic';
 import { fetchAiMove } from '../../../utils/api_utils';
+import Layout from '../../layout/layout';
 
 class TicTacToe extends Component {
   constructor(props) {
@@ -64,8 +65,25 @@ class TicTacToe extends Component {
     const tiles = this.boardMaker();
     if (this.state.gameOver) {
       return (
+        <Layout>
+          <section className="ttt-board">
+            <h1>{`${this.state.currentMove} wins!!!`}</h1>
+            <div className="ttt-row">
+              {tiles[0]}
+            </div>
+            <div className="ttt-row">
+              {tiles[1]}
+            </div>
+            <div className="ttt-row">
+              {tiles[2]}
+            </div>
+          </section>
+        </Layout>
+      );
+    }
+    return (
+      <Layout>
         <section className="ttt-board">
-          <h1>{`${this.state.currentMove} wins!!!`}</h1>
           <div className="ttt-row">
             {tiles[0]}
           </div>
@@ -76,20 +94,7 @@ class TicTacToe extends Component {
             {tiles[2]}
           </div>
         </section>
-      );
-    }
-    return (
-      <section className="ttt-board">
-        <div className="ttt-row">
-          {tiles[0]}
-        </div>
-        <div className="ttt-row">
-          {tiles[1]}
-        </div>
-        <div className="ttt-row">
-          {tiles[2]}
-        </div>
-      </section>
+      </Layout>
     );
   }
 }

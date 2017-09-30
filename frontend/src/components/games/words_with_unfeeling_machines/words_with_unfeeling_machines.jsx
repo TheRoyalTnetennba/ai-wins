@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import Layout from '../../layout/layout';
 import './words_with_unfeeling_machines.css';
 import Board from './board';
 
@@ -19,9 +20,11 @@ class WordsWithUnfeelingMachines extends Component {
 
   render() {
     return (
-      <section className="fb jcc">
-        <Board grid={this.state.grid} />
-      </section>
+      <Layout>
+        <section className="fb jcc">
+          <Board grid={this.state.grid} />
+        </section>
+      </Layout>
     );
   }
 }
