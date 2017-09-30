@@ -69,3 +69,4 @@ func ReadReq(w http.ResponseWriter, r *http.Request, c *chan []byte)
         return
     }
     fmt.Println(u.Id)
+}
