@@ -76,7 +76,7 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
             Token: token.AccessToken,
             OAuthID: gUser.ID,
         }
-        go addNewUser(&newUser)
+        addNewUser(&newUser)
     }
     http.Redirect(w, r, fmt.Sprintf("%s/#/auth-callback", ClientURL), http.StatusTemporaryRedirect)
 }

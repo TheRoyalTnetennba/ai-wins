@@ -21,7 +21,6 @@ class AuthCallback extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.currentUser && Object.keys(this.state.currentUser).length < Object.keys(newProps.currentUser).length) {
-      console.log(newProps.currentUser)
       this.setState({ currentUser: newProps.currentUser });
     }
   }
