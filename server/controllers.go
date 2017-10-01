@@ -61,11 +61,6 @@ func getRestModels(resource string, token string) (interface{}, interface{}) {
     return nil, nil
 }
 
-func respond(w http.ResponseWriter, c chan []byte) {
-    w.Header().Set("Content-Type", "application/json")
-    w.Write(<-c)
-}
-
 func validToken(r *http.Request) string {
     session, err := Store.Get(r, "ai-wins")
     if err != nil {

@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "time"
     "cloud.google.com/go/datastore"
 )
 
@@ -87,3 +88,68 @@ func updateUserName(token string, newUsername string) error {
     return nil
 }
 
+func getTTTState(token string) *TTTState {
+    user := getUserBySessionToken(token)
+    tttStates := TTTStates{}
+    Client.GetAll(Ctx, datastore.NewQuery("TTTState").Filter("User=", user.Key), &tttStates)
+    if len(tttStates) > 0 {
+        return tttStates[0]
+    }
+    tttState := TTTState{
+        User: user.Key,
+        Started: time.Now(),
+        Board: newMatrix(3),
+        Key: datastore.IncompleteKey("TTTState", nil),
+    }
+    Client.Put(Ctx, tttState.Key, tttState)
+    return &tttState
+}
+
+func getHangmanState(token string) *HangmanState {
+    user := getUserBySessionToken(token)
+    hangmanStates := HangmanStates{}
+    Client.GetAll(Ctx, datastore.NewQuery("HangmanState").Filter("User=", user.Key), &hangmanStates)
+    if len(hangmanStates) > 0 {
+        return hangmanStates[0]
+    }
+    hangmanState := HangmanState{
+        User: user.Key,
+        Started: time.Now(),
+        Board: newMatrix(3),
+        Key: datastore.IncompleteKey("HangmanState", nil),
+    }
+    Client.Put(Ctx, hangmanState.Key, hangmanState)
+    return &hangmanState
+}
+
+func getWWUFState(token string) *WWUFState {
+    user := getUserBySessionToken(token)
+    wwufStates := WWUFStates{}
+    Client.GetAll(Ctx, datastore.NewQuery("WWUFState").Filter("User=", user.Key), &wwufStates)
+    if len(wwufStates) > 0 {
+        return wwufStates[0]
+    }
+    wwufState := WWUFState{
+        User: user.Key,
+        Started: time.Now(),
+        Board: newMatrix(3),
+        Key: datastore.IncompleteKey("wwufState", nil),
+    }
+    Client.Put(Ctx, wwufState.Key, wwufState)
+    return &wwufState
+}
+
+func updateTTTState(state *TTTState) error {
+    Client.Put(Ctx, state.Key, state)
+    return nil
+}
+
+func updateHangmanState(state *HangmanState) error {
+    Client.Put(Ctx, state.Key, state)
+    return nil
+}
+
+func updateWWUFState(state *WWUFState) error {
+    Client.Put(Ctx, state.Key, state)
+    return nil
+}

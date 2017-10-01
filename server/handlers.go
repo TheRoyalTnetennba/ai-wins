@@ -4,6 +4,11 @@ import (
     "net/http"
 )
 
+func respond(w http.ResponseWriter, c chan []byte) {
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(<-c)
+}
+
 // PUBLIC GETS
 
 func GameData(w http.ResponseWriter, r *http.Request) {

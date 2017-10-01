@@ -52,34 +52,37 @@ type User struct {
 }
 
 type TTTState struct {
-    User: *datastore.Key
-    Marker: string
-    Started: time.Time
-    Board: [][]string
+    User *datastore.Key
+    Marker string
+    Started time.Time
+    Board [][]string
     Key *datastore.Key `datastore:"__key__"`
 }
 
 type HangmanState struct {
-    User: *datastore.Key
-    UserGuess: bool
-    Started: time.Time
-    Board: [][]string
-    Word: [][]string
-    Misses: []string
+    User *datastore.Key
+    UserGuess bool
+    Started time.Time
+    Board [][]string
+    Word [][]string
+    Misses []string
     Key *datastore.Key `datastore:"__key__"`
 }
 
 type WWUFState struct {
-    User: *datastore.Key
-    Started: time.Time
-    Board: [][]string
-    UserLetters: []string
-    AILetters: []string
-    B1: string
-    B2: string
-    RemainingLetters: []string
+    User *datastore.Key
+    Started time.Time
+    Board [][]string
+    UserLetters []string
+    AILetters []string
+    B1 string
+    B2 string
+    RemainingLetters []string
+    Key *datastore.Key `datastore:"__key__"`
 }
-
 
 type Games []*Game
 type Users []*User
+type TTTStates []*TTTState
+type HangmanStates []*HangmanState
+type WWUFStates []*WWUFState

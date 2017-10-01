@@ -51,6 +51,18 @@ func getSowpods() (map[string][]string) {
     return dict
 }
 
+func newMatrix(n int) [][]string {
+    var newMatrix [][]string
+    for i := 0; i < n; i++ {
+        var row []string
+        for j := 0; j < n; j++ {
+            row = append(row, "")
+        }
+        newMatrix = append(newMatrix, row)
+    }
+    return newMatrix
+}
+
 func copyMatrix(orig [][]string) [][]string {
 	var newMatrix [][]string
 	for i := 0; i < len(orig); i++ {
