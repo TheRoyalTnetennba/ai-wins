@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { PacmanLoader } from 'react-spinners';
 
 import { requestCurrentUser } from '../../../actions/session_actions';
 import Layout from '../../layout/layout';
 import './auth.css';
 
+
 class AuthCallback extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {},
+      loading: true
     }
   }
 
@@ -20,9 +22,8 @@ class AuthCallback extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-
-    if (newProps.session.currentUser && Object.keys(this.state.currentUser).length < Object.keys(newProps.session.currentUser).length) {
-      this.setState({ currentUser: newProps.session.currentUser });
+    if (newProps.session.UserName) {
+      this.setState({ loading: false });
     }
   }
 
@@ -31,8 +32,10 @@ class AuthCallback extends Component {
       <Layout>
         <section className="fb fdc">
           <h1>Congrats you have logged in maybe</h1>
-          <Link to="/google">Sign in with Google</Link>
-          <Link to="/github">Sign in with GitHub</Link>
+          <PacmanLoader
+            color={'#123abc'} 
+            loading={this.state.loading} 
+          />
         </section>
       </Layout>
     );
