@@ -10,7 +10,6 @@ class Navigation extends Component {
     this.state = {
       UserName: '',
     }
-
   }
 
   componentWillMount() {
@@ -20,7 +19,7 @@ class Navigation extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.session.UserName != this.state.UserName) {
+    if (newProps.session.UserName !== this.state.UserName) {
       this.setState({ UserName: newProps.session.UserName });
     } 
   }
@@ -49,7 +48,7 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = state => ({
-  session: state.session
+  session: state.session,
 });
 
 const mapDispatchToProps = dispatch => ({

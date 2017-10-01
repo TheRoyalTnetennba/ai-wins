@@ -1,31 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const defaultSelector = 'Select Role';
+class SelectPieceBegin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      session: Object.assign(this.props.session)
+    }
+  }
 
-const defaultSelection = ['Random'];
+  componentWillReceiveProps(newProps) {
+    if (this.state.session.UserName !== newProps.session.UserName) {
+      this.setState({ session: newProps.session });
+    }
+  }
 
-const defaultFunc = () => console.log('no function associated');
+  handleLogin() {
+    this.props.history.push('')
+  }
 
-const buildSelection = (selection) => (
-  (selection ? selection : defaultSelection)
-    .map(opt => <option key={opt} value={opt} >{opt}</option>)
-);
-
-const SelectPieceBegin = (props) => {
-  return (
-    <div className="fb f1 fdc">
-      <h1 className="">{props.selector ? props.selector : defaultSelector}</h1>
-      <select
-        className="db fs20 p10 mw100 cp"
-        onChange={() => props.updater ? props.updater() : defaultFunc()}
-        value={props.value ? props.value : 'Random'}>
-        {buildSelection(props.selection)}
-      </select>
-      <a className="db p10 mw100 red-b bold fs20 br5 ma cp" onClick={() => props.starter ? props.starter() : defaultFunc()}>
-        {props.begin ? props.begin : 'Begin'}
-      </a>
-    </div>
-  );
+  render() {
+    let thing = this.props.options
+    if (this.state.session.UserName) {
+      return (
+        <div className="f1 fb">
+          <h1>asdf</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div className="f1 fb">
+          <a className="db p10 mw100 red-b bold fs20 br5 ma cp" onClick={() => this.handleLogin()}>
+            Login to begin
+          </a>
+        </div>
+      )
+    }
+  }
 }
 
-export default SelectPieceBegin;
+const mapStateToProps = state => ({
+  session: state.session,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SelectPieceBegin));

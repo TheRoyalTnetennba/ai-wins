@@ -8,7 +8,6 @@ AI-Wins will provide the following Functionality to users.
 - [ ] Play games against computer with a chance to earn Monero.
 - [ ] See win-loss record.
 - [ ] See the date of most recent computer loss for a game and the username of the winner.
-- [ ] Use Coin-Hive in a transparent, opt-in way to fund prize pool for top-ai's.
 
 
 ### Architecture and Technologies

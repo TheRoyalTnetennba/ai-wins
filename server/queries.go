@@ -17,8 +17,8 @@ func getUserBySessionToken(token string) *User {
 
     query := datastore.NewQuery("User")
     Client.GetAll(Ctx, query.Filter("Token=", token), &users)
-    fmt.Println(users)
     if len(users) > 0 {
+        fmt.Println("a user was found")
         return users[0]
     }
     return &User{}

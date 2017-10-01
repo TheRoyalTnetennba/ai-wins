@@ -77,7 +77,7 @@ func validToken(r *http.Request) string {
         RefreshToken: session.Values["RefreshToken"].(string),
         Expiry: session.Values["Expiry"].(time.Time),
     }
-    if token.Valid() {
+    if token.Expiry.Unix() > time.Now().Unix() {
         return token.AccessToken
     }
     return ""

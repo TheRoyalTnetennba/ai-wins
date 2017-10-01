@@ -1,0 +1,11 @@
+.auth-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.auth-section * {
+  flex: 1;
+  margin-bottom: 100px;
+}
