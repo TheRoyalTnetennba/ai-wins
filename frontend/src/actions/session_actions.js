@@ -1,11 +1,12 @@
-import * as APIUtil from '../utils/api_utils';
+import { fetchCurrentUser } from '../utils/api_utils';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
-
+export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const clearCurrentUser = () => ({
-  type: RECEIVE_CURRENT_USER,
+  type: CLEAR_CURRENT_USER,
   currentUser: {},
 });
 
@@ -23,6 +24,16 @@ export const receiveErrors = errors => ({
   type: RECEIVE_ERRORS,
   errors,
 });
+
+export const requestCurrentUser = () => dispatch => (
+  fetchCurrentUser()
+    .then(response => response.json())
+    .then(user => {
+      dispatch(receiveCurrentUser(user));
+      dispatch(clearErrors());
+    })
+    .catch(errors => dispatch(receiveErrors(errors)))
+);
 
 // export const login = user => (dispatch) => {
 //   const userDetails = {

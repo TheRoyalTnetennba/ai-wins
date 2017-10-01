@@ -12,8 +12,6 @@ const GamesReducer = (state = {}, action) => {
       return Object.assign({}, newGames);
     case RECEIVE_ERRORS:
       const errors = action.errors;
-      console.log('got errors');
-      console.log(errors);
     default:
       return state;
   }

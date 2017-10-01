@@ -28,7 +28,7 @@ export const fetchAiMove = request => (
   })
 );
 
-export const fetchUserData = () => (
+export const fetchCurrentUser = () => (
   fetch(`${baseURL}sec/user`, {
     header,
     credentials: 'include',

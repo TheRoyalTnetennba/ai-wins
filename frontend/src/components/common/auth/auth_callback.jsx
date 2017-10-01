@@ -3,17 +3,27 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { fetchUserData } from '../../../utils/api_utils';
+import { requestCurrentUser } from '../../../actions/session_actions';
 import Layout from '../../layout/layout';
 import './auth.css';
 
 class AuthCallback extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentUser: {},
+    }
   }
 
   componentWillMount() {
-    fetchUserData().then(response => response.json()).then(data => console.log(data));
+    this.props.requestCurrentUser();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentUser && Object.keys(this.state.currentUser).length < Object.keys(newProps.currentUser).length) {
+      console.log(newProps.currentUser)
+      this.setState({ currentUser: newProps.currentUser });
+    }
   }
 
   render() {
@@ -30,10 +40,13 @@ class AuthCallback extends Component {
 }
 
 const mapStateToProps = state => ({
-  state,
+  session: state.session,
+  currentUser: state.session.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
+  requestCurrentUser: () => dispatch(requestCurrentUser())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthCallback));
+
