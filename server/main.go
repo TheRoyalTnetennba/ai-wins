@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"encoding/gob"
+	"golang.org/x/oauth2"
 	"golang.org/x/net/context"
 	"cloud.google.com/go/datastore"
 	"github.com/gorilla/handlers"
@@ -14,6 +16,8 @@ import (
 func init() {
 	Store.Options.MaxAge = 86400
 	Store.Options.Domain = ClientURL
+	gob.Register(&User{})
+	gob.Register(&oauth2.Token{})
 }
 
 func NewClient() *datastore.Client {
@@ -60,7 +64,6 @@ var (
 )
 
 func main() {
-	go VerifyDictionary()
 	origins := handlers.AllowedOrigins(AllowedOrigins)
 	router := NewRouter()
 	router.Host(BaseURL)

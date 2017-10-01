@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
-	simplejson "github.com/bitly/go-simplejson"
+	"encoding/json"
+    simplejson "github.com/bitly/go-simplejson"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
-	"github.com/TheRoyalTnetennba/ai-wins/server/utils"
+    "time"
 )
 
 var (
@@ -18,8 +19,14 @@ var (
 			"https://www.googleapis.com/auth/userinfo.email"},
 		Endpoint: google.Endpoint,
 	}
-	oauthStateString = utils.RandSeq(13)
+	oauthStateString = randSeq(13)
 )
+
+func updateSession(r *http.Request, w http.ResponseWriter, token *oauth2.Token) {
+    session, _ := Store.Get(r, "ai-wins")
+    session.Values["sessionToken"] = token
+    session.Save(r, w)
+}
 
 func GoogleLogin(w http.ResponseWriter, r *http.Request) {
 	url := googleOauthConfig.AuthCodeURL(oauthStateString)
@@ -43,18 +50,26 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
-	response, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token.AccessToken)
-	defer response.Body.Close()
-    session, err := Store.Get(r, "ai-wins")
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
+    updateSession(r, w, token)
+
+    response, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token.AccessToken)
+    defer response.Body.Close()
+    var gUser GoogleUser
+    json.NewDecoder(response.Body).Decode(&gUser)
+    users := getUserByOAuthID(gUser.ID)
+    if len(users) < 1 {
+        newUser := User{
+            Image: gUser.Picture,
+            Joined: time.Now(),
+            Lost: 0,
+            Tied: 0,
+            UserName: gUser.Name,
+            Won: 0,
+            Email: gUser.Email,
+            Token: token.AccessToken,
+            OAuthID: gUser.ID,
+        }
+        go addNewUser(&newUser)
     }
-    fmt.Println(token)
-    res, _ := simplejson.NewFromReader(response.Body)
-// {"email":"gpaye8@gmail.com","family_name":"Paye","gender":"male","given_name":"Graham","id":"112193450734641047471","link":"https://plus.google.com/112193450734641047471","locale":"en","name":"Graham Paye","picture":"https://lh5.googleusercontent.com/-LbON--7wLOI/AAAAAAAAAAI/AAAAAAAAFnk/0xR3UM6iQYQ/photo.jpg","verified_email":true}
-    payload, _ := res.Encode()
-    session.Values["babanas"] = "bananas"
-    session.Save(r, w)
-	fmt.Fprintf(w, "Content: %s\n", payload)
+    http.Redirect(w, r, fmt.Sprintf("%s/#/auth-callback", ClientURL), http.StatusTemporaryRedirect)
 }

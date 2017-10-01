@@ -6,15 +6,12 @@ import os
 for filename in glob.iglob('/home/graham/go/src/ApiServer/*.go', recursive=True):
     os.unlink(filename)
 
-for filename in glob.iglob('server/main/*.go', recursive=True):
+for filename in glob.iglob('server/*.go', recursive=True):
     shutil.copy(filename, '/home/graham/go/src/ApiServer')
 
 pkg_test = False
 
-commands = ["go get -u github.com/TheRoyalTnetennba/ai-wins/server/utils",
-            "go get -u github.com/TheRoyalTnetennba/ai-wins/server/games/wordsWithUnfeelingMachines",
-            "go get -u github.com/TheRoyalTnetennba/ai-wins/server/games/ticTacToe",
-            "go build ApiServer"]
+commands = ["go build ApiServer"]
 
 if pkg_test:
     commands.insert(0, "git push")
