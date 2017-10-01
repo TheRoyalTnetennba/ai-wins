@@ -10,15 +10,18 @@ class Navigation extends Component {
     this.state = {
       UserName: '',
     }
-    if (this.props.session.currentUser && this.props.session.currentUser.UserName) {
-      this.state.UserName = this.props.session.currentUser.UserName;
+
+  }
+
+  componentWillMount() {
+    if (this.props.session.UserName) {
+      this.setState({ UserName: this.props.session.UserName });
     }
   }
 
   componentWillReceiveProps(newProps) {
-    let session = newProps.session;
-    if (newProps.session.currentUser && newProps.session.currentUser.UserName && newProps.session.currentUser.UserName != this.state.UserName) {
-      this.setState({ UserName: newProps.session.currentUser.UserName });
+    if (newProps.session.UserName != this.state.UserName) {
+      this.setState({ UserName: newProps.session.UserName });
     } 
   }
 

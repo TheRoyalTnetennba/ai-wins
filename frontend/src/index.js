@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays*/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -12,11 +13,12 @@ if (cookie) {
   fetchCurrentUser()
     .then(response => response.json())
     .then(user => {
-      let preload = {
-        session: {
-          currentUser: user,
-        },
-      };
+      let session = { errors: [] };
+      let keys = Object.keys(user)
+      for (let i = 0; i < keys.length; i++) {
+        session[keys[i]] = user[keys]
+      }
+      let preload = { session, };
       store = configureStore(preload);
       ReactDOM.render(<App store={ store } />, document.getElementById('root'));
       registerServiceWorker();
@@ -31,6 +33,7 @@ if (cookie) {
     ReactDOM.render(<App store={ store } />, document.getElementById('root'));
     registerServiceWorker();
   }
+
 
 
 
