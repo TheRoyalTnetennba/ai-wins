@@ -24,8 +24,15 @@ var (
 
 func updateSession(r *http.Request, w http.ResponseWriter, token *oauth2.Token) {
     session, _ := Store.Get(r, "ai-wins")
-    session.Values["sessionToken"] = token
-    session.Save(r, w)
+    session.Values["AccessToken"] = token.AccessToken
+    session.Values["Expiry"] = token.Expiry
+    session.Values["TokenType"] = token.TokenType
+    session.Values["RefreshToken"] = token.RefreshToken
+    err := session.Save(r, w)
+    if err != nil {
+        fmt.Println("could not save session")
+        fmt.Println(err)
+    }
 }
 
 func GoogleLogin(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +63,7 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
     defer response.Body.Close()
     var gUser GoogleUser
     json.NewDecoder(response.Body).Decode(&gUser)
-    users := getUserByOAuthID(gUser.ID)
+    users := getUserByOAuthID(gUser.ID, token.AccessToken)
     if len(users) < 1 {
         newUser := User{
             Image: gUser.Picture,

@@ -17,6 +17,7 @@ const getForm = (obj) => {
 
 const header = new Headers({
   'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true,
 });
 
 export const fetchAiMove = request => (
@@ -24,6 +25,14 @@ export const fetchAiMove = request => (
     header,
     method: 'POST',
     body: getForm(request),
+  })
+);
+
+export const fetchUserData = () => (
+  fetch(`${baseURL}sec/user`, {
+    header,
+    credentials: 'include',
+    method: 'GET',
   })
 );
 

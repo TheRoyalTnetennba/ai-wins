@@ -1,8 +1,7 @@
 package main
 
 import (
-    "net/http"
-    "golang.org/x/oauth2"
+"fmt"
     "cloud.google.com/go/datastore"
 )
 
@@ -12,25 +11,27 @@ func getAllGames() Games {
     return games
 }
 
-func getUserBySessionToken(r *http.Request) Users {
-    session, _ := Store.Get(r, "ai-wins")
-    inter, ok := session.Values["sessionToken"]
-    token := inter.(oauth2.Token)
+func getUserBySessionToken(token string) *User {
+
     users := Users{}
-    if ok == false {
-        return users
-    } else if !token.Valid() {
-        return users
-    }
+
     query := datastore.NewQuery("User")
-    Client.GetAll(Ctx, query.Filter("Token=", token.AccessToken), &users)
-    return users
+    Client.GetAll(Ctx, query.Filter("Token=", token), &users)
+    fmt.Println(users)
+    if len(users) > 0 {
+        return users[0]
+    }
+    return &User{}
 }
 
-func getUserByOAuthID(id string) Users {
+func getUserByOAuthID(id string, token string) Users {
     users := Users{}
     query := datastore.NewQuery("User")
-    Client.GetAll(Ctx, query.Filter("OAuthID=", id), &users)
+    keys, _ := Client.GetAll(Ctx, query.Filter("OAuthID=", id), &users)
+    if len(users) > 0 {
+        users[0].Token = token
+        Client.Put(Ctx, keys[0], users[0])
+    }
     return users
 }
 

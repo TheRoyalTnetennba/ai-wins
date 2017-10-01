@@ -27,6 +27,12 @@ var routes = Routes{
 		GoogleCallback,
 	},
 	Route{
+		"GetUser",
+		"GET",
+		"/api/v1/sec/{resource}",
+		GetUser,
+	},
+	Route{
 		"GameData",
 		"GET",
 		"/api/v1/{resource}",

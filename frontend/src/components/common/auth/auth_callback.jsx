@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { fetchUserData } from '../../../utils/api_utils';
 import Layout from '../../layout/layout';
 import './auth.css';
 
 class AuthCallback extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    fetchUserData().then(response => response.json()).then(data => console.log(data));
   }
 
   render() {

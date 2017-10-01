@@ -60,5 +60,12 @@ type User struct {
     OAuthID string
 }
 
+type Token struct {
+    AccessToken string
+    TokenType string
+    RefreshToken string
+    Expiry time.Time
+}
+
 type Games []*Game
 type Users []*User
