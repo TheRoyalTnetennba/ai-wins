@@ -7,6 +7,19 @@ import './navigation.css';
 class Navigation extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      UserName: '',
+    }
+    if (this.props.session.currentUser && this.props.session.currentUser.UserName) {
+      this.state.UserName = this.props.session.currentUser.UserName;
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    let session = newProps.session;
+    if (newProps.session.currentUser && newProps.session.currentUser.UserName && newProps.session.currentUser.UserName != this.state.UserName) {
+      this.setState({ UserName: newProps.session.currentUser.UserName });
+    } 
   }
 
   goHome() {
@@ -25,7 +38,7 @@ class Navigation extends Component {
           </div>
         </div>
         <div className="fb">
-          <Link to="/login">Login</Link>
+          {this.state.UserName ? <Link to="/profile">{this.state.UserName}</Link> : <Link to="/login">Login</Link>}  
         </div>
       </nav>
     );
@@ -33,7 +46,7 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = state => ({
-  state,
+  session: state.session
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -20,8 +20,9 @@ class AuthCallback extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.currentUser && Object.keys(this.state.currentUser).length < Object.keys(newProps.currentUser).length) {
-      this.setState({ currentUser: newProps.currentUser });
+
+    if (newProps.session.currentUser && Object.keys(this.state.currentUser).length < Object.keys(newProps.session.currentUser).length) {
+      this.setState({ currentUser: newProps.session.currentUser });
     }
   }
 
@@ -40,7 +41,6 @@ class AuthCallback extends Component {
 
 const mapStateToProps = state => ({
   session: state.session,
-  currentUser: state.session.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
