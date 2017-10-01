@@ -70,7 +70,7 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
             Joined: time.Now(),
             Lost: 0,
             Tied: 0,
-            UserName: gUser.Name,
+            Username: gUser.Name,
             Won: 0,
             Email: gUser.Email,
             Token: token.AccessToken,

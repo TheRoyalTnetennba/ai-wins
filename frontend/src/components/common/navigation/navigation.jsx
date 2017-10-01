@@ -8,19 +8,19 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      UserName: '',
+      Username: '',
     }
   }
 
   componentWillMount() {
-    if (this.props.session.UserName) {
-      this.setState({ UserName: this.props.session.UserName });
+    if (this.props.session.Username) {
+      this.setState({ Username: this.props.session.Username });
     }
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.session.UserName !== this.state.UserName) {
-      this.setState({ UserName: newProps.session.UserName });
+    if (newProps.session.Username !== this.state.Username) {
+      this.setState({ Username: newProps.session.Username });
     } 
   }
 
@@ -40,7 +40,7 @@ class Navigation extends Component {
           </div>
         </div>
         <div className="fb">
-          {this.state.UserName ? <Link to="/profile">{this.state.UserName}</Link> : <Link to="/login">Login</Link>}  
+          {this.state.Username ? <Link to="/profile">{this.state.Username}</Link> : <Link to="/login">Login</Link>}  
         </div>
       </nav>
     );

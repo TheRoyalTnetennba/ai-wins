@@ -2,6 +2,7 @@ package main
 
 import (
     "time"
+    "cloud.google.com/go/datastore"
 )
 
 type GoogleUser struct {
@@ -15,17 +16,6 @@ type GoogleUser struct {
     Name string `json:"name,omitempty"`
     Picture string `json:"picture,omitempty"`
     VerifiedEmail bool `json:"verified_email,omitempty"`
-}
-
-type TTTMove struct {
-    Board [][]string
-    Marker string
-    Move [] int
-}
-
-type HangmanMove struct {
-    Board [][]string
-
 }
 
 type AuthUrl struct {
@@ -53,19 +43,43 @@ type User struct {
     Joined time.Time
     Lost int
     Tied int
-    UserName string
+    Username string
     Won int
     Email string
     Token string
     OAuthID string
+    Key *datastore.Key `datastore:"__key__"`
 }
 
-type Token struct {
-    AccessToken string
-    TokenType string
-    RefreshToken string
-    Expiry time.Time
+type TTTState struct {
+    User: *datastore.Key
+    Marker: string
+    Started: time.Time
+    Board: [][]string
+    Key *datastore.Key `datastore:"__key__"`
 }
+
+type HangmanState struct {
+    User: *datastore.Key
+    UserGuess: bool
+    Started: time.Time
+    Board: [][]string
+    Word: [][]string
+    Misses: []string
+    Key *datastore.Key `datastore:"__key__"`
+}
+
+type WWUFState struct {
+    User: *datastore.Key
+    Started: time.Time
+    Board: [][]string
+    UserLetters: []string
+    AILetters: []string
+    B1: string
+    B2: string
+    RemainingLetters: []string
+}
+
 
 type Games []*Game
 type Users []*User
