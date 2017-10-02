@@ -21,7 +21,7 @@ const header = new Headers({
 });
 
 export const tttExchange = request => (
-  fetch(`${baseURL}sec/ttt`, {
+  fetch(`${baseURL}sec/tic-tac-toe`, {
     header,
     method: 'POST',
     body: getForm(request),

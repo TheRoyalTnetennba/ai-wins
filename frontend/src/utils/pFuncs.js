@@ -19,3 +19,26 @@ export const emptyMatrix = (numRows, numCols, char = () => '') => {
   }
   return grid;
 };
+
+export const isEmptyMatrix = (matrix) => {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      if (matrix[i][j].length) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+export const copyMatrix = (matrix) => {
+  const newMatrix = [];
+  for (let i = 0; i < matrix.length; i++) {
+    let row = []
+    for (let j = 0; j < matrix[i].length; j++) {
+      row.push(matrix[i][j]);
+    }
+    newMatrix.push(row);
+  }
+  return newMatrix;
+}

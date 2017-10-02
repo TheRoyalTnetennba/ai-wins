@@ -2,7 +2,7 @@ import React from 'react';
 
 import { sameArr } from '../../../utils/pFuncs';
 
-const border = `1px solid black`;
+const border = `1px solid #42282F`;
 
 const borderBuilder = pos => {
   if (sameArr(pos, [0,1])) return {borderLeft: `${border}`, borderRight: `${border}`};

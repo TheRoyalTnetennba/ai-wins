@@ -8,6 +8,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
     "time"
+    "github.com/TheRoyalTnetennba/db-ai-wins"
 )
 
 var (
@@ -23,7 +24,7 @@ var (
 )
 
 func updateSession(r *http.Request, w http.ResponseWriter, token *oauth2.Token) {
-    session, _ := Store.Get(r, "ai-wins")
+    session, _ := db.Store.Get(r, "ai-wins")
     session.Values["AccessToken"] = token.AccessToken
     session.Values["Expiry"] = token.Expiry
     session.Values["TokenType"] = token.TokenType
@@ -61,11 +62,11 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 
     response, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token.AccessToken)
     defer response.Body.Close()
-    var gUser GoogleUser
+    var gUser db.GoogleUser
     json.NewDecoder(response.Body).Decode(&gUser)
-    users := getUserByOAuthID(gUser.ID, token.AccessToken)
+    users := db.GetUserByOAuthID(gUser.ID, token.AccessToken)
     if len(users) < 1 {
-        newUser := User{
+        newUser := db.User{
             Image: gUser.Picture,
             Joined: time.Now(),
             Lost: 0,
@@ -76,13 +77,13 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
             Token: token.AccessToken,
             OAuthID: gUser.ID,
         }
-        addNewUser(&newUser)
+        db.AddNewUser(&newUser)
     }
     http.Redirect(w, r, fmt.Sprintf("%s/#/auth-callback", ClientURL), http.StatusTemporaryRedirect)
 }
 
 func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) bool {
-    session, err := Store.Get(r, "ai-wins")
+    session, err := db.Store.Get(r, "ai-wins")
     if err != nil {
         problem(w, c, "no token", 401)
         return false
@@ -93,7 +94,7 @@ func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) b
         RefreshToken: session.Values["RefreshToken"].(string),
         Expiry: session.Values["Expiry"].(time.Time),
     }
-    if token.Expiry.Unix() > time.Now().Unix() {
+    if token.Expiry.Unix() < time.Now().Unix() {
         problem(w, c, "token has expired", 401)
         return false
     }

@@ -4,28 +4,10 @@ import (
 	"log"
 	"net/http"
 	"time"
-	"encoding/gob"
 
-	"golang.org/x/net/context"
-	"cloud.google.com/go/datastore"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/gorilla/sessions"
 )
-
-func init() {
-	Store.Options.MaxAge = 86400
-	Store.Options.Domain = "localhost"
-	gob.Register(time.Time{})
-}
-
-func NewClient() *datastore.Client {
-	client, err := datastore.NewClient(Ctx, ProjectID)
-	if err != nil {
-		log.Fatal("Failed to set up DB client", err)
-	}
-	return client
-}
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
@@ -55,12 +37,6 @@ func Logger(inner http.Handler, name string) http.Handler {
 		)
 	})
 }
-
-var (
-	Ctx context.Context = context.Background()
-	Client *datastore.Client = NewClient()
-	Store = sessions.NewCookieStore([]byte(SessionKey))
-)
 
 func main() {
 	origins := handlers.AllowedOrigins(AllowedOrigins)

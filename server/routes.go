@@ -27,27 +27,71 @@ var routes = Routes{
 		GoogleCallback,
 	},
 	Route{
-		"GetUser",
+		"GameIndex",
 		"GET",
-		"/api/v1/sec/{resource}",
-		GetUser,
+		"/api/v1/games",
+		GameIndex,
+	},
+	Route{
+		"UserShow",
+		"GET",
+		"/api/v1/sec/user",
+		UserShow,
 	},
 	Route{
 		"tttState",
 		"POST",
-		"/api/v1/sec/ttt",
+		"/api/v1/sec/tic-tac-toe",
 		tttState,
 	},
 	Route{
-		"GameData",
-		"GET",
-		"/api/v1/{resource}",
-		GameData,
+		"hangmanState",
+		"POST",
+		"/api/v1/sec/hangman",
+		hangmanState,
 	},
-	// Route{
-	// 	"WWUFGetLetters",
-	// 	"GET",
-	// 	"/api/v1/wwuf/getletters/{numLetters}",
-	// 	WWUFGetLetters,
-	// },
+	Route{
+		"wwufState",
+		"POST",
+		"/api/v1/sec/words-with-unfeeling-machines",
+		wwufState,
+	},
+}
+
+func GameIndex(w http.ResponseWriter, r *http.Request) {
+    c := make(chan []byte)
+    go getGames(w, r, c)
+    respond(w, c)
+}
+
+func UserShow(w http.ResponseWriter, r *http.Request) {
+    c := make(chan []byte)
+    if verifySessionToken(w, r, c) {
+    	go getUser(w, r, c)
+    	respond(w, c)
+    }
+}
+
+func tttState(w http.ResponseWriter, r *http.Request) {
+    c := make(chan []byte)
+    if verifySessionToken(w, r, c) {
+        go tttMove(w, r, c)
+        respond(w, c)
+    }
+}
+
+func hangmanState(w http.ResponseWriter, r *http.Request) {
+    c := make(chan []byte)
+    if verifySessionToken(w, r, c) {
+        // go ttt.Move(w, r, c)
+        respond(w, c)
+    }
+}
+
+func wwufState(w http.ResponseWriter, r *http.Request) {
+    c := make(chan []byte)
+    if verifySessionToken(w, r, c) {
+        // go ttt.Move(w, r, c)
+        respond(w, c)
+    }
 }

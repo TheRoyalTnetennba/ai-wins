@@ -6,61 +6,30 @@ import (
     "net/http"
     "encoding/json"
     "golang.org/x/oauth2"
-    "github.com/gorilla/mux"
+    "github.com/TheRoyalTnetennba/db-ai-wins"
+
 )
 
-func pubGet(w http.ResponseWriter, r *http.Request, c chan []byte) {
-    resource := resourceID(r)
-    _, resModel := getRestModels(resource, "")
-    var payload []byte
-    payload, err := json.Marshal(&resModel)
+func getGames(w http.ResponseWriter, r *http.Request, c chan []byte) {
+    games := db.GetAllGames()
+    payload, err := json.Marshal(&games)
     if err != nil {
         fmt.Println(err)
     }
     c <- payload
 }
 
-func secGet(w http.ResponseWriter, r *http.Request, c chan []byte) {
-    resource := resourceID(r)
-    token := validToken(r)
-    if len(token) < 1 {
-        problem(w, c, "invalid token", 401)
-        return 
-    }
-    _, resModel := getRestModels(resource, token)
-    payload, err := json.Marshal(resModel)
+func getUser(w http.ResponseWriter, r *http.Request, c chan []byte) {
+    user := db.GetUser(r)
+    payload, err := json.Marshal(user)
     if err != nil {
         fmt.Println(err)
     }
     c <- payload
-}
-
-// func secPost(w http.ResponseWriter, c chan []byte, state interface{}) {
-//     err := json.Unmarshal(payload, state)
-//     if err != nil {
-//         return problem(w, c, "could not return move", 401)
-//     }
-//     c <- payload
-// }
-
-func resourceID(r *http.Request) string {
-    vars := mux.Vars(r)
-    resource := vars["resource"]
-    return resource
-}
-
-func getRestModels(resource string, token string) (interface{}, interface{}) {
-    switch resource {
-    case "games":
-        return nil, getAllGames()
-    case "user":
-        return nil, getUserBySessionToken(token)
-    }
-    return nil, nil
 }
 
 func validToken(r *http.Request) string {
-    session, err := Store.Get(r, "ai-wins")
+    session, err := db.Store.Get(r, "ai-wins")
     if err != nil {
         fmt.Println(err)
     }
@@ -74,4 +43,14 @@ func validToken(r *http.Request) string {
         return token.AccessToken
     }
     return ""
+}
+
+func respond(w http.ResponseWriter, c chan []byte) {
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(<-c)
+}
+
+func problem(w http.ResponseWriter, c chan[]byte, error string, code int) {
+    close(c)
+    http.Error(w, error, code)
 }

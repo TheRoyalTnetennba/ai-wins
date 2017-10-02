@@ -1,7 +1,6 @@
 .ttt-board {
   width: 500px;
   height: 500px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   padding: 50px;

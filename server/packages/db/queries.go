@@ -1,56 +1,23 @@
-package main
+package db
 
 import (
-    "fmt"
     "time"
+    "net/http"
     "cloud.google.com/go/datastore"
+    "github.com/TheRoyalTnetennba/utils-ai-wins"
 )
 
-func getAllGames() Games {
+func GetAllGames() Games {
     games := Games{}
     Client.GetAll(Ctx, datastore.NewQuery("Game"), &games)
     return games
 }
 
-func getUserBySessionToken(token string) *User {
-    users := Users{}
-    query := datastore.NewQuery("User")
-    Client.GetAll(Ctx, query.Filter("Token=", token), &users)
-    if len(users) > 0 {
-        fmt.Println(users[0].Key)
-        return users[0]
-    }
-    return &User{}
-}
+// ---------------------- USER ----------------------
 
-func getUserByOAuthID(id string, token string) Users {
-    users := Users{}
-    query := datastore.NewQuery("User")
-    keys, _ := Client.GetAll(Ctx, query.Filter("OAuthID=", id), &users)
-    if len(users) > 0 {
-        users[0].Token = token
-        Client.Put(Ctx, keys[0], users[0])
-    }
-    return users
-}
 
-func addNewUser(user *User) error {
-    newKey := datastore.IncompleteKey("User", nil)
-    _, err := Client.Put(Ctx, newKey, user)
-    if err != nil {
-        return err
-    }
-    return nil
-}
 
-func deleteOAuthToken(token string) error {
-    user := getUserBySessionToken(token)
-    if len(user.Key.String()) > 0 {
-        user.Token = ""
-        Client.Put(Ctx, user.Key, user)
-    }
-    return nil
-}
+// ---------------------- USER ----------------------
 
 func incrementWon(token string) error {
     user := getUserBySessionToken(token)
@@ -98,7 +65,7 @@ func getTTTState(token string) *TTTState {
     tttState := TTTState{
         User: user.Key,
         Started: time.Now(),
-        Board: newMatrix(3),
+        Board: utils.NewMatrix(3),
         Key: datastore.IncompleteKey("TTTState", nil),
     }
     Client.Put(Ctx, tttState.Key, tttState)
@@ -115,7 +82,7 @@ func getHangmanState(token string) *HangmanState {
     hangmanState := HangmanState{
         User: user.Key,
         Started: time.Now(),
-        Board: newMatrix(3),
+        Board: utils.NewMatrix(3),
         Key: datastore.IncompleteKey("HangmanState", nil),
     }
     Client.Put(Ctx, hangmanState.Key, hangmanState)
@@ -132,7 +99,7 @@ func getWWUFState(token string) *WWUFState {
     wwufState := WWUFState{
         User: user.Key,
         Started: time.Now(),
-        Board: newMatrix(3),
+        Board: utils.NewMatrix(3),
         Key: datastore.IncompleteKey("wwufState", nil),
     }
     Client.Put(Ctx, wwufState.Key, wwufState)
@@ -152,4 +119,9 @@ func updateHangmanState(state *HangmanState) error {
 func updateWWUFState(state *WWUFState) error {
     Client.Put(Ctx, state.Key, state)
     return nil
+}
+
+func GetToken(r *http.Request) string {
+    session, _ := Store.Get(r, "ai-wins")
+    return session.Values["AccessToken"].(string)
 }

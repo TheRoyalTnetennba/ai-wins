@@ -21,7 +21,7 @@ class AuthCallback extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.session.UserName) {
+    if (newProps.session.Username) {
       this.setState({ loading: false });
       this.props.history.push('/');
     }

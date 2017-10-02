@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import TTTTile from './ttt_tile';
 import './Ttt.css';
-import { emptyMatrix } from '../../../utils/pFuncs';
+import { emptyMatrix, isEmptyMatrix, copyMatrix } from '../../../utils/pFuncs';
 import winner from './logic';
-import { fetchAiMove } from '../../../utils/api_utils';
 import Layout from '../../layout/layout';
+import SelectPieceBegin from '../../common/start/select_piece_begin';
+import { updateTTT } from '../../../actions/gameState_actions';
 
 class TicTacToe extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentMove: 'x',
-      playerMarker: 'x',
-      gameOver: false,
-    };
-    this.gameName = 'ticTacToe';
-    this.grid = emptyMatrix(3, 3);
+    this.initialState = {
+      Board: emptyMatrix(3, 3),
+      Marker: '',
+    }
+    this.state = Object.assign(this.initialState);
   }
 
   isOver() {
@@ -27,42 +26,34 @@ class TicTacToe extends Component {
     return win;
   }
 
+  isEmpty() {
+    return isEmptyMatrix(this.state.Board);
+  }
+
+
   handleAIMove() {
-    const aiMarker = this.state.playerMarker === 'x' ? 'o' : 'x';
-    fetchAiMove({ gameName: this.gameName, gameState: this.grid, marker: aiMarker })
-      .then(response => response.json())
-      .then(data => this.handleMove(data.move));
+    this.props.updateTTT({});
   }
 
   handleMove(pos) {
-    // TODO: Have this selectively rebuild board rather than rebuilding
-    // everytime. Remove onClick listener for already marked
-    if (this.grid[pos[0]][pos[1]].length) return;
-    if (this.state.gameOver) return;
-    this.grid[pos[0]][pos[1]] = this.state.currentMove;
-    if (this.isOver()) return;
-    if (this.state.currentMove === this.state.playerMarker) {
-      this.handleAIMove();
-    }
-    if (this.state.currentMove === 'x') {
-      this.setState({ currentMove: 'o' });
-    } else {
-      this.setState({ currentMove: 'x' });
-    }
+    const board = copyMatrix(this.state.Board);
+    board[pos[0]][pos[1]] = this.state.Marker;
+    this.setState({ Board: board }, this.props.updateTTT(this.state));
   }
 
-  boardMaker() {
-    this.board = this.board || emptyMatrix(3, 3);
+  boardMaker(board = this.state.Board) {
+
+    const grid = emptyMatrix(3, 3);
     for (let r = 0; r < 3; r += 1) {
       for (let c = 0; c < 3; c += 1) {
-        this.board[r][c] = (<TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={this.grid[r][c]} />);
+        grid[r][c] = (<TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={board[r][c]} />);
       }
     }
-    return this.board;
+    return grid;
   }
 
   render() {
-    const tiles = this.boardMaker();
+    const tiles = this.boardMaker(this.state.Board);
     if (this.state.gameOver) {
       return (
         <Layout>
@@ -99,8 +90,16 @@ class TicTacToe extends Component {
   }
 }
 
-export default TicTacToe;
+const mapStateToProps = state => ({
+  games: state.games,
+  gameState: state.gameState,
+});
 
+const mapDispatchToProps = dispatch => ({
+  updateTTT: (gameState) => dispatch(updateTTT(gameState))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TicTacToe);
 
 //  __0,0__|__0,1__|__0,2__
 //  __1,0__|__1,1__|__1,2__

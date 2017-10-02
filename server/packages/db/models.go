@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
     "time"
@@ -23,6 +23,7 @@ type AuthUrl struct {
 }
 
 type Game struct {
+    Key *datastore.Key `datastore:"__key__"`
     CanTie bool
     DateAdded time.Time
     Description string
@@ -53,6 +54,7 @@ type User struct {
 
 type TTTState struct {
     User *datastore.Key
+    Game *datastore.Key
     Marker string
     Started time.Time
     Board [][]string
@@ -61,6 +63,7 @@ type TTTState struct {
 
 type HangmanState struct {
     User *datastore.Key
+    Game *datastore.Key
     UserGuess bool
     Started time.Time
     Board [][]string
@@ -71,6 +74,7 @@ type HangmanState struct {
 
 type WWUFState struct {
     User *datastore.Key
+    Game *datastore.Key
     Started time.Time
     Board [][]string
     UserLetters []string

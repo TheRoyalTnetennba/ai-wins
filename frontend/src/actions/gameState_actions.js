@@ -1,17 +1,32 @@
 import { tttExchange } from '../utils/api_utils';
 
 export const RECEIVE_TTT = 'RECEIVE_TTT';
+export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
 
 export const receiveTTT = ttt => ({
   type: RECEIVE_TTT,
-  ttt,
+  gameState: {
+    ttt,
+  },
 });
 
-export const tttExchange = (request) => dispatch => (
-  fetchGames()
+export const clearErrors = () => ({
+  type: RECEIVE_ERRORS,
+  errors: [],
+});
+
+export const receiveErrors = errors => ({
+  type: RECEIVE_ERRORS,
+  errors,
+});
+
+export const updateTTT = (request) => dispatch => (
+  tttExchange(request)
     .then((response) => response.json())
-    .then(games => {
-      dispatch(receiveGames(games));
+    .then(game => {
+      dispatch(receiveTTT(game));
       dispatch(clearErrors());
     })
     .catch(error => dispatch(receiveErrors(error)))

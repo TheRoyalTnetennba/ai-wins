@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
     "os"
@@ -7,18 +7,19 @@ import (
     "time"
     "bufio"
     "strings"
-	"math/rand"
+    "math/rand"
 )
 
 var (
-	Letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    Letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    Dict map[string][]string = GetSowpods()
 )
 
 func init() {
-	rand.Seed(time.Now().Unix())
+    rand.Seed(time.Now().Unix())
 }
 
-func readLines(path string) ([]string) {
+func ReadLines(path string) ([]string) {
     file, err := os.Open(path)
     if err != nil {
         fmt.Println("error reading file")
@@ -33,9 +34,9 @@ func readLines(path string) ([]string) {
     return lines
 }
 
-func getSowpods() (map[string][]string) {
+func GetSowpods() (map[string][]string) {
     dict := make(map[string][]string)
-    words := readLines("./assets/sowpods.txt")
+    words := ReadLines("./sowpods.txt")
     for _, word := range words {
         arr := strings.Split(word, "")
         sort.Strings(arr)
@@ -51,7 +52,7 @@ func getSowpods() (map[string][]string) {
     return dict
 }
 
-func matrixIsEmpty(board [][]string) bool {
+func MatrixIsEmpty(board [][]string) bool {
     for i := 0; i < len(board); i++ {
         for j := 0; j < len(board[i]); j++ {
             if len(board[i][j]) > 0 {
@@ -62,7 +63,7 @@ func matrixIsEmpty(board [][]string) bool {
     return true
 }
 
-func newMatrix(n int) [][]string {
+func NewMatrix(n int) [][]string {
     var newMatrix [][]string
     for i := 0; i < n; i++ {
         var row []string
@@ -74,11 +75,11 @@ func newMatrix(n int) [][]string {
     return newMatrix
 }
 
-func randNum(upperLimit int) int {
-	return rand.Intn(upperLimit)
+func RandNum(upperLimit int) int {
+    return rand.Intn(upperLimit)
 }
 
-func randSeq(n int) string {
+func RandSeq(n int) string {
     b := make([]rune, n)
     for i := range b {
         b[i] = Letters[rand.Intn(len(Letters))]
