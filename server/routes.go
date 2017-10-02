@@ -33,16 +33,16 @@ var routes = Routes{
 		GetUser,
 	},
 	Route{
+		"tttState",
+		"POST",
+		"/api/v1/sec/ttt",
+		tttState,
+	},
+	Route{
 		"GameData",
 		"GET",
 		"/api/v1/{resource}",
 		GameData,
-	},
-	Route{
-		"GetMove",
-		"POST",
-		"/api/v1/games/{gameName}/getMove",
-		GetMove,
 	},
 	// Route{
 	// 	"WWUFGetLetters",

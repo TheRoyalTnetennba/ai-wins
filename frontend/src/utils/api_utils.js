@@ -20,6 +20,14 @@ const header = new Headers({
   'Access-Control-Allow-Credentials': true,
 });
 
+export const tttExchange = request => (
+  fetch(`${baseURL}sec/ttt`, {
+    header,
+    method: 'POST',
+    body: getForm(request),
+  })
+)
+
 export const fetchAiMove = request => (
   fetch(`${baseURL}games/getMove`, {
     header,

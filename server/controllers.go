@@ -24,7 +24,8 @@ func secGet(w http.ResponseWriter, r *http.Request, c chan []byte) {
     resource := resourceID(r)
     token := validToken(r)
     if len(token) < 1 {
-        fmt.Println("no token")
+        problem(w, c, "invalid token", 401)
+        return 
     }
     _, resModel := getRestModels(resource, token)
     payload, err := json.Marshal(resModel)
@@ -34,16 +35,13 @@ func secGet(w http.ResponseWriter, r *http.Request, c chan []byte) {
     c <- payload
 }
 
-func secPost(w http.ResponseWriter, r *http.Request, c chan []byte) {
-    go respond(w, c)
-    vars := mux.Vars(r)
-    var payload []byte
-    err := json.Unmarshal(payload, vars)
-    if err != nil {
-        return
-    }
-    c <- payload
-}
+// func secPost(w http.ResponseWriter, c chan []byte, state interface{}) {
+//     err := json.Unmarshal(payload, state)
+//     if err != nil {
+//         return problem(w, c, "could not return move", 401)
+//     }
+//     c <- payload
+// }
 
 func resourceID(r *http.Request) string {
     vars := mux.Vars(r)

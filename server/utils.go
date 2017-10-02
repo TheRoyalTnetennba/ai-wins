@@ -51,6 +51,17 @@ func getSowpods() (map[string][]string) {
     return dict
 }
 
+func matrixIsEmpty(board [][]string) bool {
+    for i := 0; i < len(board); i++ {
+        for j := 0; j < len(board[i]); j++ {
+            if len(board[i][j]) > 0 {
+                return false
+            }
+        }
+    }
+    return true
+}
+
 func newMatrix(n int) [][]string {
     var newMatrix [][]string
     for i := 0; i < n; i++ {
@@ -61,18 +72,6 @@ func newMatrix(n int) [][]string {
         newMatrix = append(newMatrix, row)
     }
     return newMatrix
-}
-
-func copyMatrix(orig [][]string) [][]string {
-	var newMatrix [][]string
-	for i := 0; i < len(orig); i++ {
-		var row []string
-		for j := 0; j < len(orig[i]); j++ {
-			row = append(row, orig[i][j])
-		}
-		newMatrix = append(newMatrix, row)
-	}
-	return newMatrix
 }
 
 func randNum(upperLimit int) int {

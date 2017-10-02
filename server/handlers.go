@@ -9,6 +9,11 @@ func respond(w http.ResponseWriter, c chan []byte) {
     w.Write(<-c)
 }
 
+func problem(w http.ResponseWriter, c chan[]byte, error string, code int) {
+    close(c)
+    http.Error(w, error, code)
+}
+
 // PUBLIC GETS
 
 func GameData(w http.ResponseWriter, r *http.Request) {
@@ -38,8 +43,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 // SECRET POSTS
 
-func GetMove(w http.ResponseWriter, r *http.Request) {
+func tttState(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
-    go secPost(w, r, c)
-    respond(w, c)
+    if verifySessionToken(w, r, c) {
+        go tttMove(w, r, c)
+        respond(w, c)
+    }
 }
