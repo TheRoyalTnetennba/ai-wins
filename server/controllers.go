@@ -6,7 +6,7 @@ import (
     "net/http"
     "encoding/json"
     "golang.org/x/oauth2"
-    "github.com/TheRoyalTnetennba/db-ai-wins"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/db"
 
 )
 

@@ -8,7 +8,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
     "time"
-    "github.com/TheRoyalTnetennba/db-ai-wins"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/db"
 )
 
 var (

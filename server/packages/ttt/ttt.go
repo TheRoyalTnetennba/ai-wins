@@ -4,8 +4,8 @@ import (
     "fmt"
     "net/http"
     "encoding/json"
-    "github.com/TheRoyalTnetennba/ai-wins-support/utils"
-    "github.com/TheRoyalTnetennba/ai-wins-support/tttAC"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/db"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/utils"
 )
 
 func Move(w http.ResponseWriter, r *http.Request, c chan []byte, db utils.DB) {

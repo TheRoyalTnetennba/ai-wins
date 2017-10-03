@@ -4,7 +4,7 @@ import (
     "time"
     "net/http"
     "cloud.google.com/go/datastore"
-    "github.com/TheRoyalTnetennba/utils-ai-wins"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/utils"
 )
 
 func GetAllGames() Games {
