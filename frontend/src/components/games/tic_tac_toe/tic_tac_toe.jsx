@@ -38,7 +38,7 @@ class TicTacToe extends Component {
   handleMove(pos) {
     const board = copyMatrix(this.state.Board);
     board[pos[0]][pos[1]] = this.state.Marker;
-    this.setState({ Board: board }, this.props.updateTTT(this.state));
+    this.setState({ Board: board }, () => this.props.updateTTT(this.state));
   }
 
   boardMaker(board = this.state.Board) {
