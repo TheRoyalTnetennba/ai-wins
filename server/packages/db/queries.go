@@ -98,7 +98,7 @@ func GetWWUFState(user *User) *WWUFState {
     wwufState := WWUFState{
         User: user.Key,
         Started: time.Now(),
-        Board: utils.NewMatrix(9),
+        Board: utils.EmptyArray(9),
         Key: datastore.IncompleteKey("wwufState", nil),
     }
     Client.Put(Ctx, wwufState.Key, wwufState)
