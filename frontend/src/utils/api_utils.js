@@ -19,20 +19,15 @@ const header = new Headers({
   'Access-Control-Allow-Credentials': true,
 });
 
-export const tttExchange = request => (
-  fetch(`${baseURL}sec/tic-tac-toe`, {
-    header,
-    method: 'POST',
-    body: getForm(request),
-  })
-)
+const postBody = (request) => ({
+  header,
+  method: 'POST',
+  credentials: 'include',
+  body: getForm(request),
+});
 
-export const fetchAiMove = request => (
-  fetch(`${baseURL}games/getMove`, {
-    header,
-    method: 'POST',
-    body: getForm(request),
-  })
+export const tttExchange = request => (
+  fetch(`${baseURL}sec/tic-tac-toe`, postBody(request))
 );
 
 export const fetchCurrentUser = () => (
