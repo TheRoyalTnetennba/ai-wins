@@ -20,6 +20,7 @@ func init() {
 }
 
 func ReadLines(path string) ([]string) {
+    fmt.Println(path)
     file, err := os.Open(path)
     if err != nil {
         fmt.Println("error reading file")

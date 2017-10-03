@@ -57,7 +57,8 @@ type TTTState struct {
     Game *datastore.Key
     Marker string
     Started time.Time
-    Board [][]string
+    Board []string
+    Grid [][]string `datastore:"-"`
     Key *datastore.Key `datastore:"__key__"`
 }
 
@@ -66,8 +67,8 @@ type HangmanState struct {
     Game *datastore.Key
     UserGuess bool
     Started time.Time
-    Board [][]string
-    Word [][]string
+    Board []string
+    Word []string
     Misses []string
     Key *datastore.Key `datastore:"__key__"`
 }
@@ -76,7 +77,8 @@ type WWUFState struct {
     User *datastore.Key
     Game *datastore.Key
     Started time.Time
-    Board [][]string
+    Board []string
+    Grid [][]string `datastore:"-"`
     UserLetters []string
     AILetters []string
     B1 string

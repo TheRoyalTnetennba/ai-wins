@@ -13,7 +13,7 @@ class TicTacToe extends Component {
   constructor(props) {
     super(props);
     this.initialState = {
-      Board: emptyMatrix(3, 3),
+      Board: [],
       Marker: 'x',
     }
     this.state = Object.assign(this.initialState);
@@ -38,25 +38,31 @@ class TicTacToe extends Component {
 
 
   handleAIMove() {
-    console.log('handling ai move');
-    this.props.updateTTT(this.state);
+    let pos = 4;
+    while (this.state.Board[pos].length) {
+      pos = Math.floor(Math.random() * 9);
+    }
+    const board = this.state.Board.slice();
+    board[pos] = this.state.Marker === 'x' ? 'o' : 'x';
+    this.setState({ Board: board });
   }
 
   handleMove(pos) {
-    const board = copyMatrix(this.state.Board);
-    board[pos[0]][pos[1]] = this.state.Marker;
+    const board = this.state.Board.slice();
+    board[pos] = this.state.Marker;
     this.setState({ Board: board }, () => this.handleAIMove());
   }
 
   boardMaker(board = this.state.Board) {
-
+    
     const grid = emptyMatrix(3, 3);
     for (let r = 0; r < 3; r += 1) {
       for (let c = 0; c < 3; c += 1) {
-        grid[r][c] = (<TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={board[r][c]} />);
+        grid[r][c] = ();
       }
     }
     return grid;
+    <TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={board[r][c]} />
   }
 
   render() {
