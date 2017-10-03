@@ -11,7 +11,8 @@ for filename in glob.iglob('server/*.go', recursive=True):
 
 pkg_test = False
 
-commands = ["go get -u github.com/TheRoyalTnetennba/ai-wins/server/packages/db", "go get -u github.com/TheRoyalTnetennba/ai-wins/server/packages/utils", "go build ApiServer"]
+commands = ["go get -u github.com/TheRoyalTnetennba/ai-wins/server/packages/db", "go get -u github.com/TheRoyalTnetennba/ai-wins/server/packages/utils", 
+            "go get -u github.com/TheRoyalTnetennba/ai-wins/server/packages/ttt", "go build ApiServer"]
 
 if pkg_test:
     commands.insert(0, "git push")
