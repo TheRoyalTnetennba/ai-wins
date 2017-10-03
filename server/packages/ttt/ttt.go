@@ -44,7 +44,7 @@ func patchCurrent(old *db.TTTState, current *db.TTTState) {
     }
 }
 
-func Valid(old *db.TTTState, current db.TTTState) bool {
+func Valid(old *db.TTTState, current *db.TTTState) bool {
     return true
 }
 
