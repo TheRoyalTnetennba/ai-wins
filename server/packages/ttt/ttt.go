@@ -27,7 +27,7 @@ func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
         pos := GetBestMove(current.Board, aiMarker)
         current.Board[pos[0]][pos[1]] = aiMarker
         db.UpdateTTTState(&current)
-        tttSend(w, r, c, &current)
+        tttSend(c, &current)
     }
 }
 
@@ -130,7 +130,7 @@ func Valid(old *db.TTTState, current db.TTTState) bool {
 //     current.User = user.Key
 // }
 
-func tttSend(w http.ResponseWriter, r *http.Request, c chan []byte, current *db.TTTState) {
+func tttSend(c chan []byte, current *db.TTTState) {
     payload, err := json.Marshal(current)
     if err != nil {
         fmt.Println(err)
