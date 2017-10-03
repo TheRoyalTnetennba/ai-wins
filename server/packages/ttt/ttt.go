@@ -8,20 +8,24 @@ import (
     "github.com/TheRoyalTnetennba/ai-wins/server/packages/utils"
 )
 
-func Move(w http.ResponseWriter, r *http.Request, c chan []byte, db utils.DB) {
-    user := utils.GetUser(r, db)
-    old := utils.GetTTTState(user, db)
-    current := utils.TTTState{}
+func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
+    user := db.GetUser(r)
+    old := db.GetTTTState(user)
+    current := db.TTTState{}
     err := json.NewDecoder(r.Body).Decode(current)
     if err != nil {
         fmt.Println(err)
     }
-    if tttAC.Valid(old, current) {
+    if Valid(old, current) {
         current.User = old.User
         go utils.UpdateTTTState(&current, db)
         tttSend(w, r, c, &current)
     }
 
+}
+
+func Valid(old *db.TTTState{}, current db.TTTState{}) bool {
+    return true
 }
 
 // func isValid(old *TTTState, current TTTState) bool {

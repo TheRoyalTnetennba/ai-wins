@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/ttt"
 )
 
 type Route struct {
@@ -75,7 +76,7 @@ func UserShow(w http.ResponseWriter, r *http.Request) {
 func tttState(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
     if verifySessionToken(w, r, c) {
-        go tttMove(w, r, c)
+        go ttt.Move(w, r, c)
         respond(w, c)
     }
 }
