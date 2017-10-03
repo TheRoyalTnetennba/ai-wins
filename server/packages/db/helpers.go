@@ -20,7 +20,7 @@ func Logout(r *http.Request, w http.ResponseWriter) {
 func VerifySessionToken(r *http.Request, w http.ResponseWriter) bool {
     token := GetToken(r)
     expir := GetExpiry(r)
-    if expir.Unix() < time.Now().Unix() {
+    if expir.Unix() < time.Now().Unix() || len(token) < 1 {
         return false
     }
     return true
