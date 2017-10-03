@@ -92,6 +92,9 @@ func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) b
     if expiry.Unix() < time.Now().Unix() {
         return false
     }
+    if len(accessToken) < 1 {
+        return false
+    }
     fmt.Println("finishing token verification")
     return true
 }

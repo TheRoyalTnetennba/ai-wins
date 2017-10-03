@@ -1,6 +1,7 @@
 package db
 
 import (
+    "fmt"
     "time"
     "net/http"
 )
@@ -20,6 +21,7 @@ func Logout(r *http.Request, w http.ResponseWriter) {
 func VerifySessionToken(r *http.Request) bool {
     token := GetToken(r)
     expir := GetExpiry(r)
+    fmt.Println(expir)
     if expir.Unix() < time.Now().Unix() || len(token) < 1 {
         return false
     }
