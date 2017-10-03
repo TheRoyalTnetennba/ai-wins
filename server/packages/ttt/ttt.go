@@ -18,13 +18,12 @@ func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
     }
     if Valid(old, current) {
         current.User = old.User
-        go utils.UpdateTTTState(&current, db)
+        go db.UpdateTTTState(&current)
         tttSend(w, r, c, &current)
     }
-
 }
 
-func Valid(old *db.TTTState{}, current db.TTTState{}) bool {
+func Valid(old *db.TTTState, current db.TTTState) bool {
     return true
 }
 
@@ -110,7 +109,7 @@ func Valid(old *db.TTTState{}, current db.TTTState{}) bool {
 //     current.User = user.Key
 // }
 
-func tttSend(w http.ResponseWriter, r *http.Request, c chan []byte, current *utils.TTTState) {
+func tttSend(w http.ResponseWriter, r *http.Request, c chan []byte, current *db.TTTState) {
     payload, err := json.Marshal(current)
     if err != nil {
         fmt.Println(err)
