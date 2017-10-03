@@ -55,14 +55,14 @@ class TicTacToe extends Component {
 
   boardMaker(board = this.state.Board) {
     
-    const grid = emptyMatrix(3, 3);
-    for (let r = 0; r < 3; r += 1) {
-      for (let c = 0; c < 3; c += 1) {
-        grid[r][c] = ();
-      }
-    }
-    return grid;
-    <TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={board[r][c]} />
+    // const grid = emptyMatrix(3, 3);
+    // for (let r = 0; r < 3; r += 1) {
+    //   for (let c = 0; c < 3; c += 1) {
+    //     grid[r][c] = (7);
+    //   }
+    // }
+    // return grid;
+    // <TTTTile key={`ttt-tile-${r}-${c}`} handleMove={() => this.handleMove([r, c])} pos={[r, c]} mark={board[r][c]} />
   }
 
   render() {

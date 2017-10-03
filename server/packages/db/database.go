@@ -17,15 +17,20 @@ func newClient() *datastore.Client {
     return client
 }
 
-func init() {
-    Store.Options.MaxAge = 86400
-    Store.Options.Domain = "localhost"
-    gob.Register(time.Time{})
-}
-
 var (
     ProjectID string = "personal-projects-177215"
     Ctx context.Context = context.Background()
     Client *datastore.Client = newClient()
     Store = sessions.NewCookieStore([]byte(""))
+    GameKeys = map[string]*datastore.Key
 )
+
+func init() {
+    Store.Options.MaxAge = 86400
+    Store.Options.Domain = "localhost"
+    gob.Register(time.Time{})
+    games := GetAllGames()
+    for i := 0; i < len(games); i++ {
+        GameKeys[games[i].Slug] = games[i].Key
+    }
+}
