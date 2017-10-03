@@ -37,7 +37,7 @@ func ReadLines(path string) ([]string) {
 
 func GetSowpods() (map[string][]string) {
     dict := make(map[string][]string)
-    words := ReadLines("./sowpods.txt")
+    words := ReadLines("./server/packages/utils/sowpods.txt")
     for _, word := range words {
         arr := strings.Split(word, "")
         sort.Strings(arr)
