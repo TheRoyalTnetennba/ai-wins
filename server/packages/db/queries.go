@@ -125,5 +125,5 @@ func GetToken(r *http.Request) string {
 
 func GetExpiry(r *http.Request) time.Time {
     session, _ := Store.Get(r, "ai-wins")
-    return session.Values["Expiry"].(string)
+    return session.Values["Expiry"].(time.Time)
 }
