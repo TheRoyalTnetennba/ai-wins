@@ -1,6 +1,7 @@
 package db
 
 import (
+    "fmt"
     "time"
     "net/http"
     "cloud.google.com/go/datastore"
@@ -67,7 +68,9 @@ func GetTTTState(user *User) *TTTState {
         Board: utils.NewMatrix(3),
         Key: datastore.IncompleteKey("TTTState", nil),
     }
-    Client.Put(Ctx, tttState.Key, tttState)
+    err := Client.Put(Ctx, tttState.Key, tttState)
+    fmt.Println("there was an error setting ttt state")
+    fmt.Prinln(err)
     return &tttState
 }
 
