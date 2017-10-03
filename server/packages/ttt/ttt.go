@@ -8,7 +8,7 @@ import (
 )
 
 func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
-    user := db.GetUser(r)
+    user, aiMarker := db.GetUser(r), "x"
     old := db.GetTTTState(user)
     current := db.TTTState{}
     err := json.NewDecoder(r.Body).Decode(current)
@@ -17,7 +17,12 @@ func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
     }
     if Valid(old, current) {
         current.User = old.User
-        go db.UpdateTTTState(&current)
+        if current.Marker == "x" {
+            aiMarker = "o"
+        }
+        pos := GetBestMove(current.Board, aiMarker)
+        current.Board[pos[0]][pos[1]] = aiMarker
+        db.UpdateTTTState(&current)
         tttSend(w, r, c, &current)
     }
 }
