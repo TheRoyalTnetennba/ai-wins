@@ -85,7 +85,6 @@ func GoogleCallback(w http.ResponseWriter, r *http.Request) {
 func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) bool {
     session, err := db.Store.Get(r, "ai-wins")
     if err != nil {
-        problem(w, c, "no token", 401)
         return false
     }
     token := oauth2.Token{
@@ -95,7 +94,6 @@ func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) b
         Expiry: session.Values["Expiry"].(time.Time),
     }
     if token.Expiry.Unix() < time.Now().Unix() {
-        problem(w, c, "token has expired", 401)
         return false
     }
     return true

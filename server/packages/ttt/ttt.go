@@ -118,5 +118,6 @@ func tttSend(w http.ResponseWriter, r *http.Request, c chan []byte, current *db.
     if err != nil {
         fmt.Println(err)
     }
+    fmt.Println(current)
     c <- payload
 }

@@ -51,6 +51,8 @@ func respond(w http.ResponseWriter, c chan []byte) {
 }
 
 func problem(w http.ResponseWriter, c chan[]byte, error string, code int) {
+    fmt.Println(error)
+    c <- []byte(error)
     close(c)
     http.Error(w, error, code)
 }

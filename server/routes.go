@@ -78,6 +78,9 @@ func tttState(w http.ResponseWriter, r *http.Request) {
     if verifySessionToken(w, r, c) {
         go ttt.Move(w, r, c)
         respond(w, c)
+    } else {
+        c <- []byte("no bueno")
+        respond(w, c)
     }
 }
 
