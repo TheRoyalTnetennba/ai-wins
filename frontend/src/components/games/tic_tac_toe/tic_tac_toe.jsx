@@ -13,7 +13,7 @@ class TicTacToe extends Component {
     super(props);
     this.initialState = {
       Board: emptyMatrix(3, 3),
-      Marker: '',
+      Marker: 'x',
     }
     this.state = Object.assign(this.initialState);
   }
