@@ -55,7 +55,7 @@ func updateUserName(token string, newUsername string) error {
     return nil
 }
 
-func getTTTState(token string) *TTTState {
+func GetTTTState(token string) *TTTState {
     user := getUserBySessionToken(token)
     tttStates := TTTStates{}
     Client.GetAll(Ctx, datastore.NewQuery("TTTState").Filter("User=", user.Key), &tttStates)
@@ -72,7 +72,7 @@ func getTTTState(token string) *TTTState {
     return &tttState
 }
 
-func getHangmanState(token string) *HangmanState {
+func GetHangmanState(token string) *HangmanState {
     user := getUserBySessionToken(token)
     hangmanStates := HangmanStates{}
     Client.GetAll(Ctx, datastore.NewQuery("HangmanState").Filter("User=", user.Key), &hangmanStates)
@@ -89,7 +89,7 @@ func getHangmanState(token string) *HangmanState {
     return &hangmanState
 }
 
-func getWWUFState(token string) *WWUFState {
+func GetWWUFState(token string) *WWUFState {
     user := getUserBySessionToken(token)
     wwufStates := WWUFStates{}
     Client.GetAll(Ctx, datastore.NewQuery("WWUFState").Filter("User=", user.Key), &wwufStates)
@@ -106,17 +106,17 @@ func getWWUFState(token string) *WWUFState {
     return &wwufState
 }
 
-func updateTTTState(state *TTTState) error {
+func UpdateTTTState(state *TTTState) error {
     Client.Put(Ctx, state.Key, state)
     return nil
 }
 
-func updateHangmanState(state *HangmanState) error {
+func UpdateHangmanState(state *HangmanState) error {
     Client.Put(Ctx, state.Key, state)
     return nil
 }
 
-func updateWWUFState(state *WWUFState) error {
+func UpdateWWUFState(state *WWUFState) error {
     Client.Put(Ctx, state.Key, state)
     return nil
 }
