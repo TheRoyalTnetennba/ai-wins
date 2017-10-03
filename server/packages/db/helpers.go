@@ -16,3 +16,11 @@ func Logout(r *http.Request, w http.ResponseWriter) {
     deleteRemoteToken(token)
 }
 
+func VerifySessionToken(r *http.Request, w http.ResponseWriter) bool {
+    token := GetToken(r)
+    expir := GetExpiry(r)
+    if expir.Unix() < time.Now().Unix() {
+        return false
+    }
+    return true
+}

@@ -87,12 +87,8 @@ func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) b
     if err != nil {
         return false
     }
-    token := oauth2.Token{
-        AccessToken: session.Values["AccessToken"].(string),
-        TokenType: session.Values["TokenType"].(string),
-        RefreshToken: session.Values["RefreshToken"].(string),
-        Expiry: session.Values["Expiry"].(time.Time),
-    }
+    accessToken := session.Values["AccessToken"].(string)
+    expiry := session.Values["Expiry"].(time.Time)
     if token.Expiry.Unix() < time.Now().Unix() {
         return false
     }
