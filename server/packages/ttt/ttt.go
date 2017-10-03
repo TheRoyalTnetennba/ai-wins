@@ -23,8 +23,10 @@ func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
         if current.Marker == "x" {
             aiMarker = "o"
         }
-        pos := GetBestMove(current.Board, aiMarker)
-        current.Board[pos[0]][pos[1]] = aiMarker
+        board := utils.Unflatten(current.Board, 3)
+        pos := GetBestMove(board, aiMarker)
+        board[pos[0]][pos[1]] = aiMarker
+        current.Board = utils.Flatten(board)
         db.UpdateTTTState(current)
         tttSend(c, current)
     }
@@ -39,7 +41,7 @@ func patchCurrent(old *db.TTTState, current *db.TTTState) {
     current.Started = old.Started
     current.Key = old.Key
     if len(current.Board) == 0 {
-        current.Board = utils.NewMatrix(3)
+        current.Board = utils.Flatten(utils.NewMatrix(3, 3))
     }
 }
 

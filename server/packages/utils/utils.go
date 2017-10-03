@@ -95,3 +95,27 @@ func RandSeq(n int) string {
     }
     return string(b)
 }
+
+func Unflatten(arr []string, n int) [][]string {
+    var matrix [][]string
+    var row []string
+    for i := 0; i < n; i++ {
+        if i != 0 && i % n == 0 {
+            matrix = append(matrix, row)
+            row = []{}
+        } else {
+            row = append(row, arr[i])
+        }
+    }
+    return matrix
+}
+
+func Flatten(matrix [][]string) []string {
+    var arr []string
+    for i := 0; i < len(matrix); i++ {
+        for j := 0; j < len(matrix[i]); j++ {
+            arr = append(arr, matrix[i][j])
+        } 
+    }
+    return arr
+}
