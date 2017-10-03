@@ -4,7 +4,6 @@ const baseURL = 'http://localhost:8080/api/v1/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);
-  payload.gameID = sha512(obj.gameName).toString('hex');
   return JSON.stringify(payload);
 };
 
