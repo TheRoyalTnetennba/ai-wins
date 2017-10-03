@@ -1,17 +1,12 @@
-import { RECEIVE_GAMES, RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/game_actions';
+import { RECEIVE_TTT } from '../actions/gameState_actions';
 
 const GameStateReducer = (state = {}, action) => {
+  console.log(action);
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_GAMES:
-      const games = action.games;
-      let newGames = {};
-      for (let i = 0; i < games.length; i++) {
-        newGames[games[i]['Slug']] = games[i]
-      }
-      return Object.assign({}, newGames);
-    case RECEIVE_ERRORS:
-      const errors = action.errors;
+    case RECEIVE_TTT:
+      console.log('received ttt')
+      return Object.assign(state, action.ttt);
     default:
       return state;
   }

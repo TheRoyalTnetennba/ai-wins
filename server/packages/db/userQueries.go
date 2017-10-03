@@ -1,7 +1,6 @@
 package db
 
 import (
-    "fmt"
     "time"
     "net/http"
     "cloud.google.com/go/datastore"
@@ -12,7 +11,6 @@ func getUserBySessionToken(token string) *User {
     query := datastore.NewQuery("User")
     Client.GetAll(Ctx, query.Filter("Token=", token), &users)
     if len(users) > 0 {
-        fmt.Println(users[0].Key)
         return users[0]
     }
     return &User{}
@@ -46,7 +44,7 @@ func deleteLocalToken(r *http.Request, w http.ResponseWriter) {
     session.Values["RefreshToken"] = ""
     err := session.Save(r, w)
     if err != nil {
-        fmt.Println("error deleting session")
+        return
     }
 }
 

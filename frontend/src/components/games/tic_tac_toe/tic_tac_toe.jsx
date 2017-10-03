@@ -7,6 +7,7 @@ import winner from './logic';
 import Layout from '../../layout/layout';
 import SelectPieceBegin from '../../common/start/select_piece_begin';
 import { updateTTT } from '../../../actions/gameState_actions';
+import { tttExchange } from '../../../utils/api_utils';
 
 class TicTacToe extends Component {
   constructor(props) {
@@ -16,6 +17,11 @@ class TicTacToe extends Component {
       Marker: 'x',
     }
     this.state = Object.assign(this.initialState);
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log("noewporops");
+    console.log(newProps);
   }
 
   isOver() {
@@ -32,13 +38,14 @@ class TicTacToe extends Component {
 
 
   handleAIMove() {
+    console.log('handling ai move');
     this.props.updateTTT(this.state);
   }
 
   handleMove(pos) {
     const board = copyMatrix(this.state.Board);
     board[pos[0]][pos[1]] = this.state.Marker;
-    this.setState({ Board: board }, () => this.props.updateTTT(this.state));
+    this.setState({ Board: board }, () => this.handleAIMove());
   }
 
   boardMaker(board = this.state.Board) {
@@ -96,7 +103,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateTTT: (gameState) => dispatch(updateTTT(gameState))
+  updateTTT: gameState => dispatch(updateTTT(gameState)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicTacToe);

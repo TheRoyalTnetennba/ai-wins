@@ -1,7 +1,6 @@
 package db
 
 import (
-    "fmt"
     "time"
     "net/http"
 )
@@ -22,7 +21,6 @@ func VerifySessionToken(r *http.Request) bool {
     token := GetToken(r)
     expir := GetExpiry(r)
     if expir.Unix() < time.Now().Unix() || len(token) < 1 {
-        fmt.Println("finish time check it was late")
         return false
     }
     return true

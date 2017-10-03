@@ -9,7 +9,6 @@ import (
 )
 
 func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
-    fmt.Println("starting move")
     user, aiMarker := db.GetUser(r), "x"
     old := db.GetTTTState(user)
     current := &db.TTTState{}

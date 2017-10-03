@@ -4,6 +4,7 @@ const baseURL = 'http://localhost:8080/api/v1/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);
+  payload.gameID = sha512(obj.gameName).toString('hex');
   return JSON.stringify(payload);
 };
 
@@ -19,15 +20,21 @@ const header = new Headers({
   'Access-Control-Allow-Credentials': true,
 });
 
-const postBody = (request) => ({
-  header,
-  method: 'POST',
-  credentials: 'include',
-  body: getForm(request),
-});
-
 export const tttExchange = request => (
-  fetch(`${baseURL}sec/tic-tac-toe`, postBody(request))
+  fetch(`${baseURL}sec/tic-tac-toe`, {
+    header,
+    method: 'POST',
+    credentials: 'include',
+    body: getForm(request),
+  })
+)
+
+export const fetchAiMove = request => (
+  fetch(`${baseURL}games/getMove`, {
+    header,
+    method: 'POST',
+    body: getForm(request),
+  })
 );
 
 export const fetchCurrentUser = () => (
@@ -51,3 +58,14 @@ export const fetchGoogleLogin = () => (
     method: 'GET',
   })
 );
+
+const postBody = (request) => ({
+  header,
+  method: 'POST',
+  credentials: 'include',
+  body: getForm(request),
+});
+
+// export const tttExchange = request => (
+//   fetch(`${baseURL}sec/tic-tac-toe`, postBody(request))
+// );

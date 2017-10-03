@@ -77,7 +77,7 @@ func UserShow(w http.ResponseWriter, r *http.Request) {
 func tttState(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
     if db.VerifySessionToken(r) {
-        ttt.Move(w, r, c)
+        go ttt.Move(w, r, c)
         respond(w, c)
     } else {
         c <- []byte("no bueno")

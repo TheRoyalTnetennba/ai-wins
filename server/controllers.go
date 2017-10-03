@@ -48,6 +48,7 @@ func validToken(r *http.Request) string {
 func respond(w http.ResponseWriter, c chan []byte) {
     w.Header().Set("Content-Type", "application/json")
     w.Write(<-c)
+    fmt.Println("sent response")
 }
 
 func problem(w http.ResponseWriter, c chan[]byte, error string, code int) {

@@ -7,9 +7,7 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const receiveTTT = ttt => ({
   type: RECEIVE_TTT,
-  gameState: {
-    ttt,
-  },
+  ttt,
 });
 
 export const clearErrors = () => ({
@@ -26,6 +24,8 @@ export const updateTTT = (request) => dispatch => (
   tttExchange(request)
     .then((response) => response.json())
     .then(game => {
+      console.log('got game')
+      console.log(game);
       dispatch(receiveTTT(game));
       dispatch(clearErrors());
     })
