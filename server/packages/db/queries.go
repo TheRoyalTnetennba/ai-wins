@@ -72,7 +72,6 @@ func GetTTTState(user *User) *TTTState {
 }
 
 func GetHangmanState(user *User) *HangmanState {
-    user := getUserBySessionToken(token)
     hangmanStates := HangmanStates{}
     Client.GetAll(Ctx, datastore.NewQuery("HangmanState").Filter("User=", user.Key), &hangmanStates)
     if len(hangmanStates) > 0 {
@@ -89,7 +88,6 @@ func GetHangmanState(user *User) *HangmanState {
 }
 
 func GetWWUFState(user *User) *WWUFState {
-    user := getUserBySessionToken(token)
     wwufStates := WWUFStates{}
     Client.GetAll(Ctx, datastore.NewQuery("WWUFState").Filter("User=", user.Key), &wwufStates)
     if len(wwufStates) > 0 {
