@@ -12,10 +12,6 @@ func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
     fmt.Println("starting move")
     user, aiMarker := db.GetUser(r), "x"
     old := db.GetTTTState(user)
-    tttSend(w, r, c, old)
-    if 1 == 1 {
-        return
-    }
     current := db.TTTState{}
     err := json.NewDecoder(r.Body).Decode(current)
     if err != nil {
@@ -135,11 +131,9 @@ func Valid(old *db.TTTState, current db.TTTState) bool {
 // }
 
 func tttSend(w http.ResponseWriter, r *http.Request, c chan []byte, current *db.TTTState) {
-    fmt.Println("starting send")
     payload, err := json.Marshal(current)
     if err != nil {
         fmt.Println(err)
     }
-    fmt.Println(current)
     c <- payload
 }

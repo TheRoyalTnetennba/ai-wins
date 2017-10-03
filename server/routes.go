@@ -77,9 +77,7 @@ func UserShow(w http.ResponseWriter, r *http.Request) {
 
 func tttState(w http.ResponseWriter, r *http.Request) {
     c := make(chan []byte)
-    fmt.Println("the fuck all that has happened thus far is not the problem")
     if db.VerifySessionToken(r) {
-        fmt.Println("verify session is not the problem")
         ttt.Move(w, r, c)
         respond(w, c)
     } else {
