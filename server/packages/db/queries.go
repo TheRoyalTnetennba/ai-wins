@@ -68,9 +68,9 @@ func GetTTTState(user *User) *TTTState {
         Board: utils.NewMatrix(3),
         Key: datastore.IncompleteKey("TTTState", nil),
     }
-    err := Client.Put(Ctx, tttState.Key, tttState)
+    _, err := Client.Put(Ctx, tttState.Key, tttState)
     fmt.Println("there was an error setting ttt state")
-    fmt.Prinln(err)
+    fmt.Println(err)
     return &tttState
 }
 
