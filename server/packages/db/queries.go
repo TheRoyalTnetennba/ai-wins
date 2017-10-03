@@ -65,7 +65,7 @@ func GetTTTState(user *User) *TTTState {
     tttState := TTTState{
         User: user.Key,
         Started: time.Now(),
-        Board: utils.NewMatrix(3),
+        Board: utils.EmptyArray(9),
         Key: datastore.IncompleteKey("TTTState", nil),
         Game: nil,
     }
@@ -83,7 +83,6 @@ func GetHangmanState(user *User) *HangmanState {
     hangmanState := HangmanState{
         User: user.Key,
         Started: time.Now(),
-        Board: utils.NewMatrix(3),
         Key: datastore.IncompleteKey("HangmanState", nil),
     }
     Client.Put(Ctx, hangmanState.Key, hangmanState)
@@ -99,7 +98,7 @@ func GetWWUFState(user *User) *WWUFState {
     wwufState := WWUFState{
         User: user.Key,
         Started: time.Now(),
-        Board: utils.NewMatrix(3),
+        Board: utils.NewMatrix(9),
         Key: datastore.IncompleteKey("wwufState", nil),
     }
     Client.Put(Ctx, wwufState.Key, wwufState)

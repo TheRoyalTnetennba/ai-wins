@@ -76,6 +76,14 @@ func NewMatrix(n int) [][]string {
     return newMatrix
 }
 
+func EmptyArray(n int) []string {
+    var arr []string
+    for i := 0; i < n; i++ {
+        arr = append(arr, "")
+    }
+    return arr
+}
+
 func RandNum(upperLimit int) int {
     return rand.Intn(upperLimit)
 }

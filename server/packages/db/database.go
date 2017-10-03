@@ -22,7 +22,7 @@ var (
     Ctx context.Context = context.Background()
     Client *datastore.Client = newClient()
     Store = sessions.NewCookieStore([]byte(""))
-    GameKeys = map[string]*datastore.Key
+    GameKeys = make(map[string]*datastore.Key)
 )
 
 func init() {
