@@ -5,16 +5,20 @@ import (
     "net/http"
     "encoding/json"
     "github.com/TheRoyalTnetennba/ai-wins/server/packages/db"
+    "github.com/TheRoyalTnetennba/ai-wins/server/packages/utils"
 )
 
 func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
+    fmt.Println("starting move")
     user, aiMarker := db.GetUser(r), "x"
     old := db.GetTTTState(user)
     current := db.TTTState{}
     err := json.NewDecoder(r.Body).Decode(current)
     if err != nil {
+        fmt.Println("error reading body")
         fmt.Println(err)
     }
+    patchCurrent(old, &current)
     if Valid(old, current) {
         current.User = old.User
         if current.Marker == "x" {
@@ -24,6 +28,19 @@ func Move(w http.ResponseWriter, r *http.Request, c chan []byte) {
         current.Board[pos[0]][pos[1]] = aiMarker
         db.UpdateTTTState(&current)
         tttSend(w, r, c, &current)
+    }
+}
+
+func patchCurrent(old *db.TTTState, current *db.TTTState) {
+    if len(current.Marker) == 0 {
+        current.Marker = old.Marker
+    }
+    current.User = old.User
+    current.Game = old.Game
+    current.Started = old.Started
+    current.Key = old.Key
+    if len(current.Board) == 0 {
+        current.Board = utils.NewMatrix(3)
     }
 }
 
@@ -114,6 +131,7 @@ func Valid(old *db.TTTState, current db.TTTState) bool {
 // }
 
 func tttSend(w http.ResponseWriter, r *http.Request, c chan []byte, current *db.TTTState) {
+    fmt.Println("starting send")
     payload, err := json.Marshal(current)
     if err != nil {
         fmt.Println(err)
