@@ -89,7 +89,7 @@ func verifySessionToken(w http.ResponseWriter, r *http.Request, c chan []byte) b
     }
     accessToken := session.Values["AccessToken"].(string)
     expiry := session.Values["Expiry"].(time.Time)
-    if token.Expiry.Unix() < time.Now().Unix() {
+    if expiry.Unix() < time.Now().Unix() {
         return false
     }
     fmt.Println("finishing token verification")
