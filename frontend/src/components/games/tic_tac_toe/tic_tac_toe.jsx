@@ -32,7 +32,7 @@ class TicTacToe extends Component {
 
 
   handleAIMove() {
-    this.props.updateTTT({});
+    this.props.updateTTT(this.state);
   }
 
   handleMove(pos) {
