@@ -1,7 +1,7 @@
 package main
 
 import (
-    // "fmt"
+    "fmt"
     "time"
     // "strconv"
 )
@@ -23,19 +23,18 @@ func getAllGames() Games {
 
 func processGoogleLogin(g GoogleUser) User {
     u := getUserByUID(g.UID)
+    fmt.Println(g)
     if u.UID != g.UID {
         u.Username, u.Email, u.PhoneNumber, u.Image, u.UID, u.Token = g.Name, g.Email, g.PhoneNumber, g.Picture, g.UID, g.Token
         u.Joined = time.Now()
         go addUser(normalizeUser(u))
         return u
     }
+    go setSessionToken(u, g.Token)
     return u
 }
 
-func processTTT(u User) User {
-    o := getUserByUID(u.UID)
-    n := newTTTState(o.TTT, u.TTT)
-    u.TTT = n
-    go updateUser(u)
-    return u
+// !!!!!!!!!!!! THIS IS REALLY STUPID AND DANGEROUS. FIX ASAP !!!!!!!!!!!!
+func updateGame(game Game) {
+    client.Collection("games").Doc(game.Slug).Set(ctx, &game)
 }

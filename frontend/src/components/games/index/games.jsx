@@ -32,7 +32,7 @@ class Games extends Component {
     let cards = [];
     for (let game in games) {
       cards.push(<Card 
-        game={games[game]} key={game} handleClick={() => this.goToGame(games[game].Slug)} />)
+        game={games[game]} key={games[game].slug} handleClick={() => this.goToGame(games[game].slug)} />)
     }
     return cards;
   }
@@ -50,9 +50,7 @@ class Games extends Component {
 
 
 const mapStateToProps = state => ({
-  state,
   games: state.games,
-  searchResults: state.searchResults,
 });
 
 const mapDispatchToProps = dispatch => ({

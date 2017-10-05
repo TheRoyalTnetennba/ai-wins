@@ -23,6 +23,12 @@ var routes = Routes{
         GameIndex,
     },
     Route{
+        "Token",
+        "POST",
+        "/token",
+        Token,
+    },
+    Route{
         "Login",
         "POST",
         "/login",
@@ -39,6 +45,13 @@ var routes = Routes{
 func GameIndex(w http.ResponseWriter, r *http.Request) {
     games := getAllGames()
     respond(w, r, 200, games)
+}
+
+func Token(w http.ResponseWriter, r *http.Request) {
+    t := User{}
+    json.NewDecoder(r.Body).Decode(&t)
+    user := getUserBySessionToken(t)
+    respond(w, r, 200, user)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {

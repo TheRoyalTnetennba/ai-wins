@@ -42,3 +42,26 @@ export const copyMatrix = (matrix) => {
   }
   return newMatrix;
 }
+
+export const isEmptyBoard = (board, r, c) => {
+  for (let i = 0; i < r; i++) {
+    for (let j = 0; j < c; j++) {
+      if (board[r][c].length) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+export const emptyBoard = (r, c) => {
+  const board = {}
+  for (let i = 0; i < r; i++) {
+    let row = []
+    for (let j = 0; j < c; j++) {
+      row.push('');
+    }
+    board[`${i}`] = row;
+  }
+  return board;
+}

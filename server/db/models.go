@@ -2,7 +2,6 @@ package main
 
 import (
     "time"
-    // "cloud.google.com/go/firestore"
 )
 
 type GoogleUser struct {

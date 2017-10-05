@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 )
 
@@ -15,7 +16,7 @@ func tttNextFree(arr [9]*tttGameNode) int {
 }
 
 func tttGenNodes(game *tttGameNode, marker string, layer int, aiMarker string) int {
-	winner := tttWhoWon(game)
+	winner := tttWhoWon(game.Board)
 	if winner != "pending" {
 		if winner == "tie" {
 			game.Result = 0
@@ -67,8 +68,7 @@ func tttWin(tripletResponse string) bool {
 	return tripletResponse == "x" || tripletResponse == "o"
 }
 
-func tttWhoWon(game *tttGameNode) string {
-	board := game.Board
+func tttWhoWon(board [][]string) string {
 	numIncompletes := 0
 	for row := 0; row < len(board); row++ {
 		rowRes := tttCheckTriplet(board[row])
@@ -105,28 +105,6 @@ func tttWhoWon(game *tttGameNode) string {
 	return "tie"
 }
 
-func tttDumMove(board [][]string) []int {
-	for i := 0; i < len(board); i++ {
-		for j := 0; j < len(board[i]); j++ {
-			if len(board[i][j]) == 0 {
-				return []int{i, j}
-			}
-		}
-	}
-	return []int{0, 0}
-}
-
-func tttBoardDifference(parent [][]string, child [][]string) []int {
-	for i := 0; i < len(parent); i++ {
-		for j := 0; j < len(parent[i]); j++ {
-			if parent[i][j] != child[i][j] {
-				return []int{i, j}
-			}
-		}
-	}
-	return tttDumMove(parent)
-}
-
 func tttIsValidMove(old [][]string, current [][]string, marker string) bool {
 	changes := 0
 	for i := 0; i < 3; i++ {
@@ -160,19 +138,20 @@ func tttWhoseTurn(current [][]string) string {
 	return "x"
 }
 
-func tttGetBestMove(board [][]string, marker string, aiMarker string) []int {
+func tttGetBestMove(board [][]string, marker string, aiMarker string) [][]string {
 	var children [9]*tttGameNode
 	res := 0
 	game := tttGameNode{board, children, res}
-	if tttWhoWon(&game) != "pending" {
-		return []int{0, 0}
+	if tttWhoWon(game.Board) != "pending" {
+		return board
 	}
 	tttGenNodes(&game, marker, 1000000000, aiMarker)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child != nil && child.Result > max.Result {
+			fmt.Println(child)
 			max = child
 		}
 	}
-	return tttBoardDifference(board, max.Board)
+	return max.Board
 }

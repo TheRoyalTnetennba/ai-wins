@@ -12,6 +12,16 @@ const getForm = (obj) => {
   return JSON.stringify(payload);
 };
 
+
+export const prepGUser = (response) => ({
+  uid: response.user.uid,
+  token: response.credential.accessToken,
+  displayName: response.user.displayName,
+  email: response.user.email,
+  photoURL: response.user.photoURL,
+});
+
+
 // anatomy of a pre-request api object
 // {
 //   gameName: nameOfGameInCamelCase
@@ -54,9 +64,16 @@ export const sendLogin = (user) => (
   })
 );
 
+export const validateToken = () => (
+  fetch(`${baseURL}token`, {
+    header,
+    method: 'POST',
+    body: getForm({}),
+  })
+);
 
 export const tttExchange = request => (
-  fetch(`${baseURL}sec/tic-tac-toe`, {
+  fetch(`${baseURL}game/ttt`, {
     header,
     method: 'POST',
     credentials: 'include',
@@ -64,21 +81,6 @@ export const tttExchange = request => (
   })
 );
 
-export const fetchAiMove = request => (
-  fetch(`${baseURL}games/getMove`, {
-    header,
-    method: 'POST',
-    body: getForm(request),
-  })
-);
-
-export const fetchCurrentUser = () => (
-  fetch(`${baseURL}sec/user`, {
-    header,
-    credentials: 'include',
-    method: 'GET',
-  })
-);
 
 export const fetchGames = () => (
   fetch(`${baseURL}games`, {
@@ -86,21 +88,3 @@ export const fetchGames = () => (
     method: 'GET',
   })
 );
-
-export const fetchGoogleLogin = () => (
-  fetch(`${baseURL}googlelogin`, {
-    header,
-    method: 'GET',
-  })
-);
-
-const postBody = (request) => ({
-  header,
-  method: 'POST',
-  credentials: 'include',
-  body: getForm(request),
-});
-
-// export const tttExchange = request => (
-//   fetch(`${baseURL}sec/tic-tac-toe`, postBody(request))
-// );
