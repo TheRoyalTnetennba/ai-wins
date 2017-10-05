@@ -9,3 +9,7 @@
   flex: 1;
   margin-bottom: 100px;
 }
+
+.login-button:focus, .login-button:hover {
+  background-color: #8EBFA2;
+}
