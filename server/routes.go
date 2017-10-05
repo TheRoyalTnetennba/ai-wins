@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-    "github.com/TheRoyalTnetennba/ai-wins/server/packages/db"
-    "github.com/TheRoyalTnetennba/ai-wins/server/packages/ttt"
+    "encoding/json"
+    "github.com/gorilla/mux"
 )
 
 type Route struct {
@@ -16,87 +16,99 @@ type Route struct {
 type Routes []Route
 
 var routes = Routes{
+    Route{
+        "GameIndex",
+        "GET",
+        "/games",
+        GameIndex,
+    },
+    Route{
+        "Login",
+        "POST",
+        "/login",
+        Login,
+    },
 	Route{
-		"GoogleLogin",
-		"GET",
-		"/api/v1/googlelogin",
-		GoogleLogin,
-	},
-	Route{
-		"GoogleCallback",
-		"GET",
-		"/api/v1/googlecallback",
-		GoogleCallback,
-	},
-	Route{
-		"GameIndex",
-		"GET",
-		"/api/v1/games",
-		GameIndex,
-	},
-	Route{
-		"UserShow",
-		"GET",
-		"/api/v1/sec/user",
-		UserShow,
-	},
-	Route{
-		"tttState",
+		"GameRoute",
 		"POST",
-		"/api/v1/sec/tic-tac-toe",
-		tttState,
-	},
-	Route{
-		"hangmanState",
-		"POST",
-		"/api/v1/sec/hangman",
-		hangmanState,
-	},
-	Route{
-		"wwufState",
-		"POST",
-		"/api/v1/sec/words-with-unfeeling-machines",
-		wwufState,
+		"/game/{resource}",
+		GameRoute,
 	},
 }
 
 func GameIndex(w http.ResponseWriter, r *http.Request) {
-    c := make(chan []byte)
-    go getGames(w, r, c)
-    respond(w, c)
+    games := getAllGames()
+    respond(w, r, 200, games)
 }
 
-func UserShow(w http.ResponseWriter, r *http.Request) {
-    c := make(chan []byte)
-    if db.VerifySessionToken(r) {
-    	go getUser(w, r, c)
-    	respond(w, c)
-    }
+func Login(w http.ResponseWriter, r *http.Request) {
+    gUser := GoogleUser{}
+    json.NewDecoder(r.Body).Decode(&gUser)
+    user := processGoogleLogin(gUser)
+    respond(w, r, 200, user)
 }
 
-func tttState(w http.ResponseWriter, r *http.Request) {
-    c := make(chan []byte)
-    if db.VerifySessionToken(r) {
-        ttt.Move(w, r, c)
-        respond(w, c)
-    } else {
-        c <- []byte("no bueno")
-        respond(w, c)
+func GameRoute(w http.ResponseWriter, r *http.Request) {
+    c, n := User{}, User{}
+    json.NewDecoder(r.Body).Decode(&c)
+
+    switch vars := mux.Vars(r); vars["resource"] {
+    case "ttt":
+        n = processTTT(c)
+
     }
+    respond(w, r, 200, n)
 }
 
-func hangmanState(w http.ResponseWriter, r *http.Request) {
-    c := make(chan []byte)
-    if db.VerifySessionToken(r) {
-        // go ttt.Move(w, r, c)
-        respond(w, c)
-    }
+func respond(w http.ResponseWriter, r *http.Request, status int, data interface{}) {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(status)
+    payload, _ := json.Marshal(data)
+    w.Write(payload)
 }
 
-func wwufState(w http.ResponseWriter, r *http.Request) {
-    c := make(chan []byte)
-    if db.VerifySessionToken(r) {
-        // go ttt.Move(w, r, c)
-        respond(w, c)
-    }
-}
+
+// func Login(w http.ResponseWriter, r *http.Request) {
+
+// }
+
+// func GameIndex(w http.ResponseWriter, r *http.Request) {
+//     c := make(chan []byte)
+//     go getGames(w, r, c)
+//     respond(w, c)
+// }
+
+// func UserShow(w http.ResponseWriter, r *http.Request) {
+//     c := make(chan []byte)
+//     if db.VerifySessionToken(r) {
+//     	go getUser(w, r, c)
+//     	respond(w, c)
+//     }
+// }
+
+// func tttState(w http.ResponseWriter, r *http.Request) {
+//     c := make(chan []byte)
+//     if db.VerifySessionToken(r) {
+//         ttt.Move(w, r, c)
+//         respond(w, c)
+//     } else {
+//         c <- []byte("no bueno")
+//         respond(w, c)
+//     }
+// }
+
+// func hangmanState(w http.ResponseWriter, r *http.Request) {
+//     c := make(chan []byte)
+//     if db.VerifySessionToken(r) {
+//         // go ttt.Move(w, r, c)
+//         respond(w, c)
+//     }
+// }
+
+// func wwufState(w http.ResponseWriter, r *http.Request) {
+//     c := make(chan []byte)
+//     if db.VerifySessionToken(r) {
+//         // go ttt.Move(w, r, c)
+//         respond(w, c)
+//     }
+// }

@@ -1,9 +1,14 @@
-import { fetchCurrentUser } from '../utils/api_utils';
+import firebase from 'firebase';
+
+
+import { sendLogin, googleLogin } from '../utils/api_utils';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+const google = new firebase.auth.GoogleAuthProvider();
 
 export const clearCurrentUser = () => ({
   type: CLEAR_CURRENT_USER,
@@ -25,14 +30,26 @@ export const receiveErrors = errors => ({
   errors,
 });
 
-export const requestCurrentUser = () => dispatch => (
-  fetchCurrentUser()
+
+
+export const requestCurrentUser = user => dispatch => (
+  sendLogin(user)
     .then(response => response.json())
     .then(user => {
       dispatch(receiveCurrentUser(user));
       dispatch(clearErrors());
     })
-    .catch(errors => dispatch(receiveErrors(errors)))
+    .catch(error => dispatch(receiveErrors(error)))
+);
+
+export const requestGoogleLogin = () => dispatch => (
+  googleLogin()
+    .then(response => {
+      localStorage.setItem('ai-wins', response.credential.accessToken)
+      console.log(response.user)
+      dispatch(requestCurrentUser(response.user))
+    })
+    .catch(errors => dispatch(receiveErrors(errors.message)))
 );
 
 // export const login = user => (dispatch) => {

@@ -1,4 +1,4 @@
-package wwuf
+package main
 
 import (
     // "fmt"
@@ -8,7 +8,7 @@ import (
     // "github.com/gorilla/mux"
 )
 
-func NewLetterSet() []string {
+func newLetterSet() []string {
     var letters []string
     for i := 0; i < 12; i++ {
         letters = append(letters, "E")

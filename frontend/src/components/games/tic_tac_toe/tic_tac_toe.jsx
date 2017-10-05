@@ -6,7 +6,6 @@ import { emptyMatrix, isEmptyMatrix, copyMatrix } from '../../../utils/pFuncs';
 import winner from './logic';
 import Layout from '../../layout/layout';
 import SelectPieceBegin from '../../common/start/select_piece_begin';
-import { updateTTT } from '../../../actions/gameState_actions';
 import { tttExchange } from '../../../utils/api_utils';
 
 class TicTacToe extends Component {
@@ -105,11 +104,9 @@ class TicTacToe extends Component {
 
 const mapStateToProps = state => ({
   games: state.games,
-  gameState: state.gameState,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateTTT: gameState => dispatch(updateTTT(gameState)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicTacToe);

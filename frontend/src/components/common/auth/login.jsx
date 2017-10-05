@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
+import fire from '../../../utils/fire';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { fetchGoogleLogin } from '../../../utils/api_utils';
+import { requestGoogleLogin } from '../../../actions/session_actions';
 import Layout from '../../layout/layout';
 import './auth.css';
 
 class Login extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+  }
 
   googleLogin() {
-    fetchGoogleLogin()
-      .then(response => response.json())
-      .then(data => window.location = `${data.url}`);
+    this.props.requestGoogleLogin();
   }
 
   render() {
@@ -35,6 +35,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  requestGoogleLogin: () => dispatch(requestGoogleLogin()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

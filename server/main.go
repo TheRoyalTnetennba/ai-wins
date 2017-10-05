@@ -40,9 +40,11 @@ func Logger(inner http.Handler, name string) http.Handler {
 
 func main() {
 	origins := handlers.AllowedOrigins(AllowedOrigins)
+	auth := handlers.AllowedHeaders([]string{"Authorization", "Custom"})
 	credentials := handlers.AllowCredentials()
+	other := handlers.ExposedHeaders([]string{"Authorization", "Custom"})
 	router := NewRouter()
 	router.Host(BaseURL)
 	log.Fatal(http.ListenAndServe(":8080",
-		handlers.CORS(origins, credentials)(router)))
+		handlers.CORS(origins, credentials, auth, other)(router)))
 }

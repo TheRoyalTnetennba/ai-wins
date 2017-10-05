@@ -7,9 +7,9 @@ const GamesReducer = (state = {}, action) => {
       const games = action.games;
       let newGames = {};
       for (let i = 0; i < games.length; i++) {
-        newGames[games[i]['Slug']] = games[i]
+        newGames[games[i]['slug']] = games[i]
       }
-      return Object.assign({}, newGames);
+      return newGames;
     case RECEIVE_ERRORS:
       const errors = action.errors;
     default:

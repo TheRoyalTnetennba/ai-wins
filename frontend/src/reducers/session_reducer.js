@@ -1,7 +1,7 @@
 import { RECEIVE_CURRENT_USER, RECEIVE_ERRORS } from '../actions/session_actions';
 
 const nullUser = Object.freeze({
-  UserName: null,
+  username: null,
   errors: [],
 });
 
@@ -9,7 +9,7 @@ const SessionReducer = (state = nullUser, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      const session = { errors: [] };
+      const session = { errors: state.errors.slice() };
       const keys = Object.keys(action.currentUser);
       keys.forEach(key => session[key] = action.currentUser[key]);
       return Object.assign(session);

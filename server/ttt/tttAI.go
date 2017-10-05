@@ -1,25 +1,21 @@
-package ttt
+package main
 
 import (
 	"sort"
 )
 
-var (
-	aiMarker string
-)
-
-type gameNode struct {
+type tttGameNode struct {
 	Board     [][]string
-	NextGames [9]*gameNode
+	NextGames [9]*tttGameNode
 	Result    int
 }
 
-func nextFree(arr [9]*gameNode) int {
+func tttNextFree(arr [9]*tttGameNode) int {
 	return sort.Search(len(arr), func(i int) bool { return arr[i] == nil })
 }
 
-func genNodes(game *gameNode, marker string, layer int) int {
-	winner := whoWon(game)
+func tttGenNodes(game *tttGameNode, marker string, layer int, aiMarker string) int {
+	winner := tttWhoWon(game)
 	if winner != "pending" {
 		if winner == "tie" {
 			game.Result = 0
@@ -35,10 +31,10 @@ func genNodes(game *gameNode, marker string, layer int) int {
 			if game.Board[i][j] == "" {
 				childBoard := copyMatrix(game.Board)
 				childBoard[i][j] = marker
-				var childNextGames [9]*gameNode
+				var childNextGames [9]*tttGameNode
 				childResult := 0
-				child := gameNode{childBoard, childNextGames, childResult}
-				game.NextGames[nextFree(game.NextGames)] = &child
+				child := tttGameNode{childBoard, childNextGames, childResult}
+				game.NextGames[tttNextFree(game.NextGames)] = &child
 			}
 		}
 	}
@@ -49,13 +45,13 @@ func genNodes(game *gameNode, marker string, layer int) int {
 	}
 	for _, child := range game.NextGames {
 		if child != nil {
-			game.Result += genNodes(child, marker, layer/10)
+			game.Result += tttGenNodes(child, marker, layer/10, aiMarker)
 		}
 	}
 	return game.Result
 }
 
-func checkTriplet(triplet []string) string {
+func tttCheckTriplet(triplet []string) string {
 	if triplet[0] == triplet[1] && triplet[1] == triplet[2] {
 		return triplet[0]
 	}
@@ -67,16 +63,16 @@ func checkTriplet(triplet []string) string {
 	return "Contested"
 }
 
-func win(tripletResponse string) bool {
+func tttWin(tripletResponse string) bool {
 	return tripletResponse == "x" || tripletResponse == "o"
 }
 
-func whoWon(game *gameNode) string {
+func tttWhoWon(game *tttGameNode) string {
 	board := game.Board
 	numIncompletes := 0
 	for row := 0; row < len(board); row++ {
-		rowRes := checkTriplet(board[row])
-		if win(rowRes) {
+		rowRes := tttCheckTriplet(board[row])
+		if tttWin(rowRes) {
 			return rowRes
 		} else if rowRes == "Incomplete" {
 			numIncompletes++
@@ -85,8 +81,8 @@ func whoWon(game *gameNode) string {
 		for col := 0; col < len(board[row]); col++ {
 			colRow = append(colRow, board[col][row])
 		}
-		colRes := checkTriplet(colRow)
-		if win(colRes) {
+		colRes := tttCheckTriplet(colRow)
+		if tttWin(colRes) {
 			return colRes
 		} else if colRes == "Incomplete" {
 			numIncompletes++
@@ -98,10 +94,10 @@ func whoWon(game *gameNode) string {
 		upRight = append(upRight, board[i][len(board[i])-(1+i)])
 		upLeft = append(upLeft, board[i][i])
 	}
-	upRightRes, upLeftRes := checkTriplet(upRight), checkTriplet(upLeft)
-	if win(upLeftRes) {
+	upRightRes, upLeftRes := tttCheckTriplet(upRight), tttCheckTriplet(upLeft)
+	if tttWin(upLeftRes) {
 		return upLeftRes
-	} else if win(upRightRes) {
+	} else if tttWin(upRightRes) {
 		return upRightRes
 	} else if numIncompletes > 0 {
 		return "pending"
@@ -109,7 +105,7 @@ func whoWon(game *gameNode) string {
 	return "tie"
 }
 
-func DumMove(board [][]string) []int {
+func tttDumMove(board [][]string) []int {
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {
 			if len(board[i][j]) == 0 {
@@ -120,7 +116,7 @@ func DumMove(board [][]string) []int {
 	return []int{0, 0}
 }
 
-func boardDifference(parent [][]string, child [][]string) []int {
+func tttBoardDifference(parent [][]string, child [][]string) []int {
 	for i := 0; i < len(parent); i++ {
 		for j := 0; j < len(parent[i]); j++ {
 			if parent[i][j] != child[i][j] {
@@ -128,22 +124,10 @@ func boardDifference(parent [][]string, child [][]string) []int {
 			}
 		}
 	}
-	return DumMove(parent)
+	return tttDumMove(parent)
 }
 
-func copyMatrix(orig [][]string) [][]string {
-	var newMatrix [][]string
-	for i := 0; i < len(orig); i++ {
-		var row []string
-		for j := 0; j < len(orig[i]); j++ {
-			row = append(row, orig[i][j])
-		}
-		newMatrix = append(newMatrix, row)
-	}
-	return newMatrix
-}
-
-func IsValidMove(old [][]string, current [][]string, marker string) bool {
+func tttIsValidMove(old [][]string, current [][]string, marker string) bool {
 	changes := 0
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
@@ -159,7 +143,7 @@ func IsValidMove(old [][]string, current [][]string, marker string) bool {
 	return changes == 1
 }
 
-func WhoseTurn(current [][]string) string {
+func tttWhoseTurn(current [][]string) string {
 	x, o := 0, 0
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
@@ -176,20 +160,19 @@ func WhoseTurn(current [][]string) string {
 	return "x"
 }
 
-func GetBestMove(board [][]string, marker string) []int {
-	aiMarker = marker
-	var children [9]*gameNode
+func tttGetBestMove(board [][]string, marker string, aiMarker string) []int {
+	var children [9]*tttGameNode
 	res := 0
-	game := gameNode{board, children, res}
-	if whoWon(&game) != "pending" {
+	game := tttGameNode{board, children, res}
+	if tttWhoWon(&game) != "pending" {
 		return []int{0, 0}
 	}
-	genNodes(&game, marker, 1000000000)
+	tttGenNodes(&game, marker, 1000000000, aiMarker)
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child != nil && child.Result > max.Result {
 			max = child
 		}
 	}
-	return boardDifference(board, max.Board)
+	return tttBoardDifference(board, max.Board)
 }
