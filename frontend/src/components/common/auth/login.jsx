@@ -22,8 +22,7 @@ class Login extends Component {
     return (
       <Layout>
         <section className="fb fdc">
-          <a onClick={() => this.googleLogin()} >Sign in with Google</a>
-          <Link to="/github">Sign in with GitHub</Link>
+          <a className="fb fs30 ma green-b mt50 p10 br5 brown" onClick={() => this.googleLogin()} >Sign in with Google <i className="asc fa fa-google ml10 fs46" aria-hidden="true" /></a>
         </section>
       </Layout>
     );

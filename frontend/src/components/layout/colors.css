@@ -18,6 +18,10 @@
   color: #D6655A;
 }
 
+.green {
+  color: #74A588;
+}
+
 .blue-b {
   background-color: #3d9cb2;
 }
@@ -38,6 +42,10 @@
   background-color: #D6655A;
 }
 
+.green-b {
+  background-color: #74A588;
+}
+
 .op50 {
   opacity: 50%;
 }
@@ -52,4 +60,8 @@
 
 .light-red-b {
   background-color: #FFB2A7;
+}
+
+.br5 {
+  border-radius: 5px;
 }

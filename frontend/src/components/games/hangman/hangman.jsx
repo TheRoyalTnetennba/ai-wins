@@ -67,7 +67,7 @@ class Hangman extends Component {
             <canvas className="ma" id="gallows" width="400" height="450" />
             <Blanks />
           </div>
-          {this.state.started ? (<h1>!!</h1>) : <SelectPieceBegin begin={() => this.begin()} selection={['Guesser','Setter','Random']} />}
+          {this.state.started ? (<h1 className="f1 fb">!!</h1>) : <SelectPieceBegin begin={() => this.begin()} selection={['Guesser','Setter','Random']} />}
         </section>
       </Layout>
     );

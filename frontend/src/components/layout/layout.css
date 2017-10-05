@@ -10,6 +10,10 @@
   margin-bottom: 50px;
 }
 
+.mt50 {
+  margin-top: 50px;
+}
+
 .ml10 {
   margin-left: 10px;
 }
@@ -62,6 +66,10 @@
   font-size: 46px;
 }
 
+.fs30 {
+  font-size: 30px;
+}
+
 .fs20 {
   font-size: 20px;
 }
@@ -104,4 +112,8 @@
 
 .mw250 {
   max-width: 250px;
+}
+
+.lh50 {
+  line-height: 50px;
 }
