@@ -22,6 +22,10 @@ class Hangman extends Component {
     this.draw();
   }
 
+  begin() {
+    this.setState({ started: true });
+  }
+
   draw(ctx = this.ctx) {
     // const c = document.getElementById("gallows");
     // const ctx = c.getContext("2d");
@@ -58,12 +62,12 @@ class Hangman extends Component {
       <Layout>
         <h1>Hangman</h1>
         <section className="fb jcsa mb50">
-          <GameStats />
+          <GameStats game={this.props.game} />
           <div className="f2 jcc fdc">
             <canvas className="ma" id="gallows" width="400" height="450" />
             <Blanks />
           </div>
-          {this.state.started ? (<h1>!!</h1>) : <SelectPieceBegin selection={['Guesser','Setter','Random']} />}
+          {this.state.started ? (<h1>!!</h1>) : <SelectPieceBegin begin={() => this.begin()} selection={['Guesser','Setter','Random']} />}
         </section>
       </Layout>
     );
@@ -71,7 +75,9 @@ class Hangman extends Component {
 }
 
 const mapStateToProps = state => ({
-  state,
+  game: state.games.hangman,
+  session: state.session,
+  user: state.session.hangman
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -8,6 +8,7 @@ import Layout from '../../layout/layout';
 import SelectPieceBegin from '../../common/start/select_piece_begin';
 import { requestTTT } from '../../../actions/session_actions';
 import { tttExchange } from '../../../utils/api_utils';
+import GameStats from '../../common/game_stats/game_stats';
 
 class TicTacToe extends Component {
   constructor(props) {
@@ -65,11 +66,11 @@ class TicTacToe extends Component {
 
   render() {
     const tiles = this.boardMaker(this.state.board);
-    if (this.state.gameOver) {
-      return (
-        <Layout>
-          <section className="ttt-board">
-            <h1>{`${this.state.currentMove} wins!!!`}</h1>
+    return (
+      <Layout>
+        <section className="fb jcsa mb50">
+          <GameStats game={this.props.game} />
+          <section className="ttt-board f2">
             <div className="ttt-row">
               {tiles[0]}
             </div>
@@ -80,21 +81,7 @@ class TicTacToe extends Component {
               {tiles[2]}
             </div>
           </section>
-        </Layout>
-      );
-    }
-    return (
-      <Layout>
-        <section className="ttt-board">
-          <div className="ttt-row">
-            {tiles[0]}
-          </div>
-          <div className="ttt-row">
-            {tiles[1]}
-          </div>
-          <div className="ttt-row">
-            {tiles[2]}
-          </div>
+          {this.state.started ? (<h1>!!</h1>) : <SelectPieceBegin selection={['Guesser','Setter','Random']} />}
         </section>
       </Layout>
     );
