@@ -48,20 +48,6 @@ type Game struct {
     Consecutive int `json:"consecutive", firestore:"consecutive"`
 }
 
-type TTTState struct {
-    Marker string `json:"marker", firestore:"marker"`
-    Started time.Time `json:"started", firestore:"started"`
-    Board map[string][]string `json:"board", firestore:"board"`
-}
-
-type HangmanState struct {
-    UserGuess bool `json:"userGuess", firestore:"user_guess"`
-    Started time.Time `json:"started", firestore:"started"`
-    Board []string `json:"board", firestore:"board"`
-    Word []string `json:"board", firestore:"board"`
-    Misses []string `json:"misses", firestore:"misses"`
-}
-
 type WWUFState struct {
     Started time.Time `json:"started", firestore:"started"`
     Board map[string][]string `json:"board", firestore:"board"`

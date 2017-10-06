@@ -2,6 +2,7 @@ package main
 
 import (
 // "fmt"
+"time"
 )
 
 func processTTT(u User) User {
@@ -12,7 +13,7 @@ func processTTT(u User) User {
 }
 
 func newTTTState(o User, u User) User {
-    if !isValid(o.TTT, u.TTT) {
+    if !tttValid(o.TTT, u.TTT) {
         return o
     }
     pMarker, aiMarker := tttGetMarkers(u.TTT)
@@ -53,6 +54,12 @@ func tttGetMarkers(t TTTState) (string, string) {
     return "x","o"
 }
 
-func isValid(o TTTState, u TTTState) bool {
+func tttValid(o TTTState, u TTTState) bool {
     return true
+}
+
+type TTTState struct {
+    Marker string `json:"marker", firestore:"marker"`
+    Started time.Time `json:"started", firestore:"started"`
+    Board map[string][]string `json:"board", firestore:"board"`
 }
