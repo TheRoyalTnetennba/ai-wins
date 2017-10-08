@@ -34,7 +34,7 @@ func seedSowpods() {
         }
     }
     // entries := make(map[string]SowpodEntry)
-    for i := 15000; i < 30000 && i < len(words); i++ {
+    for i := 30000; i < 45000 && i < len(words); i++ {
         word := words[i]
         entry := SowpodEntry{
             Word: word,

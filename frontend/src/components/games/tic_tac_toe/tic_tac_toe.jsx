@@ -5,7 +5,7 @@ import './Ttt.css';
 import { emptyMatrix, isEmptyMatrix, copyMatrix, emptyBoard, isEmptyBoard } from '../../../utils/pFuncs';
 import winner from './logic';
 import Layout from '../../layout/layout';
-import LoginToBegin from '../../common/start/login_to_begin';
+import SelectPieceBegin from '../../common/start/select_piece_begin';
 import { requestTTT } from '../../../actions/session_actions';
 import { tttExchange } from '../../../utils/api_utils';
 import GameStats from '../../common/game_stats/game_stats';
@@ -80,23 +80,6 @@ class TicTacToe extends Component {
     return grid;
   }
 
-  rightPanel(state = this.state) {
-    if (!this.props.session.username.length) {
-      return (<LoginToBegin />);
-    } else if (!state.started) {
-      return (
-        <div className="f1 fb fdc jcc">
-          <select value={this.state.selection} onChange={(e) => this.handlePieceSelection(e)} className="fb brown-b tan fs20 mw100 p10 br5 mla mra cp mb50">
-            <option value="r">Random</option>
-            <option value="x">X</option>
-            <option value="o">O</option>
-          </select>
-          <a className="db p10 mw100 red-b bold fs20 br5 cp mla mra" onClick={() => this.handleBegin()}>Begin</a>
-        </div>
-      )
-    }
-  }
-
   render() {
     const tiles = this.boardMaker(this.state.board);
     return (
@@ -114,7 +97,7 @@ class TicTacToe extends Component {
               {tiles[2]}
             </div>
           </section>
-          {this.rightPanel()}
+          <SelectPieceBegin />
         </section>
       </Layout>
     );

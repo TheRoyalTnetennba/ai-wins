@@ -43,7 +43,7 @@ func main() {
 	credentials := handlers.AllowCredentials()
 	router := NewRouter()
 	router.Host(BaseURL)
-    seedSowpods()
+    // seedSowpods()
 	log.Fatal(http.ListenAndServe(":8080",
 		handlers.CORS(origins, credentials)(router)))
 }
