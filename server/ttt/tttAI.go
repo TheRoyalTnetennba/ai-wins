@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"sort"
 )
 
@@ -149,7 +149,6 @@ func tttGetBestMove(board [][]string, marker string, aiMarker string) [][]string
 	max := game.NextGames[0]
 	for _, child := range game.NextGames {
 		if child != nil && child.Result > max.Result {
-			fmt.Println(child)
 			max = child
 		}
 	}

@@ -13,7 +13,6 @@ import (
 
 var (
     Letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    Dict map[string][]string = GetSowpods()
 )
 
 func init() {
@@ -21,7 +20,6 @@ func init() {
 }
 
 func ReadLines(path string) ([]string) {
-    fmt.Println(path)
     file, err := os.Open(path)
     if err != nil {
         fmt.Println("error reading file")
@@ -36,13 +34,18 @@ func ReadLines(path string) ([]string) {
     return lines
 }
 
-func GetSowpods() (map[string][]string) {
+func sortString(word string) string {
+    arr := strings.Split(word, "")
+    sort.Strings(arr)
+    sorted := strings.Join(arr, "")
+    return sorted
+}
+
+func getSortograms() (map[string][]string) {
     dict := make(map[string][]string)
     words := ReadLines("./server/utils/sowpods.txt")
     for _, word := range words {
-        arr := strings.Split(word, "")
-        sort.Strings(arr)
-        sorted := strings.Join(arr, "")
+        sorted := sortString(word)
         if val, ok := dict[sorted]; ok {
             newVal := append(val, word)
             dict[sorted] = newVal
@@ -52,6 +55,19 @@ func GetSowpods() (map[string][]string) {
         }
     }
     return dict
+}
+
+func letterFrequency(word string) map[string]int {
+    frequency := make(map[string]int)
+    arr := strings.Split(word, "")
+    for _, letter := range arr {
+        if _, ok := frequency[letter]; ok {
+            frequency[letter] += 1
+        } else {
+            frequency[letter] = 1
+        }
+    }
+    return frequency
 }
 
 func copyMatrix(orig [][]string) [][]string {

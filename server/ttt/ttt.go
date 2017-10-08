@@ -18,10 +18,6 @@ func newTTTState(o User, u User) User {
     }
     pMarker, aiMarker := tttGetMarkers(u.TTT)
     board := tttGetBestMove(getMatrixFromMap(u.TTT.Board), aiMarker, aiMarker)
-    winner := tttWhoWon(board)
-    if winner == "pending" {
-
-    }
     switch winner := tttWhoWon(board); winner {
     case "pending":
         u.TTT.Board = getMapFromMatrix(board)

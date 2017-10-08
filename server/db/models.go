@@ -4,6 +4,8 @@ import (
     "time"
 )
 
+// ----------- DO NOT EXPORT SPECIAL FIELDS -----------
+
 type GoogleUser struct {
     Name string `json:"displayName"`
     Email string `json:"email"`
@@ -14,21 +16,21 @@ type GoogleUser struct {
 }
 
 type User struct {
-    Image string `json:"image", firestore:"image"`
-    Joined time.Time `json:"joined", firestore:"joined"`
-    Lost int `json:"lost", firestore:"lost"`
-    Tied int `json:"tied", firestore:"tied"`
-    Username string `json:"username", firestore:"username"`
-    Won int `json:"won", firestore:"won"`
-    PhoneNumber string `json:"phoneNumber", firestore:"phone_number"`
-    Email string `json:"email", firestore:"email"`
-    Token string `json:"token", firestore:"token"`
-    UID string `json:"uid", firestore:"uid"`
-    Wallet string `json:"wallet", firestore:"wallet"`
-    Mined string `json:"mined", firestore:"mined"`
-    TTT TTTState `json:"ttt", firestore:"ttt"`
-    WWUF WWUFState `json:"wwuf", firestore:"wwuf"`
-    Hangman HangmanState `json:"hangman", firestore:"hangman"`
+    Image string `json:"image,omitempty"`
+    Joined time.Time `json:"joined,omitempty"`
+    Lost int `json:"lost,omitempty"`
+    Tied int `json:"tied,omitempty"`
+    Username string `json:"username,omitempty"`
+    Won int `json:"won,omitempty"`
+    PhoneNumber string `json:"phoneNumber,omitempty"`
+    Email string `json:"email,omitempty"`
+    Token string `json:"token,omitempty"`
+    UID string `json:"uid,omitempty"`
+    Wallet string `json:"wallet,omitempty"`
+    Mined string `json:"mined,omitempty"`
+    TTT TTTState `json:"ttt,omitempty"`
+    WWUF WWUFState `json:"wwuf,omitempty"`
+    Hangman HangmanState `json:"hangman,omitempty"`
 }
 
 type Game struct {

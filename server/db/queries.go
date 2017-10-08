@@ -38,3 +38,8 @@ func processGoogleLogin(g GoogleUser) User {
 func updateGame(game Game) {
     client.Collection("games").Doc(game.Slug).Set(ctx, &game)
 }
+
+func processLogout(u User) {
+    user := getUserBySessionToken(u)
+    go setSessionToken(user, "")
+}

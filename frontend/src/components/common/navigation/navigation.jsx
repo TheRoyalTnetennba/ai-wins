@@ -21,7 +21,10 @@ class Navigation extends Component {
   componentWillReceiveProps(newProps) {
     if (newProps.session.username !== this.state.username) {
       this.setState({ username: newProps.session.username });
-    } 
+    }
+    if (!newProps.session.username && this.state.username) {
+      this.setState({ username: '' });
+    }
   }
 
   goHome() {

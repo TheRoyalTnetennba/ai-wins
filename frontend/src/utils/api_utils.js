@@ -81,6 +81,14 @@ export const tttExchange = request => (
   })
 );
 
+export const sendLogout = () => (
+  fetch(`${baseURL}game/logout`, {
+    header,
+    method: 'POST',
+    body: getForm({}),
+  })
+);
+
 
 export const fetchGames = () => (
   fetch(`${baseURL}games`, {

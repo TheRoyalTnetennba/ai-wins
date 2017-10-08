@@ -5,6 +5,9 @@ import (
 // "cloud.google.com/go/firestore"
 )
 
+// ----------- ADD LIMITS TO QUERIES WHERE APPROPRIATE -------------
+// ----------- ONLY ALTER REQUIRED FIELDS RATHER THAN RE-SETTING DOCUMENT -------------
+
 func getUserByUID(uid string) User {
     user := User{}
     doc, _ := client.Doc(fmt.Sprintf("users/%s", uid)).Get(ctx)

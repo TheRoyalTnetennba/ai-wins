@@ -14,11 +14,11 @@ class Hangman extends Component {
     this.state = {
       started: false,
       misses: 0,
+      
     }
   }
 
   componentDidMount() {
-    this.ctx = document.getElementById('gallows').getContext('2d');
     this.draw();
   }
 
@@ -26,9 +26,10 @@ class Hangman extends Component {
     this.setState({ started: true });
   }
 
-  draw(ctx = this.ctx) {
+  draw(misses = 6) {
     // const c = document.getElementById("gallows");
     // const ctx = c.getContext("2d");
+    const ctx = document.getElementById('gallows').getContext('2d');
     ctx.beginPath();
     ctx.strokeStyle = '#42282F';
     ctx.rect(20,390,360,50);
@@ -36,25 +37,36 @@ class Hangman extends Component {
     ctx.rect(120,10,160,30);
     ctx.rect(120,40,6,30);
     ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(120,110,40,0,2*Math.PI);
-    ctx.stroke();
-    ctx.moveTo(120, 160);
-    ctx.lineTo(140, 210);
-    ctx.stroke();
-    ctx.moveTo(120, 160);
-    ctx.lineTo(100, 210);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(120,150);
-    ctx.lineTo(120,250);
-    ctx.stroke();
-    ctx.moveTo(120,250);
-    ctx.lineTo(160,330);
-    ctx.stroke();
-    ctx.moveTo(120,250);
-    ctx.lineTo(80,330);
-    ctx.stroke();
+    if (misses > 0) {
+      ctx.beginPath();
+      ctx.arc(120,110,40,0,2*Math.PI);
+      ctx.stroke();
+    }
+    if (misses > 1) {
+      ctx.moveTo(120,150);
+      ctx.lineTo(120,250);
+      ctx.stroke();
+    }
+    if (misses > 2) {
+      ctx.moveTo(120, 160);
+      ctx.lineTo(140, 210);
+      ctx.stroke();
+    }
+    if (misses > 3) {
+      ctx.moveTo(120, 160);
+      ctx.lineTo(100, 210);
+      ctx.stroke();
+    }
+    if (misses > 4) {
+      ctx.moveTo(120,250);
+      ctx.lineTo(160,330);
+      ctx.stroke();
+    }
+    if (misses > 5) {
+      ctx.moveTo(120,250);
+      ctx.lineTo(80,330);
+      ctx.stroke();
+    }
   }
 
   render() {

@@ -34,6 +34,12 @@ var routes = Routes{
         "/login",
         Login,
     },
+    Route{
+        "Logout",
+        "POST",
+        "/logout",
+        Logout,
+    },
 	Route{
 		"GameRoute",
 		"POST",
@@ -41,6 +47,8 @@ var routes = Routes{
 		GameRoute,
 	},
 }
+
+// ------------ ADD SESSION VALIDATION PRE-CHECK TO GAMEROUTE ------------
 
 func GameIndex(w http.ResponseWriter, r *http.Request) {
     games := getAllGames()
@@ -59,6 +67,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
     json.NewDecoder(r.Body).Decode(&gUser)
     user := processGoogleLogin(gUser)
     respond(w, r, 200, user)
+}
+
+func Logout(w http.ResponseWriter, r *http.Request) {
+    u := User{}
+    json.NewDecoder(r.Body).Decode(&u)
+    processLogout(u)
+    u = User{}
+    respond(w, r, 200, u)
 }
 
 func GameRoute(w http.ResponseWriter, r *http.Request) {
@@ -80,48 +96,3 @@ func respond(w http.ResponseWriter, r *http.Request, status int, data interface{
     w.Write(payload)
 }
 
-
-// func Login(w http.ResponseWriter, r *http.Request) {
-
-// }
-
-// func GameIndex(w http.ResponseWriter, r *http.Request) {
-//     c := make(chan []byte)
-//     go getGames(w, r, c)
-//     respond(w, c)
-// }
-
-// func UserShow(w http.ResponseWriter, r *http.Request) {
-//     c := make(chan []byte)
-//     if db.VerifySessionToken(r) {
-//     	go getUser(w, r, c)
-//     	respond(w, c)
-//     }
-// }
-
-// func tttState(w http.ResponseWriter, r *http.Request) {
-//     c := make(chan []byte)
-//     if db.VerifySessionToken(r) {
-//         ttt.Move(w, r, c)
-//         respond(w, c)
-//     } else {
-//         c <- []byte("no bueno")
-//         respond(w, c)
-//     }
-// }
-
-// func hangmanState(w http.ResponseWriter, r *http.Request) {
-//     c := make(chan []byte)
-//     if db.VerifySessionToken(r) {
-//         // go ttt.Move(w, r, c)
-//         respond(w, c)
-//     }
-// }
-
-// func wwufState(w http.ResponseWriter, r *http.Request) {
-//     c := make(chan []byte)
-//     if db.VerifySessionToken(r) {
-//         // go ttt.Move(w, r, c)
-//         respond(w, c)
-//     }
-// }

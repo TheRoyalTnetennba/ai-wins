@@ -8,7 +8,7 @@ import Hangman from './components/games/hangman/hangman';
 import WordsWithUnfeelingMachines from './components/games/words_with_unfeeling_machines/words_with_unfeeling_machines';
 import About from './components/about/about';
 import Login from './components/common/auth/login';
-import AuthCallback from './components/common/auth/auth_callback';
+import Profile from './components/session/profile';
 
 const App = ({ store }) => {
   return (
@@ -21,7 +21,7 @@ const App = ({ store }) => {
             <Route path="/hangman" exact component={Hangman} />
             <Route path="/about" exact component={About} />
             <Route path="/login" exact component={Login} />
-            <Route path="/auth-callback" exact component={AuthCallback} />
+            <Route path="/profile" exact component={Profile} />
             <Route path="/tic-tac-toe" exact component={TicTacToe} />
             <Route path="/words-with-unfeeling-machines" exact component={WordsWithUnfeelingMachines} />
           </Switch>

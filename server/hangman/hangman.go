@@ -13,43 +13,42 @@ type HangmanState struct {
     Misses []string `json:"misses"`
 }
 
-type HangmanSowpods struct {
-    Words map[string]SowpodEntry `json:"words"`
-    UserLetterFrequency map[string]int
-}
+// func processHangman(u User) User {
+//     o := getUserByUID(u.UID)
+//     n := newTTTState(o, u)
+//     go updateUser(n)
+//     return n
+// }
 
-type SowpodEntry struct {
-    Word string `json:"word"`
-    UserPicked int `json:"userPicked"`
-    AIPicked int `json:"aiPicked"`
-    LastUsed time.Time `json:"lastUsed"`
-    Definition string `json:"definition"`
-    Letters map[string]int `json:"letters"`
-    Anagrams []string `json:"anagrams"`
-    WordArr []string `json:wordArr"`
-}
+// func hangmanValid(o HangmanState, u HangmanState) bool {
+//     return true
+// }
 
-func processHangman(u User) User {
-    o := getUserByUID(u.UID)
-    n := newTTTState(o, u)
-    go updateUser(n)
-    return n
-}
+// func (u HangmanState) PossibleWords() []string {
 
-func hangmanValid(o HangmanState, u HangmanState) bool {
-    return true
-}
+// }
 
-func (u HangmanState) PossibleWords() []string {
+// func (w SowpodEntry) Contains(letter string) bool {
+//     return arrayIncludes(w.WordArr, letter)
+// }
 
-}
-
-func (w SowpodEntry) Contains(letter string) bool {
-    return arrayIncludes(w.WordArr, letter)
-}
-
+// func (w SowpodEntry) Matches(letters []string) bool {
+//     if len(letters) != len(w.WordArr) {
+//         return false
+//     }
+//     for let i := 0; i < len(letters); i++ {
+//         if letters[i] == "_" {
+//             continue
+//         }
+//         if letters[i] != w.WordArr[i] {
+//             return false
+//         }
+//     }
+//     return true
+// }
 
 
-func (u HangmanState) AI() HangmanState {
-    return HangmanState{}
-}
+
+// func (u HangmanState) AI() HangmanState {
+//     return HangmanState{}
+// }
