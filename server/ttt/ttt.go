@@ -55,7 +55,7 @@ func tttValid(o TTTState, u TTTState) bool {
 }
 
 type TTTState struct {
-    Marker string `json:"marker", firestore:"marker"`
-    Started time.Time `json:"started", firestore:"started"`
-    Board map[string][]string `json:"board", firestore:"board"`
+    Marker string `json:"role,omitempty"`
+    Started time.Time `json:"started,omitempty"`
+    Board map[string][]string `json:"board,omitempty"`
 }

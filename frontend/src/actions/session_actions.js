@@ -7,7 +7,7 @@ export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
-const google = new firebase.auth.GoogleAuthProvider();
+// const google = new firebase.auth.GoogleAuthProvider();
 
 export const clearCurrentUser = () => ({
   type: CLEAR_CURRENT_USER,

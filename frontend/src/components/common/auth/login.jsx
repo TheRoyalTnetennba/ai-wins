@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
-import fire from '../../../utils/fire';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

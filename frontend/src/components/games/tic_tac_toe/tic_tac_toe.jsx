@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TTTTile from './ttt_tile';
 import './Ttt.css';
-import { emptyMatrix, isEmptyMatrix, copyMatrix, emptyBoard, isEmptyBoard } from '../../../utils/pFuncs';
+import { emptyMatrix, isEmptyMatrix, copyMatrix, emptyBoard, isEmptyBoard, matrixCount } from '../../../utils/pFuncs';
 import winner from './logic';
 import Layout from '../../layout/layout';
 import SelectPieceBegin from '../../common/start/select_piece_begin';
 import { requestTTT } from '../../../actions/session_actions';
-import { tttExchange } from '../../../utils/api_utils';
 import GameStats from '../../common/game_stats/game_stats';
 
 class TicTacToe extends Component {
@@ -15,9 +14,7 @@ class TicTacToe extends Component {
     super(props);
     this.initialState = {
       board: emptyBoard(3, 3),
-      marker: '',
-      started: false,
-      selection: 'r',
+      role: this.props.user.role.length ? this.props.user.role : '',
     }
     this.state = Object.assign(this.initialState);
   }
@@ -38,33 +35,40 @@ class TicTacToe extends Component {
     return isEmptyBoard(this.state.board);
   }
 
-  handleBegin() {
-    let marker = this.state.selection;
-    if (marker === 'r') {
-      marker = Math.floor(Math.random() * 2) === 1 ? 'x' : 'o';
-
+  handleBegin(data) {
+    console.log(data.ttt.role);
+    if (data.ttt.role === 'x') {
+      this.setState({ role: data.ttt.role }, () => console.log(this.state));
+    } else {
+      this.setState({ role: data.ttt.role }, () => this.handleAIMove());
     }
-    this.setState({ started: true, marker, });
-  }
-
-  handlePieceSelection(e) {
-  
-    this.setState({ selection: e.target.value });
   }
 
   handleAIMove() {
     const session = Object.assign({}, this.props.session);
     session.ttt.board = Object.assign({}, this.state.board);
-    session.ttt.marker = this.state.marker;
+    session.ttt.role = this.state.role;
     this.props.requestTTT(session);
   }
 
+  notMyTurn(board = this.state.board) {
+    let xCount = matrixCount(board, 'x');
+    let oCount = matrixCount(board, 'o');
+    console.log(xCount, oCount, this.state.role)
+    if (this.state.role === 'x' && xCount === oCount) {
+      return false;
+    } else if (this.state.role === 'o' && xCount > oCount) {
+      return false;
+    }
+    return true;
+  }
+
   handleMove(pos) {
-    if (!this.props.session || !this.props.session.username || !this.props.session.username.length) {
+    if (this.notMyTurn()) {
       return;
     }
     const board = Object.assign(this.state.board);
-    board[pos[0]][pos[1]] = this.state.marker;
+    board[pos[0]][pos[1]] = this.state.role;
     this.setState({ board: board }, () => this.handleAIMove());
   }
 
@@ -97,7 +101,7 @@ class TicTacToe extends Component {
               {tiles[2]}
             </div>
           </section>
-          <SelectPieceBegin />
+          <SelectPieceBegin begin={(data) => this.handleBegin(data)} />
         </section>
       </Layout>
     );

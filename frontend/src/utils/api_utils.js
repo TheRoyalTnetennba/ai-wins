@@ -1,4 +1,3 @@
-import sha512 from 'sha512';
 import firebase from 'firebase';
 import fire from './fire';
 
