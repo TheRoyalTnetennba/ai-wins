@@ -53,7 +53,7 @@ func tttGenNodes(game *tttGameNode, marker string, layer int, aiMarker string) i
 }
 
 func tttCheckTriplet(triplet []string) string {
-	if triplet[0] == triplet[1] && triplet[1] == triplet[2] {
+	if triplet[0] == triplet[1] && triplet[1] == triplet[2] && triplet[0] != "" {
 		return triplet[0]
 	}
 	for i := 0; i < len(triplet); i++ {
@@ -134,14 +134,28 @@ func tttWhoseTurn(current [][]string) string {
 	}
 	if x > o {
 		return "o"
-	}
+	} 
 	return "x"
 }
 
-func tttGetBestMove(board [][]string, marker string, aiMarker string) [][]string {
+func cornerStrat(board [][]string, aiMarker string) bool {
+	if board[0][0] != "" && board[0][0] != aiMarker && board[0][0] == board[2][2] && board[1][0] == "" {
+		return true
+	} else if board[2][0] != "" && board[2][0] != aiMarker && board[2][0] == board[0][2] && board[1][0] == "" {
+		return true
+	}
+	return false
+}
+
+func tttGetBestMove(board [][]string, aiMarker string) [][]string {
+	var marker = tttWhoseTurn(board)
 	var children [9]*tttGameNode
 	res := 0
-	game := tttGameNode{board, children, res}
+	if cornerStrat(board, aiMarker) {
+		board[1][0] = aiMarker
+		return board
+	}
+	game := tttGameNode{copyMatrix(board), children, res}
 	if tttWhoWon(game.Board) != "pending" {
 		return board
 	}

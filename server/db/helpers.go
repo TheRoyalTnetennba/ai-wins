@@ -30,10 +30,9 @@ func updateUser(u User) {
     client.Collection("users").Doc(u.UID).Set(ctx, &u)
 }
 
-func setSessionToken(u User, token string) {
+func setSessionToken(u User, token OToken) {
     u.Token = token
-    doc := client.Doc(fmt.Sprintf("users/%s", u.UID))
-    doc.UpdateStruct(ctx, []string{"Token"}, u)
+    client.Collection("users").Doc(u.UID).Set(ctx, &u)
 }
 
 func getUserBySessionToken(u User) User {

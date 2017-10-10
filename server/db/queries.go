@@ -1,7 +1,7 @@
 package main
 
 import (
-    "fmt"
+    // "fmt"
     "time"
     // "strconv"
 )
@@ -23,7 +23,6 @@ func getAllGames() Games {
 
 func processGoogleLogin(g GoogleUser) User {
     u := getUserByUID(g.UID)
-    fmt.Println(g)
     if u.UID != g.UID {
         u.Username, u.Email, u.PhoneNumber, u.Image, u.UID, u.Token = g.Name, g.Email, g.PhoneNumber, g.Picture, g.UID, g.Token
         u.Joined = time.Now()
@@ -41,5 +40,5 @@ func updateGame(game Game) {
 
 func processLogout(u User) {
     user := getUserBySessionToken(u)
-    go setSessionToken(user, "")
+    go setSessionToken(user, OToken{})
 }

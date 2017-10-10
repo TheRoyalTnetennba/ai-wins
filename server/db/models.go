@@ -12,25 +12,31 @@ type GoogleUser struct {
     PhoneNumber string `json:"phoneNumber"`
     Picture string `json:"photoURL"`
     UID string `json:"uid"`
-    Token string `json:"token"`
+    Token OToken `json:"token"`
 }
 
 type User struct {
+    UID string `json:"uid,omitempty"`
+    Username string `json:"username,omitempty"`
     Image string `json:"image,omitempty"`
+    Email string `json:"email,omitempty"`
+    PhoneNumber string `json:"phoneNumber,omitempty"`
     Joined time.Time `json:"joined,omitempty"`
     Lost int `json:"lost,omitempty"`
     Tied int `json:"tied,omitempty"`
-    Username string `json:"username,omitempty"`
     Won int `json:"won,omitempty"`
-    PhoneNumber string `json:"phoneNumber,omitempty"`
-    Email string `json:"email,omitempty"`
-    Token string `json:"token,omitempty"`
-    UID string `json:"uid,omitempty"`
     Wallet string `json:"wallet,omitempty"`
     Mined string `json:"mined,omitempty"`
+    Token OToken `json:"token",omitempty`
     TTT TTTState `json:"ttt,omitempty"`
     WWUF WWUFState `json:"wwuf,omitempty"`
     Hangman HangmanState `json:"hangman,omitempty"`
+}
+
+type OToken struct {
+    AccessToken string `json:"accessToken,omitempty"`
+    IDToken string `json:"idToken,omitempty"`
+    ProviderID string `json:"providerID,omitempty"`
 }
 
 type Game struct {

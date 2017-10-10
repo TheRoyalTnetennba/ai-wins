@@ -7,14 +7,14 @@ const baseURL = 'http://localhost:8080/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);
-  payload.token = localStorage.getItem('ai-wins')
+  payload.token = JSON.parse(localStorage.getItem('ai-wins'));
   return JSON.stringify(payload);
 };
 
 
 export const prepGUser = (response) => ({
   uid: response.user.uid,
-  token: response.credential.accessToken,
+  token: response.credential,
   displayName: response.user.displayName,
   email: response.user.email,
   photoURL: response.user.photoURL,

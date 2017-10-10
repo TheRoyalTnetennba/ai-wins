@@ -11,21 +11,21 @@ class SelectPieceBegin extends Component {
       hangman: [['r', 'Random'], [true, 'Guess'], [false, 'Set']],
     }
     this.state = {
-      loggedIn: this.props.session.username && this.props.session.username.length > 0,
-      begun: false,
+      loggedIn: this.props.session.username ? true : false,
+      result: this.props.session[this.whichGame()].role,
       selection: 'r',
       game: this.whichGame(),
     }
   }
 
   componentWillMount() {
-    if (this.state.loggedIn && this.props.session[this.state.game].role.length) {
-      this.setState({ begun: true });
+    if (this.state.loggedIn && this.props.session[this.state.game].role) {
+      this.setState({ result: true });
     }
   }
 
   componentWillReceiveProps(newProps) {
-    if (!this.state.loggedIn && newProps.session.username.length) {
+    if (!this.state.loggedIn && newProps.session.username) {
       this.setState({ loggedIn: true });
     }
   }
@@ -49,12 +49,16 @@ class SelectPieceBegin extends Component {
       let idx = Math.floor(Math.random() * this.options[this.state.game].length - 1)
       role = this.options[this.state.game][idx + 1][0];
     }
-    const session = Object.assign(this.props.session);
-    session[this.state.game].role = role;
-    session[this.state.game].started = new Date();
-    this.props.receiveCurrentUser(session);
-    this.props.begin(session);
-    this.setState({ begun: true })
+    const newSession = {
+      [this.state.game]: {
+        role,
+        result: 'pending',
+      },
+    };
+    this.props.receiveCurrentUser(newSession);
+    this.props.begin(newSession);
+    console.log(newSession);
+    this.setState({ result: true })
   }
 
   handleSelection(e) {
@@ -79,7 +83,7 @@ class SelectPieceBegin extends Component {
           >Login to begin</a>
         </div>
       );
-    } else if (!state.begun) {
+    } else if (state.result !== 'pendng') {
       return (
         <div className="f1 fb fdc jcc">
           {this.genSelection()}
@@ -92,6 +96,8 @@ class SelectPieceBegin extends Component {
     } else {
       return (
         <div className="f1 fb fdc jcc">
+        <h1>Game has started</h1>
+
         </div>
       );
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TTTTile from './ttt_tile';
 import './Ttt.css';
-import { emptyMatrix, isEmptyMatrix, copyMatrix, emptyBoard, isEmptyBoard, matrixCount } from '../../../utils/pFuncs';
+import { emptyMatrix, isEmptyMatrix, copyMatrix, emptyBoard, isEmptyBoard, mapCount } from '../../../utils/pFuncs';
 import winner from './logic';
 import Layout from '../../layout/layout';
 import SelectPieceBegin from '../../common/start/select_piece_begin';
@@ -14,13 +14,15 @@ class TicTacToe extends Component {
     super(props);
     this.initialState = {
       board: emptyBoard(3, 3),
-      role: this.props.user.role.length ? this.props.user.role : '',
+      role: this.props.user.role,
+      gameOver: 'no',
     }
     this.state = Object.assign(this.initialState);
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ board: newProps.user.board });
+    console.log(newProps);
+    this.setState({ board: newProps.user.board, role: newProps.user.role });
   }
 
   isOver() {
@@ -36,25 +38,29 @@ class TicTacToe extends Component {
   }
 
   handleBegin(data) {
-    console.log(data.ttt.role);
     if (data.ttt.role === 'x') {
-      this.setState({ role: data.ttt.role }, () => console.log(this.state));
+      this.setState({ role: data.ttt.role, result: data.ttt.result });
     } else {
       this.setState({ role: data.ttt.role }, () => this.handleAIMove());
     }
   }
 
   handleAIMove() {
-    const session = Object.assign({}, this.props.session);
-    session.ttt.board = Object.assign({}, this.state.board);
-    session.ttt.role = this.state.role;
-    this.props.requestTTT(session);
+    const newSession = { 
+      ttt: { 
+        board: this.state.board,
+        role: this.state.role,
+        result: this.state.result,
+      },
+    }
+    console.log('handling ai')
+    console.log(newSession);
+    this.props.requestTTT(newSession);
   }
 
   notMyTurn(board = this.state.board) {
-    let xCount = matrixCount(board, 'x');
-    let oCount = matrixCount(board, 'o');
-    console.log(xCount, oCount, this.state.role)
+    let xCount = mapCount(board, 'x');
+    let oCount = mapCount(board, 'o');
     if (this.state.role === 'x' && xCount === oCount) {
       return false;
     } else if (this.state.role === 'o' && xCount > oCount) {
@@ -65,6 +71,9 @@ class TicTacToe extends Component {
 
   handleMove(pos) {
     if (this.notMyTurn()) {
+      console.log("not my turn")
+      console.log(this.state)
+      this.handleAIMove();
       return;
     }
     const board = Object.assign(this.state.board);
@@ -101,7 +110,7 @@ class TicTacToe extends Component {
               {tiles[2]}
             </div>
           </section>
-          <SelectPieceBegin begin={(data) => this.handleBegin(data)} />
+          <SelectPieceBegin over={this.state.gameOver} begin={(data) => this.handleBegin(data)} />
         </section>
       </Layout>
     );

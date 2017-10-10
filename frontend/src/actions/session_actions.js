@@ -42,7 +42,7 @@ export const requestCurrentUser = user => dispatch => (
 export const requestGoogleLogin = () => dispatch => (
   googleLogin()
     .then(response => {
-      localStorage.setItem('ai-wins', response.credential.accessToken)
+      localStorage.setItem('ai-wins', JSON.stringify(response.credential))
       dispatch(requestCurrentUser(prepGUser(response)))
     })
     .catch(errors => dispatch(receiveErrors(errors.message)))

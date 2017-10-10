@@ -77,3 +77,27 @@ export const matrixCount = (matrix, n) => {
   }
   return count;
 }
+
+export const mapCount = (map, n) => {
+  let count = 0;
+  Object.keys(map).forEach(key => {
+    for (let i = 0; i < map[key].length; i++) {
+      if (map[key][i] === n) {
+        count += 1;
+      }
+    }
+  });
+  return count
+}
+
+export const mapFromMatrix = (matrix) => {
+  let map = {};
+  for (let i = 0; i < matrix.length; i++) {
+    let row = [];
+    for (let j = 0; j < matrix[i].length; j++) {
+      row.push(matrix[i][j])
+    }
+    map[i] = row
+  }
+  return map
+} 
