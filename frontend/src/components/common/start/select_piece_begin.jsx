@@ -57,7 +57,6 @@ class SelectPieceBegin extends Component {
     };
     this.props.receiveCurrentUser(newSession);
     this.props.begin(newSession);
-    console.log(newSession);
     this.setState({ result: true })
   }
 

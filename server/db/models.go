@@ -64,6 +64,7 @@ type WWUFState struct {
     B1 string `json:"b1", firestore:"b1"`
     B2 string `json:"b2", firestore:"b2"`
     RemainingLetters []string `json:"remaingLetters", firestore:"remaing_letters"`
+    Result string `json:"result,omitempty"`
 }
 
 type Games []Game

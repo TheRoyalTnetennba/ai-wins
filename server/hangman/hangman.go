@@ -9,9 +9,12 @@ type HangmanState struct {
     UserGuess bool `json:"userGuess"`
     Started time.Time `json:"started"`
     Board []string `json:"board"`
-    Word []string `json:"board"`
+    Word string `json:"board"`
     Misses []string `json:"misses"`
+    Result string `json:"result"`
 }
+
+
 
 // func processHangman(u User) User {
 //     o := getUserByUID(u.UID)

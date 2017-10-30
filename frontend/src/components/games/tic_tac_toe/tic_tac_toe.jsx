@@ -13,16 +13,21 @@ class TicTacToe extends Component {
   constructor(props) {
     super(props);
     this.initialState = {
-      board: emptyBoard(3, 3),
+      board: Object.assign(this.props.user.board),
       role: this.props.user.role,
-      gameOver: 'no',
+      result: this.props.user.result,
+      turn: false,
     }
+
     this.state = Object.assign(this.initialState);
+    console.log(this.state.role);
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
-    this.setState({ board: newProps.user.board, role: newProps.user.role });
+    if (this.notMyTurn(newProps.user.board)) {
+      this.setState({ board: newProps.user.board, role: newProps.user.role, result: newProps.user.result }, );
+      
+    }
   }
 
   isOver() {
@@ -53,12 +58,13 @@ class TicTacToe extends Component {
         result: this.state.result,
       },
     }
-    console.log('handling ai')
-    console.log(newSession);
     this.props.requestTTT(newSession);
   }
 
   notMyTurn(board = this.state.board) {
+    if (this.state.result !== 'pending') {
+      return true;
+    }
     let xCount = mapCount(board, 'x');
     let oCount = mapCount(board, 'o');
     if (this.state.role === 'x' && xCount === oCount) {
@@ -71,8 +77,6 @@ class TicTacToe extends Component {
 
   handleMove(pos) {
     if (this.notMyTurn()) {
-      console.log("not my turn")
-      console.log(this.state)
       this.handleAIMove();
       return;
     }
@@ -110,7 +114,7 @@ class TicTacToe extends Component {
               {tiles[2]}
             </div>
           </section>
-          <SelectPieceBegin over={this.state.gameOver} begin={(data) => this.handleBegin(data)} />
+          <SelectPieceBegin result={this.state.result} begin={(data) => this.handleBegin(data)} turn={''} />
         </section>
       </Layout>
     );
