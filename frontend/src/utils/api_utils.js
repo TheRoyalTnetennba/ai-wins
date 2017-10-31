@@ -3,13 +3,20 @@ import fire from './fire';
 
 const google = new firebase.auth.GoogleAuthProvider();
 
-const baseURL = 'http://localhost:8080/';
+const baseURL = 'http://localhost:5000/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);
-  payload.token = JSON.parse(localStorage.getItem('ai-wins'));
+  payload.token = localUser();
   return JSON.stringify(payload);
 };
+
+const localUser = () => {
+  const userKey = Object.keys(window.localStorage)
+    .filter(it => it.startsWith('firebase:authUser'))[0];
+  return userKey ? JSON.parse(localStorage.getItem(userKey)) : undefined;
+}
+
 
 
 export const prepGUser = (response) => ({
