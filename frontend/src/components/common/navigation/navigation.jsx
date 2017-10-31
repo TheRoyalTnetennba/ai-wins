@@ -36,10 +36,10 @@ class Navigation extends Component {
 
   render() {
     return (
-      <nav>
+      <nav className="obsidian-b">
         <div className="fb">
           <div className="fb cp" onClick={() => this.goHome()}>
-            <h1 className="brown">AI</h1><h1 className="ml10">Wins</h1>
+            <h1 className="d-grey">AI</h1><h1 className="ml10">Wins</h1>
           </div>
         </div>
         <div className="fb">

@@ -13,7 +13,7 @@ class Layout extends Component {
 
   render() {
     return (
-      <main id="main-wrapper">
+      <main id="main-wrapper" className="grey d-grey-b">
         <Navigation />
           {this.props.children}
         <Footer />

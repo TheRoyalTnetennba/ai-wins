@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import firebase from 'firebase';
 
 import { RECEIVE_CURRENT_USER, RECEIVE_ERRORS, CLEAR_CURRENT_USER } from '../actions/session_actions';
 import { emptyBoard } from '../utils/pFuncs';

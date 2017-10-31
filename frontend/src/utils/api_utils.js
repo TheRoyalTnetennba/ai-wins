@@ -7,14 +7,20 @@ const baseURL = 'http://localhost:5000/';
 
 const getForm = (obj) => {
   const payload = Object.assign(obj);
-  payload.token = localUser();
+  payload.token = loadLocalUser();
   return JSON.stringify(payload);
 };
 
-const localUser = () => {
+export const loadLocalUser = () => {
   const userKey = Object.keys(window.localStorage)
     .filter(it => it.startsWith('firebase:authUser'))[0];
   return userKey ? JSON.parse(localStorage.getItem(userKey)) : undefined;
+}
+
+export const deleteLocalUser = () => {
+  const userKey = Object.keys(window.localStorage)
+    .filter(it => it.startsWith('firebase:authUser'))[0];
+  userKey ? localStorage.removeItem(userKey) : undefined;
 }
 
 

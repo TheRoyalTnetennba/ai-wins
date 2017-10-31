@@ -24,7 +24,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <footer className="fb">
+      <footer className="fb obsidian-b">
         <section className="subsection">
           <h1>Information</h1>
           <Link to="/about">About</Link>
@@ -32,10 +32,10 @@ class Footer extends Component {
         <section className="subsection">
           <h1>Follow Me</h1>
           <div className="social-buttons">
-            <SocialIcon url="https://www.grahampaye.com/" color="#D6655A" />
-            <SocialIcon url="https://www.linkedin.com/in/graham-paye/" color="#D6655A" />
-            <SocialIcon url="https://github.com/TheRoyalTnetennba" color="#D6655A" />
-            <SocialIcon network="email" onClick={() => this.mine()} color="#D6655A" className="cp" />
+            <SocialIcon url="https://www.grahampaye.com/" color="#7A69B3" />
+            <SocialIcon url="https://www.linkedin.com/in/graham-paye/" color="#7A69B3" />
+            <SocialIcon url="https://github.com/TheRoyalTnetennba" color="#7A69B3" />
+            <SocialIcon network="email" onClick={() => this.mine()} color="#7A69B3" className="cp" />
           </div>
         </section>
       </footer>

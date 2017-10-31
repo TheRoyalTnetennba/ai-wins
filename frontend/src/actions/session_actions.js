@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { sendLogin, googleLogin, prepGUser, tttExchange, sendLogout } from '../utils/api_utils';
+import { sendLogin, googleLogin, prepGUser, tttExchange, sendLogout, deleteLocalUser } from '../utils/api_utils';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER';
@@ -42,7 +42,6 @@ export const requestCurrentUser = user => dispatch => (
 export const requestGoogleLogin = () => dispatch => (
   googleLogin()
     .then(response => {
-      localStorage.setItem('ai-wins', JSON.stringify(response.credential))
       dispatch(requestCurrentUser(prepGUser(response)))
     })
     .catch(errors => dispatch(receiveErrors(errors.message)))
@@ -52,7 +51,7 @@ export const requestLogout = () => dispatch => (
   sendLogout()
     .then(() => {
       dispatch(clearCurrentUser());
-      localStorage.removeItem('ai-wins');
+      deleteLocalUser();
     })
     .catch(error => dispatch(receiveErrors(error)))
 );
