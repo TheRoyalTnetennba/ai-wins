@@ -5,6 +5,6 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-@app.route('/protected/<endpoint>')
-def protected(endpoint):
-    
+@app.route('/user/<endpoint>')
+def user(endpoint):
+    """add user verification then switch statement for various resources"""

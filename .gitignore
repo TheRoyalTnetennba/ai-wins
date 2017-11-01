@@ -77,3 +77,5 @@ typings/
 *.yarnclean
 *.eslintrc
 server/.git/
+
+*/__pycache__
