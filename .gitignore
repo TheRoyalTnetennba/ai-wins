@@ -76,6 +76,5 @@ typings/
 .glide/
 *.yarnclean
 *.eslintrc
-server/.git/
 
 *__pycache__/

@@ -1,3 +1,6 @@
+"""use pickle to avoid runnning everytime"""
+
+
 class Word(object):
     """Object for Word. Used by the Sowpod class"""
     def __init__(self, entry):
@@ -14,11 +17,15 @@ class Word(object):
 class Sowpod(object):
     """Holds a collection of Scrabble dict words along with some useful methods for sorting and retreiving them"""
     def __init__(self):
+        self.words = []
+        self.anagrams = {}
 
-        self.word = word
-
-    def load(self):
+    def read_txt(self):
         with open('resources/sowpods.txt') as sp:
+            sorts = {}
             for line in sp:
-                self.words = [Word(i) for i in sp]
+                word = Word(line)
+                if word.sorted in self.anagrams: self.anagrams[word.sorted].append(word)
+                else: self.anagrams[word.sorted] = [word]
+                
 
